@@ -1,0 +1,24 @@
+﻿{
+  "TwitchDownloaderURL": "twitch",
+  "TwitchClientSecret ": "",
+  "TwitchApplicationAuthorizationUrl": "https://api.twitch.tv/kraken/oauth2/authorize?",
+  "TwitchOAuthTokenUrl": "https://api.twitch.tv/kraken/oauth2/token",
+  "UsherTokenUrl": "https://api.twitch.tv/api/vods/{vodid}/access_token?as3=t",
+  "UsherVodUrl": "http://usher.justin.tv/vod/{vodid}?nauthsig={nauthsig}&nauth={nauth}",
+  "UsherVodUrl2": "http://usher.justin.tv/vod/{vodid}?nauthsig={nauthsig}",
+  "TwitchChannelInfoUrl": "https://api.twitch.tv/kraken/channels/{channelname}",
+  "KrakenVodInfoUrl": "https://api.twitch.tv/kraken/videos/{vid}",
+  "KrakenChannelInfoUrl": "https://api.twitch.tv/kraken/channels/{channelid}",
+  "KrakenChannelVideosUrl": "https://api.twitch.tv/kraken/channels/{channel}/videos",
+  "KrakenLiveStreamsUrl": "https://api.twitch.tv/kraken/streams?limit={limit}&offset=0&period=week",
+  "KrakenTopVideosUrl": "https://api.twitch.tv/kraken/videos/top?limit={limit}&offset=0&period=week",
+  "KrakenTopGamesUrl": "https://api.twitch.tv/kraken/games/top?limit={limit}",
+  "KrakenLiveGamesUrl": "https://api.twitch.tv/kraken/streams?game={game}",
+  "KrakenSearchGamesUrl": "https://api.twitch.tv/kraken/search/games?query={query}",
+  "KrakenSearchChannelsUrl": "https://api.twitch.tv/kraken/search/channels?query={query}",
+  "KrakenSearchStreamsUrl": "https://api.twitch.tv/kraken/search/streams?query={query}",
+  "KrakenGameVideosUrl": "https://api.twitch.tv/kraken//videos/top?game={game}&limit={limit}&period=month",
+  "KrakenFeaturedStreamsUrl": "https://api.twitch.tv/kraken/streams/featured?limit={limit}",
+  "TwitchTopVideosCount": "18"
+}
+
