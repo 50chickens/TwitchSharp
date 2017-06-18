@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
+using SimpleInjector;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -14,6 +14,7 @@ using Twitch.Api.LiveStreams;
 using Twitch.Api.TopGames;
 using Twitch.Api.TopVideos;
 using TwitchSharp.Abstractions;
+using TwitchSharp.Di;
 using TwitchSharp.Implementations;
 
 namespace TwitchSharp.Winforms
@@ -67,17 +68,12 @@ namespace TwitchSharp.Winforms
 
             container = new SimpleInjector.Container();
 
+            DIStartup d = new DIStartup();
 
-            container.Register<ITwitchClient, TwitchClient>();
-            container.Register<ITwitchHttpClient, TwitchHttpClient>(SimpleInjector.Lifestyle.Singleton);
-            container.Register<ITwitchQueryOptions>(() => OptionFactory.Create<TwitchQueryOptions>(twitchQueryOptionsJson), SimpleInjector.Lifestyle.Singleton);
-            container.Register<ITwitchHttpClientOptions>(() => OptionFactory.Create<TwitchHttpClientOptions>(twitchHttpClientOptionsJson), SimpleInjector.Lifestyle.Singleton);
+            container = new Container();
 
-            container.Register<HttpClient>(() => new HttpClient(), SimpleInjector.Lifestyle.Singleton);
+            d.CreateContainer(container, twitchQueryOptionsJson, twitchHttpClientOptionsJson);
 
-            container.Register(typeof(ITwitchQueryHandler<,>), AppDomain.CurrentDomain.GetAssemblies());
-
-            
             container.Verify();
 
             this.getTwitchTopVideosQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchTopVideosQuery, TwitchTopVideos>>();
