@@ -32,11 +32,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.twitchClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.featuredStreamsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.topStreamsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.topLiveStreamsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.topGamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.genericsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.channelSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,6 +76,10 @@
             this.tabPageWHMCSTestPlans = new System.Windows.Forms.TabPage();
             this.dataGridViewWhmcsPlans = new System.Windows.Forms.DataGridView();
             this.gamePokerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.topStreamsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.topLiveStreamsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.topGamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.twitchClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -134,45 +133,6 @@
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // twitchClientToolStripMenuItem
-            // 
-            this.twitchClientToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.featuredStreamsToolStripMenuItem,
-            this.topStreamsToolStripMenuItem,
-            this.topLiveStreamsToolStripMenuItem,
-            this.topGamesToolStripMenuItem});
-            this.twitchClientToolStripMenuItem.Name = "twitchClientToolStripMenuItem";
-            this.twitchClientToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
-            this.twitchClientToolStripMenuItem.Text = "TwitchClient";
-            // 
-            // featuredStreamsToolStripMenuItem
-            // 
-            this.featuredStreamsToolStripMenuItem.Name = "featuredStreamsToolStripMenuItem";
-            this.featuredStreamsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.featuredStreamsToolStripMenuItem.Text = "FeaturedStreams";
-            this.featuredStreamsToolStripMenuItem.Click += new System.EventHandler(this.featuredStreamsToolStripMenuItem_Click);
-            // 
-            // topStreamsToolStripMenuItem
-            // 
-            this.topStreamsToolStripMenuItem.Name = "topStreamsToolStripMenuItem";
-            this.topStreamsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.topStreamsToolStripMenuItem.Text = "TopVideos";
-            this.topStreamsToolStripMenuItem.Click += new System.EventHandler(this.topVideosToolStripMenuItem_Click);
-            // 
-            // topLiveStreamsToolStripMenuItem
-            // 
-            this.topLiveStreamsToolStripMenuItem.Name = "topLiveStreamsToolStripMenuItem";
-            this.topLiveStreamsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.topLiveStreamsToolStripMenuItem.Text = "TopLiveStreams";
-            this.topLiveStreamsToolStripMenuItem.Click += new System.EventHandler(this.topLiveStreamsToolStripMenuItem_Click);
-            // 
-            // topGamesToolStripMenuItem
-            // 
-            this.topGamesToolStripMenuItem.Name = "topGamesToolStripMenuItem";
-            this.topGamesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.topGamesToolStripMenuItem.Text = "TopGames";
-            this.topGamesToolStripMenuItem.Click += new System.EventHandler(this.topGamesToolStripMenuItem_Click);
-            // 
             // genericsToolStripMenuItem
             // 
             this.genericsToolStripMenuItem.Name = "genericsToolStripMenuItem";
@@ -212,7 +172,7 @@
             // vodInfoByUrlToolStripMenuItem
             // 
             this.vodInfoByUrlToolStripMenuItem.Name = "vodInfoByUrlToolStripMenuItem";
-            this.vodInfoByUrlToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.vodInfoByUrlToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.vodInfoByUrlToolStripMenuItem.Text = "VodInfoByUrl";
             this.vodInfoByUrlToolStripMenuItem.Click += new System.EventHandler(this.vodInfoByUrlToolStripMenuItem_Click);
             // 
@@ -569,6 +529,37 @@
             this.gamePokerToolStripMenuItem.Name = "gamePokerToolStripMenuItem";
             this.gamePokerToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
+            // topStreamsToolStripMenuItem
+            // 
+            this.topStreamsToolStripMenuItem.Name = "topStreamsToolStripMenuItem";
+            this.topStreamsToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.topStreamsToolStripMenuItem.Text = "TopVideos";
+            this.topStreamsToolStripMenuItem.Click += new System.EventHandler(this.topVideosToolStripMenuItem_Click);
+            // 
+            // topLiveStreamsToolStripMenuItem
+            // 
+            this.topLiveStreamsToolStripMenuItem.Name = "topLiveStreamsToolStripMenuItem";
+            this.topLiveStreamsToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.topLiveStreamsToolStripMenuItem.Text = "TopLiveStreams";
+            this.topLiveStreamsToolStripMenuItem.Click += new System.EventHandler(this.topLiveStreamsToolStripMenuItem_Click);
+            // 
+            // topGamesToolStripMenuItem
+            // 
+            this.topGamesToolStripMenuItem.Name = "topGamesToolStripMenuItem";
+            this.topGamesToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.topGamesToolStripMenuItem.Text = "TopGames";
+            this.topGamesToolStripMenuItem.Click += new System.EventHandler(this.topGamesToolStripMenuItem_Click);
+            // 
+            // twitchClientToolStripMenuItem
+            // 
+            this.twitchClientToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.topStreamsToolStripMenuItem,
+            this.topLiveStreamsToolStripMenuItem,
+            this.topGamesToolStripMenuItem});
+            this.twitchClientToolStripMenuItem.Name = "twitchClientToolStripMenuItem";
+            this.twitchClientToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+            this.twitchClientToolStripMenuItem.Text = "TwitchClient";
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -617,11 +608,8 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem twitchClientToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem featuredStreamsToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripMenuItem topStreamsToolStripMenuItem;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageLocalDB;
         private System.Windows.Forms.DataGridView tblConfigDataGridView;
@@ -652,11 +640,9 @@
         private System.Windows.Forms.TextBox textBoxLogs;
         private System.Windows.Forms.TabPage tabPageWHMCSTestPlans;
         private System.Windows.Forms.DataGridView dataGridViewWhmcsPlans;
-        private System.Windows.Forms.ToolStripMenuItem topLiveStreamsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem genericsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gamePokerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem topGamesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createDictionaryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem channelSearchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem channelSearchByIdToolStripMenuItem;
@@ -666,6 +652,10 @@
         private System.Windows.Forms.ToolStripMenuItem getM38UByVodIdToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usherTokenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem getUsherTokenUsingVodIdToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem twitchClientToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem topStreamsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem topLiveStreamsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem topGamesToolStripMenuItem;
     }
 }
 

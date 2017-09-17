@@ -50,24 +50,7 @@ namespace TwitchSharp.Winforms
 
         }
 
-        private async void featuredStreamsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
 
-            //TwitchClient tc = BusinessManager.CreateTwitchClient();
-
-            //try
-            //{
-            //    string featuredStreams = await tc.GetFeaturedStreamsAsString();
-            //    textBoxWebApi.Text = featuredStreams;
-            //}
-            //catch (Exception ex)
-            //{
-            //    textBoxWebApi.Text = ex.Message;
-            //}
-
-
-
-        }
         private async void Form2_Load(object sender, EventArgs e)
         {
             toolStripStatusLabel1.Text = "loading config";
