@@ -120,9 +120,11 @@ namespace TwitchSharp.Winforms
 
             TwitchTopVideos topvideos = await getTwitchTopVideosQueryHandler.HandleAsync(queryTopVideos);
 
-            
 
 
+            string text = JsonConvert.SerializeObject(topvideos);
+
+            textBoxLogs.Text = text;
 
 
         }
@@ -259,7 +261,9 @@ namespace TwitchSharp.Winforms
 
             LiveStreams livestreams = await getTwitchLiveStreamsQueryHandler.HandleAsync(queryLiveStreams);
 
-            textBoxLogs.Text = JsonConvert.SerializeObject(livestreams);
+            string text = JsonConvert.SerializeObject(livestreams);
+
+            textBoxLogs.Text = text;
 
         }
 
@@ -279,7 +283,9 @@ namespace TwitchSharp.Winforms
 
             List<M3U8> m3u8list = iTwitchFileProcessor.GetM3U8List(m3u);
 
-            textBoxLogs.Text = JsonConvert.SerializeObject(m3u8list);
+            string text = JsonConvert.SerializeObject(m3u8list);
+
+            textBoxLogs.Text = text;
 
         }
         private async void getM38UByVodIdToolStripMenuItem_Click(object sender, EventArgs e)
@@ -332,6 +338,7 @@ namespace TwitchSharp.Winforms
 
 
             return await getUsherTokenReplyQueryHandler.HandleAsync(queryUsherTokenReply);
+
 
 
         }
