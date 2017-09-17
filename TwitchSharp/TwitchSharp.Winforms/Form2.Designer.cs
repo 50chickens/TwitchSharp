@@ -31,7 +31,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.genericsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.channelSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.channelSearchByIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,7 +63,6 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.twitchClientToolStripMenuItem,
-            this.genericsToolStripMenuItem,
             this.searchToolStripMenuItem,
             this.vodsToolStripMenuItem,
             this.m38UQueryToolStripMenuItem,
@@ -89,11 +87,6 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // genericsToolStripMenuItem
-            // 
-            this.genericsToolStripMenuItem.Name = "genericsToolStripMenuItem";
-            this.genericsToolStripMenuItem.Size = new System.Drawing.Size(12, 20);
             // 
             // searchToolStripMenuItem
             // 
@@ -286,7 +279,6 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageLogs;
         private System.Windows.Forms.TextBox textBoxLogs;
-        private System.Windows.Forms.ToolStripMenuItem genericsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gamePokerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createDictionaryToolStripMenuItem;
