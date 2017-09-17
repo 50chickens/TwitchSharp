@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Twitch.Api;
-using Twitch.Api.Channel;
+using Twitch.Api.SearchChannel;
 using TwitchSharp.Abstractions;
 
 namespace TwitchSharp.Implementations
 {
 
-    public class GetTwitchChannelInfoQueryHandler : ITwitchQueryHandler<GetTwitchChannelInfoQuery, Channel>
+    public class GetTwitchChannelSearchQueryHandler : ITwitchQueryHandler<GetTwitchChannelSearchByNameQuery, SearchChannels>
     {
         private readonly ITwitchClient client;
 
 
-        public GetTwitchChannelInfoQueryHandler(ITwitchClient client)
+        public GetTwitchChannelSearchQueryHandler(ITwitchClient client)
         {
             this.client = client;
 
@@ -23,12 +23,12 @@ namespace TwitchSharp.Implementations
 
 
 
-        public async Task<Channel> HandleAsync(GetTwitchChannelInfoQuery query)
+        public async Task<SearchChannels> HandleAsync(GetTwitchChannelSearchByNameQuery query)
         {
 
             TwitchClient client = (TwitchClient)this.client;
 
-            return await this.client.GetTwitchData<Channel>(query.Url);
+            return await this.client.GetTwitchData<SearchChannels>(query.Url);
 
         }
     }

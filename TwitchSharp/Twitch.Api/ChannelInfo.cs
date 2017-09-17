@@ -21,7 +21,7 @@ namespace Twitch.Api.Channel
         
     }
 
-    public class Channel
+    public class ChannelInfo
     {
         public bool? mature { get; set; }
         public string status { get; set; }

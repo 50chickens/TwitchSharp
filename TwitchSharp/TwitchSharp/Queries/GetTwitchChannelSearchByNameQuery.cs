@@ -3,11 +3,11 @@ using TwitchSharp.Abstractions;
 
 namespace TwitchSharp.Implementations
 {
-    public class GetTwitchChannelSearchQuery : ITwitchQuery<SearchChannels>
+    public class GetTwitchChannelSearchByNameQuery : ITwitchQuery<SearchChannels>
     {
         private ITwitchQueryOptions twitchClientOptions;
 
-        public GetTwitchChannelSearchQuery(ITwitchQueryOptions twitchClientOptions)
+        public GetTwitchChannelSearchByNameQuery(ITwitchQueryOptions twitchClientOptions)
         {
             this.twitchClientOptions = twitchClientOptions;
 

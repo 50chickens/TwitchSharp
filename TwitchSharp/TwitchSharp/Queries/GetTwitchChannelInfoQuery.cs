@@ -3,7 +3,7 @@ using TwitchSharp.Abstractions;
 
 namespace TwitchSharp.Implementations
 {
-    public class GetTwitchChannelInfoQuery : ITwitchQuery<Channel>
+    public class GetTwitchChannelInfoQuery : ITwitchQuery<ChannelInfo>
     {
         private ITwitchQueryOptions twitchClientOptions;
 

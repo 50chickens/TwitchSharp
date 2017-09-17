@@ -21,6 +21,7 @@ using Twitch.Api.Usher;
 using System.IO;
 using TwitchSharp.Di;
 using Twitch.Api;
+using Twitch.Api.Channel;
 
 namespace TwitchSharp.Winforms
 {
@@ -30,8 +31,9 @@ namespace TwitchSharp.Winforms
         private ITwitchQueryHandler<GetTwitchTopVideosQuery, TwitchTopVideos> getTwitchTopVideosQueryHandler;
         private ITwitchQueryHandler<GetTwitchLiveStreamsQuery, LiveStreams> getTwitchLiveStreamsQueryHandler;
         private ITwitchQueryHandler<GetTwitchTopGamesQuery, TopGames> getTwitchTopGamesQueryHandler;
-        private ITwitchQueryHandler<GetTwitchChannelSearchQuery, SearchChannels> getTwitchChannelSearchQueryHandler;
+        private ITwitchQueryHandler<GetTwitchChannelSearchByNameQuery, SearchChannels> getTwitchChannelSearchQueryHandler;
         private ITwitchQueryHandler<GetTwitchChannelVideosSearchQuery, ChannelVideos> getTwitchChannelVideosSearchQueryHandler;
+        private ITwitchQueryHandler<GetTwitchChannelInfoQuery, ChannelInfo> getTwitchChannelInfoSearchQueryHandler;
         private ITwitchQueryHandler<GetTwitchAuthTokenQuery, UsherTokenReply> getUsherTokenReplyQueryHandler;
         private ITwitchQueryHandler<GetTwitchVodInfoQuery, Vod> getTwitchVodInfoQueryHandler;
         private UsherTokenReply usherTokenReply;
@@ -91,7 +93,9 @@ namespace TwitchSharp.Winforms
             this.getTwitchLiveStreamsQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchLiveStreamsQuery, LiveStreams>>();
             this.getTwitchTopGamesQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchTopGamesQuery, TopGames>>();
             
-            this.getTwitchChannelSearchQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchChannelSearchQuery, SearchChannels>>();
+            this.getTwitchChannelSearchQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchChannelSearchByNameQuery, SearchChannels>>();
+            this.getTwitchChannelInfoSearchQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchChannelInfoQuery, ChannelInfo>>();
+
             this.getTwitchChannelVideosSearchQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchChannelVideosSearchQuery, ChannelVideos>>();
             this.getTwitchVodInfoQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchVodInfoQuery, Vod>>();
             this.getUsherTokenReplyQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchAuthTokenQuery, UsherTokenReply>>();
@@ -187,7 +191,7 @@ namespace TwitchSharp.Winforms
         {
             string twitchChannelName = "zlive";
 
-            var querySearchChannel = container.GetInstance<GetTwitchChannelSearchQuery>();
+            var querySearchChannel = container.GetInstance<GetTwitchChannelSearchByNameQuery>();
 
             querySearchChannel.ChannelName = twitchChannelName;
 
@@ -201,17 +205,17 @@ namespace TwitchSharp.Winforms
            
         }
 
-        private async void channelSearchByIdToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void channelInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int twitchChannelId = 28466675; //zlive
+            string twitchChannelId = "28466675"; //zlive
 
 
-            var querySearchChannelVideos = container.GetInstance<GetTwitchChannelVideosSearchQuery>();
+            var queryChannelInfo = container.GetInstance<GetTwitchChannelInfoQuery>();
 
-            querySearchChannelVideos.ChannelId = twitchChannelId;
+            queryChannelInfo.ChannelId = twitchChannelId;
 
 
-            ChannelVideos channelvideos = await getTwitchChannelVideosSearchQueryHandler.HandleAsync(querySearchChannelVideos);
+            ChannelInfo channelvideos = await getTwitchChannelInfoSearchQueryHandler.HandleAsync(queryChannelInfo);
 
             string text = JsonConvert.SerializeObject(channelvideos);
 
