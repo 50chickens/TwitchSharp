@@ -50,11 +50,11 @@ namespace Twitch.Api.Vod
     public class Fps
     {
         public int audio_only { get; set; }
-        public int chunked { get; set; }
-        public int high { get; set; }
-        public int low { get; set; }
-        public int medium { get; set; }
-        public int mobile { get; set; }
+        public float chunked { get; set; }
+        public float high { get; set; }
+        public float low { get; set; }
+        public float medium { get; set; }
+        public float mobile { get; set; }
     }
 
     public class Resolutions
@@ -92,7 +92,7 @@ namespace Twitch.Api.Vod
         public string _id { get; set; }
         public string recorded_at { get; set; }
         public string game { get; set; }
-        public int length { get; set; }
+        public float length { get; set; }
         public Preview preview { get; set; }
         public string animated_preview_url { get; set; }
         public Thumbnails thumbnails { get; set; }

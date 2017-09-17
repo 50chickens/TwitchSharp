@@ -38,6 +38,7 @@
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.channelSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.channelSearchByIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.channelVideosByIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vodsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vodInfoByUrlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m38UQueryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,7 +52,7 @@
             this.tabPageLogs = new System.Windows.Forms.TabPage();
             this.textBoxLogs = new System.Windows.Forms.TextBox();
             this.gamePokerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.channelVdeosByIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.getM3U8FromM3UToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -125,7 +126,7 @@
             this.searchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.channelSearchToolStripMenuItem,
             this.channelSearchByIdToolStripMenuItem,
-            this.channelVdeosByIdToolStripMenuItem});
+            this.channelVideosByIdToolStripMenuItem});
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
             this.searchToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.searchToolStripMenuItem.Text = "Search";
@@ -133,16 +134,23 @@
             // channelSearchToolStripMenuItem
             // 
             this.channelSearchToolStripMenuItem.Name = "channelSearchToolStripMenuItem";
-            this.channelSearchToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.channelSearchToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.channelSearchToolStripMenuItem.Text = "ChannelSearch";
             this.channelSearchToolStripMenuItem.Click += new System.EventHandler(this.channelSearchToolStripMenuItem_Click);
             // 
             // channelSearchByIdToolStripMenuItem
             // 
             this.channelSearchByIdToolStripMenuItem.Name = "channelSearchByIdToolStripMenuItem";
-            this.channelSearchByIdToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.channelSearchByIdToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.channelSearchByIdToolStripMenuItem.Text = "ChannelInfoById";
             this.channelSearchByIdToolStripMenuItem.Click += new System.EventHandler(this.channelInfoToolStripMenuItem_Click);
+            // 
+            // channelVideosByIdToolStripMenuItem
+            // 
+            this.channelVideosByIdToolStripMenuItem.Name = "channelVideosByIdToolStripMenuItem";
+            this.channelVideosByIdToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.channelVideosByIdToolStripMenuItem.Text = "ChannelVideosById";
+            this.channelVideosByIdToolStripMenuItem.Click += new System.EventHandler(this.channelVideosByIdToolStripMenuItem_Click);
             // 
             // vodsToolStripMenuItem
             // 
@@ -162,7 +170,8 @@
             // m38UQueryToolStripMenuItem
             // 
             this.m38UQueryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.getM38UByVodIdToolStripMenuItem});
+            this.getM38UByVodIdToolStripMenuItem,
+            this.getM3U8FromM3UToolStripMenuItem});
             this.m38UQueryToolStripMenuItem.Name = "m38UQueryToolStripMenuItem";
             this.m38UQueryToolStripMenuItem.Size = new System.Drawing.Size(82, 20);
             this.m38UQueryToolStripMenuItem.Text = "M38UQuery";
@@ -170,9 +179,9 @@
             // getM38UByVodIdToolStripMenuItem
             // 
             this.getM38UByVodIdToolStripMenuItem.Name = "getM38UByVodIdToolStripMenuItem";
-            this.getM38UByVodIdToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.getM38UByVodIdToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.getM38UByVodIdToolStripMenuItem.Text = "GetM38UByVodId";
-            this.getM38UByVodIdToolStripMenuItem.Click += new System.EventHandler(this.getM38UByVodIdToolStripMenuItem_Click);
+            this.getM38UByVodIdToolStripMenuItem.Click += new System.EventHandler(this.getM38ByVodIdToolStripMenuItem_Click);
             // 
             // usherTokenToolStripMenuItem
             // 
@@ -246,11 +255,12 @@
             this.gamePokerToolStripMenuItem.Name = "gamePokerToolStripMenuItem";
             this.gamePokerToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
-            // channelVdeosByIdToolStripMenuItem
+            // getM3U8FromM3UToolStripMenuItem
             // 
-            this.channelVdeosByIdToolStripMenuItem.Name = "channelVdeosByIdToolStripMenuItem";
-            this.channelVdeosByIdToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.channelVdeosByIdToolStripMenuItem.Text = "ChannelVdeosById";
+            this.getM3U8FromM3UToolStripMenuItem.Name = "getM3U8FromM3UToolStripMenuItem";
+            this.getM3U8FromM3UToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.getM3U8FromM3UToolStripMenuItem.Text = "GetM3U8FromM3U";
+            this.getM3U8FromM3UToolStripMenuItem.Click += new System.EventHandler(this.loadM3U8ToolStripMenuItem_Click);
             // 
             // Form2
             // 
@@ -302,7 +312,8 @@
         private System.Windows.Forms.ToolStripMenuItem topStreamsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem topLiveStreamsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem topGamesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem channelVdeosByIdToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem channelVideosByIdToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem getM3U8FromM3UToolStripMenuItem;
     }
 }
 

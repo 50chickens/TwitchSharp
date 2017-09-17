@@ -10,12 +10,12 @@ using TwitchSharp.Abstractions;
 namespace TwitchSharp.Implementations
 {
 
-    public class GetTwitchChannelVideosSearchQueryHandler : ITwitchQueryHandler<GetTwitchChannelVideosSearchQuery, ChannelVideos>
+    public class GetTwitchChannelVideosByIdQueryHandler : ITwitchQueryHandler<GetTwitchChannelVideosByIdQuery, ChannelVideos>
     {
         private readonly ITwitchClient client;
 
 
-        public GetTwitchChannelVideosSearchQueryHandler(ITwitchClient client)
+        public GetTwitchChannelVideosByIdQueryHandler(ITwitchClient client)
         {
             this.client = client;
 
@@ -23,7 +23,7 @@ namespace TwitchSharp.Implementations
 
 
 
-        public async Task<ChannelVideos> HandleAsync(GetTwitchChannelVideosSearchQuery query)
+        public async Task<ChannelVideos> HandleAsync(GetTwitchChannelVideosByIdQuery query)
         {
 
             TwitchClient client = (TwitchClient)this.client;

@@ -3,17 +3,17 @@ using TwitchSharp.Abstractions;
 
 namespace TwitchSharp.Implementations
 {
-    public class GetTwitchChannelVideosSearchQuery : ITwitchQuery<ChannelVideos>
+    public class GetTwitchChannelVideosByIdQuery : ITwitchQuery<ChannelVideos>
     {
         private ITwitchQueryOptions twitchClientOptions;
 
-        public GetTwitchChannelVideosSearchQuery(ITwitchQueryOptions twitchClientOptions)
+        public GetTwitchChannelVideosByIdQuery(ITwitchQueryOptions twitchClientOptions)
         {
             this.twitchClientOptions = twitchClientOptions;
 
         }
         
-        public int ChannelId { get; set; }
+        public string ChannelId { get; set; }
 
         public string Url
         {

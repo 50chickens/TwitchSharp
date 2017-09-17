@@ -32,14 +32,21 @@ namespace TwitchSharp.Winforms
         private ITwitchQueryHandler<GetTwitchLiveStreamsQuery, LiveStreams> getTwitchLiveStreamsQueryHandler;
         private ITwitchQueryHandler<GetTwitchTopGamesQuery, TopGames> getTwitchTopGamesQueryHandler;
         private ITwitchQueryHandler<GetTwitchChannelSearchByNameQuery, SearchChannels> getTwitchChannelSearchQueryHandler;
-        private ITwitchQueryHandler<GetTwitchChannelVideosSearchQuery, ChannelVideos> getTwitchChannelVideosSearchQueryHandler;
+        private ITwitchQueryHandler<GetTwitchChannelVideosByIdQuery, ChannelVideos> getTwitchChannelVideosSearchQueryHandler;
         private ITwitchQueryHandler<GetTwitchChannelInfoQuery, ChannelInfo> getTwitchChannelInfoSearchQueryHandler;
         private ITwitchQueryHandler<GetTwitchAuthTokenQuery, UsherTokenReply> getUsherTokenReplyQueryHandler;
         private ITwitchQueryHandler<GetTwitchVodInfoQuery, Vod> getTwitchVodInfoQueryHandler;
         private UsherTokenReply usherTokenReply;
+        private ITwitchQueryHandler<GetTwitchChannelVideosByIdQuery, ChannelVideos> getTwitchChannelVideosByIdQueryHandler;
         private ITwitchQueryHandler<GetTwitchM3UQuery, M3U> getM3U8QueryHandler;
 
         private ITwitchFileProcessor iTwitchFileProcessor;
+
+        int vodid = 174942367;
+        M3U m3u;
+        List<M3U8> m3u8list;
+
+
         public Form2()
         {
             InitializeComponent();
@@ -96,13 +103,16 @@ namespace TwitchSharp.Winforms
             this.getTwitchChannelSearchQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchChannelSearchByNameQuery, SearchChannels>>();
             this.getTwitchChannelInfoSearchQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchChannelInfoQuery, ChannelInfo>>();
 
-            this.getTwitchChannelVideosSearchQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchChannelVideosSearchQuery, ChannelVideos>>();
+            this.getTwitchChannelVideosSearchQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchChannelVideosByIdQuery, ChannelVideos>>();
             this.getTwitchVodInfoQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchVodInfoQuery, Vod>>();
             this.getUsherTokenReplyQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchAuthTokenQuery, UsherTokenReply>>();
 
-           
+            this.getTwitchChannelVideosByIdQueryHandler = container.GetInstance< ITwitchQueryHandler<GetTwitchChannelVideosByIdQuery, ChannelVideos>>();
+            this.getM3U8QueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchM3UQuery, M3U>>();
 
-            this.iTwitchFileProcessor = container.GetInstance<ITwitchFileProcessor>();
+
+
+                this.iTwitchFileProcessor = container.GetInstance<ITwitchFileProcessor>();
 
             toolStripStatusLabel1.Text = "done loading config";
 
@@ -233,10 +243,9 @@ namespace TwitchSharp.Winforms
             var queryVodInfo = container.GetInstance<GetTwitchVodInfoQuery>();
 
             //https://www.twitch.tv/videos/156832421
-            queryVodInfo.VodUrl = "https://www.twitch.tv/videos/156832421";
+            queryVodInfo.VodUrl = "https://www.twitch.tv/videos/" + vodid.ToString();
 
-            //queryVodInfo.VodId = 
-
+           
             List<string> strings = queryVodInfo.VodUrl.Split('/').ToList<string>();
             if (strings == null || strings.Count == 0)
             {
@@ -273,47 +282,33 @@ namespace TwitchSharp.Winforms
 
         private async void loadM3U8ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            M3U m3u = new M3U();
+            
 
-            using (var reader = File.OpenText("m3u.txt"))
-            {
-                m3u.Text = await reader.ReadToEndAsync();
+            usherTokenReply = await GetUsherToken();
 
-            }
+            m3u = await GetM3UByVodId();
 
             m3u.Text = m3u.Text.Replace("\"", "");
 
             m3u.Text = m3u.Text.Replace("\r", "");
 
-            List<M3U8> m3u8list = iTwitchFileProcessor.GetM3U8List(m3u);
+            m3u8list = GetM3U8FromM3U();
 
             string text = JsonConvert.SerializeObject(m3u8list);
 
             textBoxLogs.Text = text;
 
         }
-        private async void getM38UByVodIdToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void getM38ByVodIdToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            if (usherTokenReply == null)
-            {
-                usherTokenReply = await GetUsherToken(156832421);
+           
+            
+            usherTokenReply = await GetUsherToken();
 
-            }
+            m3u = await GetM3UByVodId();
 
-
-            var queryM3U = container.GetInstance<GetTwitchM3UQuery>();
-
-            int twitchVodId = 156832421; //zlive vod
-
-
-            queryM3U.VodId = twitchVodId;
-            queryM3U.NAuth = usherTokenReply.token;
-            queryM3U.NAuthSig = usherTokenReply.sig;
-
-            M3U m3U = await getM3U8QueryHandler.HandleAsync(queryM3U);
-
-            string text = JsonConvert.SerializeObject(m3U);
+            string text = JsonConvert.SerializeObject(m3u);
 
             textBoxLogs.Text = text;
 
@@ -323,7 +318,7 @@ namespace TwitchSharp.Winforms
         private async void getUsherTokenUsingVodIdToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            usherTokenReply = await GetUsherToken(156832421);
+            usherTokenReply = await GetUsherToken();
 
             string text = JsonConvert.SerializeObject(usherTokenReply);
 
@@ -331,21 +326,50 @@ namespace TwitchSharp.Winforms
 
         }
 
-        private async Task<UsherTokenReply> GetUsherToken(int twitchVodId)
+        private List<M3U8> GetM3U8FromM3U()
+        {
+            return m3u8list = iTwitchFileProcessor.GetM3U8List(m3u);
+        }
+        private async Task<M3U> GetM3UByVodId()
+        {
+            var queryM3U = container.GetInstance<GetTwitchM3UQuery>();
+
+
+            queryM3U.VodId = vodid;
+            queryM3U.NAuth = usherTokenReply.token;
+            queryM3U.NAuthSig = usherTokenReply.sig;
+
+            return await getM3U8QueryHandler.HandleAsync(queryM3U);
+        }
+        private async Task<UsherTokenReply> GetUsherToken()
         {
             var queryUsherTokenReply = container.GetInstance<GetTwitchAuthTokenQuery>();
 
-            //int  = ; //zlive vod
-
-
-            queryUsherTokenReply.VodId = twitchVodId;
-
-
+            queryUsherTokenReply.VodId = vodid;
+            
             return await getUsherTokenReplyQueryHandler.HandleAsync(queryUsherTokenReply);
 
 
 
         }
 
+        private async void channelVideosByIdToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            string twitchChannelId = "28466675"; //zlive
+
+
+            var queryChannelVideosById = container.GetInstance<GetTwitchChannelVideosByIdQuery>();
+
+            queryChannelVideosById.ChannelId = twitchChannelId;
+
+
+            ChannelVideos channelvideos = await getTwitchChannelVideosByIdQueryHandler.HandleAsync(queryChannelVideosById);
+
+            string text = JsonConvert.SerializeObject(channelvideos);
+
+            textBoxLogs.Text = text;
+
+        }
     }
 }
