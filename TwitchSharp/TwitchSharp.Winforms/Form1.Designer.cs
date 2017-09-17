@@ -33,9 +33,10 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.twitchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.topVideosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.liveStreamsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.liveStreamsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadM3U8ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,7 +62,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -69,7 +70,8 @@
             // 
             this.twitchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.topVideosToolStripMenuItem,
-            this.liveStreamsToolStripMenuItem});
+            this.liveStreamsToolStripMenuItem,
+            this.loadM3U8ToolStripMenuItem});
             this.twitchToolStripMenuItem.Name = "twitchToolStripMenuItem";
             this.twitchToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.twitchToolStripMenuItem.Text = "Twitch";
@@ -80,6 +82,10 @@
             this.topVideosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.topVideosToolStripMenuItem.Text = "TopVideos";
             this.topVideosToolStripMenuItem.Click += new System.EventHandler(this.topVideosToolStripMenuItem_Click);
+            // 
+            // liveStreamsToolStripMenuItem
+            // 
+            
             // 
             // statusStrip1
             // 
@@ -98,12 +104,9 @@
             this.textBox1.Size = new System.Drawing.Size(781, 190);
             this.textBox1.TabIndex = 2;
             // 
-            // liveStreamsToolStripMenuItem
+            // loadM3U8ToolStripMenuItem
             // 
-            this.liveStreamsToolStripMenuItem.Name = "liveStreamsToolStripMenuItem";
-            this.liveStreamsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.liveStreamsToolStripMenuItem.Text = "LiveStreams";
-            this.liveStreamsToolStripMenuItem.Click += new System.EventHandler(this.liveStreamsToolStripMenuItem_Click);
+           
             // 
             // Form1
             // 
@@ -134,6 +137,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ToolStripMenuItem liveStreamsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadM3U8ToolStripMenuItem;
     }
 }
 

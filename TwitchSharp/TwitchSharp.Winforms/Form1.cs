@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Twitch.Api;
 using Twitch.Api.LiveStreams;
 using Twitch.Api.TopGames;
 using Twitch.Api.TopVideos;
@@ -26,9 +27,7 @@ namespace TwitchSharp.Winforms
 
 
 
-        private ITwitchQueryHandler<GetTwitchTopVideosQuery, TwitchTopVideos> getTwitchTopVideosQueryHandler;
-        private ITwitchQueryHandler<GetTwitchLiveStreamsQuery, LiveStreams> getTwitchLiveStreamsQueryHandler;
-        private ITwitchQueryHandler<GetTwitchTopGamesQuery, TopGames> getTwitchTopGamesQueryHandler;
+        
 
         public Form1()
         {
@@ -76,24 +75,10 @@ namespace TwitchSharp.Winforms
 
             container.Verify();
 
-            this.getTwitchTopVideosQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchTopVideosQuery, TwitchTopVideos>>();
-            this.getTwitchLiveStreamsQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchLiveStreamsQuery, LiveStreams>>();
-
-           
+            
 
         }
 
-        private async void liveStreamsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            var queryLiveStreams = container.GetInstance<GetTwitchLiveStreamsQuery>();
-
-            queryLiveStreams.Limit = 18;
-
-            LiveStreams livestreams = await getTwitchLiveStreamsQueryHandler.HandleAsync(queryLiveStreams);
-
-            textBox1.Text = JsonConvert.SerializeObject(livestreams);
-
-        }
+        
     }
 }

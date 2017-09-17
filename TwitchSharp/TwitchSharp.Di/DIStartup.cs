@@ -15,6 +15,7 @@ namespace TwitchSharp.Di
         {
 
             container.Register<ITwitchClient, TwitchClient>();
+            container.Register<ITwitchFileProcessor, TwitchFileProcessor>();
             container.Register<ITwitchHttpClient, TwitchHttpClient>(SimpleInjector.Lifestyle.Singleton);
 
             container.Register<ITwitchQueryOptions>(() => OptionFactory.Create<TwitchQueryOptions>(queryOptionsJson), SimpleInjector.Lifestyle.Singleton);
