@@ -9,7 +9,7 @@ using TwitchSharp.Abstractions;
 
 namespace TwitchSharp.Implementations
 {
-    public class TwitchFileProcessor : ITwitchFileProcessor
+    public class TwitchM3U8FileProcessor : ITwitchM3UFileProcessor
     {
 
         List<string> linelist;
@@ -53,8 +53,8 @@ namespace TwitchSharp.Implementations
 
                             if (m != null)
                             {
-                                AddProperties(m, linelist[line]);
-                                AddProperties(m, linelist[line +1]);
+                                AddM3U8Properties(m, linelist[line]);
+                                AddM3U8Properties(m, linelist[line +1]);
                                 m3u8list.Add(m);
                             }
 
@@ -68,7 +68,7 @@ namespace TwitchSharp.Implementations
         }
 
 
-        private void AddProperties(M3U8 m, string line)
+        private void AddM3U8Properties(M3U8 m, string line)
         {
             if (!line.Contains(","))
             {
