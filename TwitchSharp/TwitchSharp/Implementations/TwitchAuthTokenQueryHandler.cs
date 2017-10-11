@@ -31,7 +31,7 @@ namespace TwitchSharp.Implementations
             //string t = await this.client.GetTwitchDataAsString(query.Url);
             
             //Vod vod = await this.client.GetTwitchData<Vod>(query.Url);
-            return await this.client.GetTwitchData<UsherTokenReply>(query.Url);
+            return await this.client.GetTwitchData<UsherTokenReply>(query.Location);
 
         }
     }

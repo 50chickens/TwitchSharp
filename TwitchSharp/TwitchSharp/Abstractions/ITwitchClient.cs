@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TwitchSharp.Abstractions
 {
@@ -6,6 +7,7 @@ namespace TwitchSharp.Abstractions
     {
         Task<T> GetTwitchData<T>(string url);
         Task<string> GetTwitchDataAsString(string url);
+        Task<T> GetTwitchData<T>(string url, Dictionary<string, string> propertyMappings);
 
     }
 }

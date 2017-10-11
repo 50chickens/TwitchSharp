@@ -16,7 +16,7 @@ namespace TwitchSharp.Implementations
         //public string VodUrl { get; set; }
         public int VodId { get; set; }
 
-        public string Url
+        public string Location
         {
             get
             {

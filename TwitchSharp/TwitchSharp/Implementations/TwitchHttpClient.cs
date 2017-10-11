@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -11,7 +12,7 @@ using TwitchSharp.Abstractions;
 
 namespace TwitchSharp.Implementations
 {
-    public class TwitchHttpClient : ITwitchHttpClient
+    public class TwitchHttpClient : ITwitchDataClient
     {
         private HttpClient httpClient;
         private ITwitchHttpClientOptions twitchHttpClientOptions;
@@ -79,6 +80,16 @@ namespace TwitchSharp.Implementations
 
 
         }
+
+        public async Task<Stream> GetDataAsStream(string url)
+        {
+
+
+            return await httpClient.GetStreamAsync(url);
+
+
+        }
+
 
     }
 }

@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
@@ -48,23 +49,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstractions\ITwitchClientOptions.cs" />
     <Compile Include="Abstractions\ITwitchClient.cs" />
     <Compile Include="Abstractions\ITwitchFileProcessor.cs" />
+    <Compile Include="Abstractions\ITwitchM3UFileProcessor.cs" />
+    <Compile Include="Abstractions\ITwitchJsonConverter.cs" />
     <Compile Include="Abstractions\ITwitchQuery.cs" />
     <Compile Include="Abstractions\ITwitchHttpClient.cs" />
     <Compile Include="Abstractions\ITwitchHttpClientOptions.cs" />
     <Compile Include="Factories\OptionFactory.cs" />
     <Compile Include="Abstractions\ITwitchQueryOptions.cs" />
+    <Compile Include="Implementations\CustomContractResolver.cs" />
+    <Compile Include="Implementations\TwitchClientOptions.cs" />
+    <Compile Include="Implementations\TwitchFileProcessor.cs" />
+    <Compile Include="Mappings\Class1.cs" />
+    <Compile Include="Queries\GetTwitchImageQuery.cs" />
+    <Compile Include="Queries\GetTwitchVodQualitiesById.cs" />
     <Compile Include="QueryHandlers\GetTwitchChannelInfoQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetTwitchChannelSearchByNameQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetTwitchChannelVideosByIdQueryHandler.cs" />
     <Compile Include="Implementations\TwitchAuthTokenQueryHandler.cs" />
     <Compile Include="Implementations\TwitchClient.cs" />
-    <Compile Include="Implementations\TwitchFileProcessor.cs" />
+    <Compile Include="Implementations\TwitchM3UFileProcessor.cs" />
     <Compile Include="Implementations\TwitchQueryOptions.cs" />
     <Compile Include="Implementations\TwitchHttpClientOptions.cs" />
     <Compile Include="Implementations\TwitchHttpClient.cs" />
-    <Compile Include="QueryHandlers\VodInfoQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetTwitchImage.cs" />
+    <Compile Include="QueryHandlers\GetTwitchVodInfoQueryHandler.cs" />
     <Compile Include="OptionFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetTwitchAuthTokenQuery.cs" />
@@ -75,12 +86,12 @@
     <Compile Include="Queries\GetTwitchM3UQuery.cs" />
     <Compile Include="Queries\GetTwitchTopGamesQuery.cs" />
     <Compile Include="Queries\GetTwitchTopVideosQuery.cs" />
-    <Compile Include="Queries\GetTwitchVodByIdQuery.cs" />
+    <Compile Include="Implementations\TwitchFileClient.cs" />
     <Compile Include="Queries\GetTwitchVodInfoQuery.cs" />
     <Compile Include="QueryHandlers\GetTwitchLiveStreamsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetTwitchTopGamesQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetTwitchTopVideosQueryHandler.cs" />
-    <Compile Include="QueryHandlers\GetTwitchVodByIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetTwitchQualitiesById.cs" />
     <Compile Include="QueryHandlers\M3UQueryHandler.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +102,10 @@
     <ProjectReference Include="..\Twitch.Api\Twitch.Api.csproj">
       <Project>{d8af0c3f-5582-4f90-a806-e16455d2aa4e}</Project>
       <Name>Twitch.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TwitchSharp.Api\TwitchSharp.Api.csproj">
+      <Project>{e674ce53-040d-4a93-92c8-e59132f8ed63}</Project>
+      <Name>TwitchSharp.Api</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -15,7 +15,7 @@ namespace TwitchSharp.Implementations
         
         public string ChannelName { get; set; }
 
-        public string Url
+        public string Location
         {
             get
             {

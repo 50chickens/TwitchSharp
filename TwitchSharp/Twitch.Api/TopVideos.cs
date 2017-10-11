@@ -72,7 +72,7 @@ namespace Twitch.Api.TopVideos
         public string display_name { get; set; }
     }
 
-    public class TwitchVod
+    public class TwitchTopVideo
     {
         public string title { get; set; }
         public string description { get; set; }
@@ -102,6 +102,6 @@ namespace Twitch.Api.TopVideos
 
     public class TwitchTopVideos
     {
-        public List<TwitchVod> vods { get; set; }
+        public List<TwitchTopVideo> vods { get; set; }
     }
 }

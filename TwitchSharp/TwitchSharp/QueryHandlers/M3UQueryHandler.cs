@@ -26,19 +26,20 @@ namespace TwitchSharp.Implementations
         {
 
             TwitchClient client = (TwitchClient)this.client;
-            //string t = await this.client.GetTwitchDataAsString(query.Url);
+            
 
-            //Vod vod = await this.client.GetTwitchData<Vod>(query.Url);
+            string text = await this.client.GetTwitchDataAsString(query.Location);
 
-            string text = await this.client.GetTwitchDataAsString(query.Url);
+            text = text.Replace("\"", "");
 
-            //M3U8 m3u8 = new M3U8(text, "chunked");
+            text = text.Replace("\r", "");
+
 
             return new M3U()
             {
                 Text = text
             };
-            //return m3u8;
+            
 
         }
     }

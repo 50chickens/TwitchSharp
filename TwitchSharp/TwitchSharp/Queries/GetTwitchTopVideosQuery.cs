@@ -17,7 +17,7 @@ namespace TwitchSharp.Implementations
         }
 
 
-        public string Url
+        public string Location
         {
             get
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,22 +48,50 @@ namespace Twitch.Api.Vod
         public List<Template> template { get; set; }
     }
 
+    
+   // [JsonConverter(typeof(FpsConverter))]
     public class Fps
     {
-        public int audio_only { get; set; }
-        public float chunked { get; set; }
-        public float high { get; set; }
-        public float low { get; set; }
-        public float medium { get; set; }
-        public float mobile { get; set; }
-    }
+        public double audio_only { get; set; }
 
+        
+        //[JsonConverter(typeof(FpsConverter))]
+        public double chunked { get; set; }
+
+        //[JsonProperty(PropertyName = "720p30")]
+        //[JsonConverter(typeof(FpsConverter))]
+
+        public double high { get; set; }
+
+       // [JsonProperty(PropertyName = "480p30")]
+       // [JsonConverter(typeof(FpsConverter))]
+
+        public double low { get; set; }
+
+       // [JsonProperty(PropertyName = "360p30")]
+       // [JsonConverter(typeof(FpsConverter))]
+        public double medium { get; set; }
+
+       // [JsonProperty(PropertyName = "160p30")]
+       // [JsonConverter(typeof(FpsConverter))]
+        public double mobile {get; set;}
+    }
+    // , , , 
     public class Resolutions
     {
+
         public string chunked { get; set; }
+
+        //[JsonProperty(PropertyName = "720p30")]
         public string high { get; set; }
+
+        //[JsonProperty(PropertyName = "480p30")]
         public string low { get; set; }
+
+        //[JsonProperty(PropertyName = "360p30")]
         public string medium { get; set; }
+
+        //[JsonProperty(PropertyName = "160p30")]
         public string mobile { get; set; }
     }
 
@@ -72,6 +101,8 @@ namespace Twitch.Api.Vod
         public string name { get; set; }
         public string display_name { get; set; }
     }
+
+        //[JsonConverter(typeof(VodInfoConverter))]
 
     public class Vod
     {

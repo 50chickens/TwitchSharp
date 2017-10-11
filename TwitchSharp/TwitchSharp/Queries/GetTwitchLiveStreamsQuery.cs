@@ -14,7 +14,7 @@ namespace TwitchSharp.Implementations
         }
         public int Limit { get; set; }
 
-        public string Url
+        public string Location
         {
             get
             {

@@ -20,7 +20,7 @@ namespace TwitchSharp.Implementations
         public string NAuth { get; set; }
         public int VodId { get; set; }
 
-        public string Url
+        public string Location
         {
             get
             {

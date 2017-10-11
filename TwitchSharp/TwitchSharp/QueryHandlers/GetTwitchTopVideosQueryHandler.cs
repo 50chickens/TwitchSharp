@@ -26,7 +26,7 @@ namespace TwitchSharp.Implementations
         {
             TwitchClient client = (TwitchClient)this.client;
             
-            return await this.client.GetTwitchData<TwitchTopVideos>(query.Url);
+            return await this.client.GetTwitchData<TwitchTopVideos>(query.Location);
             
         }
     }

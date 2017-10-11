@@ -28,7 +28,7 @@ namespace TwitchSharp.Implementations
 
             TwitchClient client = (TwitchClient)this.client;
 
-            return await this.client.GetTwitchData<ChannelVideos>(query.Url);
+            return await this.client.GetTwitchData<ChannelVideos>(query.Location);
 
         }
 

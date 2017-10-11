@@ -15,8 +15,12 @@ namespace TwitchSharp.Di
         {
 
             container.Register<ITwitchClient, TwitchClient>();
+            container.Register<ITwitchM3UFileProcessor, TwitchM3UFileProcessor>();
             container.Register<ITwitchFileProcessor, TwitchFileProcessor>();
-            container.Register<ITwitchHttpClient, TwitchHttpClient>(SimpleInjector.Lifestyle.Singleton);
+
+            container.Register<ITwitchDataClient, TwitchHttpClient>(SimpleInjector.Lifestyle.Singleton);
+
+            //container.Register<ITwitchDataClient, TwitchFileClient>(SimpleInjector.Lifestyle.Singleton);
 
             container.Register<ITwitchQueryOptions>(() => OptionFactory.Create<TwitchQueryOptions>(queryOptionsJson), SimpleInjector.Lifestyle.Singleton);
             container.Register<ITwitchHttpClientOptions>(() => OptionFactory.Create<TwitchHttpClientOptions>(twitchHttpClientOptionsJson), SimpleInjector.Lifestyle.Singleton);

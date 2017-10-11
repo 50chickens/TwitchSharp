@@ -8,6 +8,7 @@ namespace TwitchSharp.Abstractions
 {
     public interface ITwitchQuery<TResult>
     {
+        string Location { get;}
     }
 
     public interface ITwitchQueryHandler<TQuery, TResult> where TQuery : ITwitchQuery<TResult>

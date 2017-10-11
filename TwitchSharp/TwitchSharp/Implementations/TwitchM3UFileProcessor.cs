@@ -9,7 +9,7 @@ using TwitchSharp.Abstractions;
 
 namespace TwitchSharp.Implementations
 {
-    public class TwitchM3U8FileProcessor : ITwitchM3UFileProcessor
+    public class TwitchM3UFileProcessor : ITwitchM3UFileProcessor
     {
 
         List<string> linelist;

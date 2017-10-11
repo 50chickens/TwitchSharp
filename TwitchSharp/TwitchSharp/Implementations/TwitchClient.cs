@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,38 +11,63 @@ namespace TwitchSharp.Implementations
 {
     public class TwitchClient : ITwitchClient
     {
-        private ITwitchHttpClient twitchWebServiceClient;
-        
+        private ITwitchDataClient twitchDataClient;
 
-        public TwitchClient(ITwitchHttpClient twitchWebServiceClient)
+
+        public TwitchClient(ITwitchDataClient twitchDataClient)
         {
-            this.twitchWebServiceClient = twitchWebServiceClient;
-            
+            this.twitchDataClient = twitchDataClient;
+
         }
 
-        private ITwitchHttpClient TwitchWebServiceClient
+        private ITwitchDataClient TwitchDataClient
         {
             get
             {
-                return twitchWebServiceClient;
+                return twitchDataClient;
 
             }
-            set { twitchWebServiceClient = value; }
+            set { twitchDataClient = value; }
         }
-        
 
-        public async Task<string> GetTwitchDataAsString(string url)
+
+        public async Task<string> GetTwitchDataAsString(string location)
         {
-            return await twitchWebServiceClient.GetDataAsString(url);
+            return await twitchDataClient.GetDataAsString(location);
 
         }
-        public async Task<T> GetTwitchData<T>(string url)
+
+        public async Task<Stream> GetTwitchDataAsStream(string location)
+        {
+            return await twitchDataClient.GetDataAsStream(location);
+
+        }
+
+        public async Task<T> GetTwitchData<T>(string location)
         {
 
-            string data = await this.GetTwitchDataAsString(url);
+            string data = await this.GetTwitchDataAsString(location);
             return JsonConvert.DeserializeObject<T>(data);
 
 
         }
+
+
+        public async Task<T> GetTwitchData<T>(string url, Dictionary<string, string> propertyMappings)
+        {
+            JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
+
+            CustomContractResolver customContractResolver = new CustomContractResolver(propertyMappings);
+
+            jsonSerializerSettings.ContractResolver = customContractResolver;
+
+            string data = await this.GetTwitchDataAsString(url);
+            return JsonConvert.DeserializeObject<T>(data, jsonSerializerSettings);
+
+        }
+
+        
     }
+
+
 }
