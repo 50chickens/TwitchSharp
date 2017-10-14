@@ -50,7 +50,9 @@ namespace TwitchSharp.Winforms
         M3U m3u;
         List<M3U8> m3u8list;
         Vod vodinfo;
+        private bool loadingSettings;
 
+        //string savedFolder;// = Properties.Settings.Default.SavedFolder;
         public Form2()
         {
             InitializeComponent();
@@ -66,7 +68,7 @@ namespace TwitchSharp.Winforms
 
         private async void Form2_Load(object sender, EventArgs e)
         {
-            toolStripStatusLabel1.Text = "loading config";
+            toolStripStatusLabelStatus.Text = "loading config";
 
 
             
@@ -129,7 +131,7 @@ namespace TwitchSharp.Winforms
 
             this.iTwitchM3UFileProcessor = container.GetInstance<ITwitchM3UFileProcessor>();
 
-            toolStripStatusLabel1.Text = "done loading config";
+            toolStripStatusLabelStatus.Text = "done loading config";
 
             UILoadSettings();
 
@@ -574,11 +576,23 @@ namespace TwitchSharp.Winforms
 
         private void UILoadSettings()
         {
+            loadingSettings = true;
             string twitchUrl = Properties.Settings.Default.TwitchUrl;
-            if (twitchUrl != null || twitchUrl != "")
+            if (twitchUrl != null && twitchUrl != "")
             {
                 textBoxTwitchUrl.Text = twitchUrl;
             }
+
+
+            if (Directory.Exists(Properties.Settings.Default.SavedFolder))
+            {
+                textBoxFolder.Text = Properties.Settings.Default.SavedFolder;
+                folderBrowserDialog1.SelectedPath = textBoxFolder.Text;
+            }
+
+            loadingSettings = false;
+
+
 
         }
         private void UISaveSettings()
@@ -589,6 +603,14 @@ namespace TwitchSharp.Winforms
 
         }
 
+        
+        private void UISaveSettingsFolder()
+        {
+
+            if (!Directory.Exists(textBoxFolder.Text)) return;
+            Properties.Settings.Default.SavedFolder = folderBrowserDialog1.SelectedPath;
+            Properties.Settings.Default.Save();
+        }
         private void UIDownloadCheck()
         {
             bool shouldBeEnabled = comboBoxQuality.Items.Count > 0;
@@ -608,6 +630,35 @@ namespace TwitchSharp.Winforms
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void buttonChangeFolder_Click(object sender, EventArgs e)
+        {
+
+
+            string savedFolder = textBoxFolder.Text;
+            if (Directory.Exists(savedFolder))
+            {
+                folderBrowserDialog1.SelectedPath = savedFolder;
+            }
+            else
+            {
+                folderBrowserDialog1.SelectedPath = "";
+            }
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                textBoxFolder.Text = folderBrowserDialog1.SelectedPath;
+                
+
+            }
+        }
+
+        private void textBoxFolder_TextChanged(object sender, EventArgs e)
+        {
+            if (loadingSettings) return;
+            UISaveSettingsFolder();
         }
     }
 }

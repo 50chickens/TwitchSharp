@@ -34,5 +34,17 @@ namespace TwitchSharp.Winforms.Properties {
                 this["TwitchUrl"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SavedFolder {
+            get {
+                return ((string)(this["SavedFolder"]));
+            }
+            set {
+                this["SavedFolder"] = value;
+            }
+        }
     }
 }

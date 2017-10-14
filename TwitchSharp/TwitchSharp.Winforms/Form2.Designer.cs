@@ -50,8 +50,6 @@
             this.getUsherTokenUsingVodIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createDictionaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -59,13 +57,13 @@
             this.tabPageSearch = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBoxTwitchChannelName = new System.Windows.Forms.TextBox();
+            this.textBoxTwitchSearchChannelName = new System.Windows.Forms.TextBox();
             this.labelChannelName = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBoxTwitchSearchGameName = new System.Windows.Forms.TextBox();
             this.buttonGetChart = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.labelTwitchChannelId = new System.Windows.Forms.Label();
-            this.textBoxTwitchChannelId = new System.Windows.Forms.TextBox();
+            this.textBoxTwitchSearchChannelId = new System.Windows.Forms.TextBox();
             this.groupBoxChartProperties = new System.Windows.Forms.GroupBox();
             this.textBoxVodGame = new System.Windows.Forms.TextBox();
             this.labelVodGame = new System.Windows.Forms.Label();
@@ -77,10 +75,10 @@
             this.textBoxVodTitle = new System.Windows.Forms.TextBox();
             this.labelVodDate = new System.Windows.Forms.Label();
             this.labelVodTitle = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
+            this.buttonChangeFolder = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelFolder = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBoxFolder = new System.Windows.Forms.TextBox();
             this.labelQuality = new System.Windows.Forms.Label();
             this.comboBoxQuality = new System.Windows.Forms.ComboBox();
             this.buttonGetVodInfo = new System.Windows.Forms.Button();
@@ -144,7 +142,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -289,8 +287,6 @@
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripStatusLabel2,
             this.toolStripStatusLabelStatus,
             this.toolStripStatusLabel3,
             this.toolStripProgressBar1});
@@ -299,17 +295,6 @@
             this.statusStrip1.Size = new System.Drawing.Size(879, 27);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 22);
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(0, 22);
-            this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // toolStripStatusLabelStatus
             // 
@@ -356,13 +341,13 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.dataGridView1);
-            this.groupBox4.Controls.Add(this.textBoxTwitchChannelName);
+            this.groupBox4.Controls.Add(this.textBoxTwitchSearchChannelName);
             this.groupBox4.Controls.Add(this.labelChannelName);
-            this.groupBox4.Controls.Add(this.textBox4);
+            this.groupBox4.Controls.Add(this.textBoxTwitchSearchGameName);
             this.groupBox4.Controls.Add(this.buttonGetChart);
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Controls.Add(this.labelTwitchChannelId);
-            this.groupBox4.Controls.Add(this.textBoxTwitchChannelId);
+            this.groupBox4.Controls.Add(this.textBoxTwitchSearchChannelId);
             this.groupBox4.Location = new System.Drawing.Point(418, 6);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(436, 423);
@@ -382,12 +367,12 @@
             this.dataGridView1.TabIndex = 18;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // textBoxTwitchChannelName
+            // textBoxTwitchSearchChannelName
             // 
-            this.textBoxTwitchChannelName.Location = new System.Drawing.Point(115, 33);
-            this.textBoxTwitchChannelName.Name = "textBoxTwitchChannelName";
-            this.textBoxTwitchChannelName.Size = new System.Drawing.Size(244, 20);
-            this.textBoxTwitchChannelName.TabIndex = 12;
+            this.textBoxTwitchSearchChannelName.Location = new System.Drawing.Point(115, 33);
+            this.textBoxTwitchSearchChannelName.Name = "textBoxTwitchSearchChannelName";
+            this.textBoxTwitchSearchChannelName.Size = new System.Drawing.Size(244, 20);
+            this.textBoxTwitchSearchChannelName.TabIndex = 12;
             // 
             // labelChannelName
             // 
@@ -398,12 +383,12 @@
             this.labelChannelName.TabIndex = 3;
             this.labelChannelName.Text = "Channel Name:";
             // 
-            // textBox4
+            // textBoxTwitchSearchGameName
             // 
-            this.textBox4.Location = new System.Drawing.Point(114, 86);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(245, 20);
-            this.textBox4.TabIndex = 17;
+            this.textBoxTwitchSearchGameName.Location = new System.Drawing.Point(114, 86);
+            this.textBoxTwitchSearchGameName.Name = "textBoxTwitchSearchGameName";
+            this.textBoxTwitchSearchGameName.Size = new System.Drawing.Size(245, 20);
+            this.textBoxTwitchSearchGameName.TabIndex = 17;
             // 
             // buttonGetChart
             // 
@@ -433,12 +418,12 @@
             this.labelTwitchChannelId.TabIndex = 13;
             this.labelTwitchChannelId.Text = "Channel Id:";
             // 
-            // textBoxTwitchChannelId
+            // textBoxTwitchSearchChannelId
             // 
-            this.textBoxTwitchChannelId.Location = new System.Drawing.Point(115, 60);
-            this.textBoxTwitchChannelId.Name = "textBoxTwitchChannelId";
-            this.textBoxTwitchChannelId.Size = new System.Drawing.Size(244, 20);
-            this.textBoxTwitchChannelId.TabIndex = 14;
+            this.textBoxTwitchSearchChannelId.Location = new System.Drawing.Point(115, 60);
+            this.textBoxTwitchSearchChannelId.Name = "textBoxTwitchSearchChannelId";
+            this.textBoxTwitchSearchChannelId.Size = new System.Drawing.Size(244, 20);
+            this.textBoxTwitchSearchChannelId.TabIndex = 14;
             // 
             // groupBoxChartProperties
             // 
@@ -452,10 +437,10 @@
             this.groupBoxChartProperties.Controls.Add(this.textBoxVodTitle);
             this.groupBoxChartProperties.Controls.Add(this.labelVodDate);
             this.groupBoxChartProperties.Controls.Add(this.labelVodTitle);
-            this.groupBoxChartProperties.Controls.Add(this.button4);
+            this.groupBoxChartProperties.Controls.Add(this.buttonChangeFolder);
             this.groupBoxChartProperties.Controls.Add(this.pictureBox1);
             this.groupBoxChartProperties.Controls.Add(this.labelFolder);
-            this.groupBoxChartProperties.Controls.Add(this.textBox6);
+            this.groupBoxChartProperties.Controls.Add(this.textBoxFolder);
             this.groupBoxChartProperties.Controls.Add(this.labelQuality);
             this.groupBoxChartProperties.Controls.Add(this.comboBoxQuality);
             this.groupBoxChartProperties.Controls.Add(this.buttonGetVodInfo);
@@ -555,15 +540,16 @@
             this.labelVodTitle.TabIndex = 31;
             this.labelVodTitle.Text = "Vod Title:";
             // 
-            // button4
+            // buttonChangeFolder
             // 
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(279, 390);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(41, 23);
-            this.button4.TabIndex = 30;
-            this.button4.Text = "...";
-            this.button4.UseVisualStyleBackColor = true;
+            this.buttonChangeFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonChangeFolder.Location = new System.Drawing.Point(279, 390);
+            this.buttonChangeFolder.Name = "buttonChangeFolder";
+            this.buttonChangeFolder.Size = new System.Drawing.Size(41, 23);
+            this.buttonChangeFolder.TabIndex = 30;
+            this.buttonChangeFolder.Text = "...";
+            this.buttonChangeFolder.UseVisualStyleBackColor = true;
+            this.buttonChangeFolder.Click += new System.EventHandler(this.buttonChangeFolder_Click);
             // 
             // pictureBox1
             // 
@@ -582,12 +568,13 @@
             this.labelFolder.TabIndex = 29;
             this.labelFolder.Text = "Folder:";
             // 
-            // textBox6
+            // textBoxFolder
             // 
-            this.textBox6.Location = new System.Drawing.Point(71, 392);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(195, 20);
-            this.textBox6.TabIndex = 27;
+            this.textBoxFolder.Location = new System.Drawing.Point(71, 392);
+            this.textBoxFolder.Name = "textBoxFolder";
+            this.textBoxFolder.Size = new System.Drawing.Size(195, 20);
+            this.textBoxFolder.TabIndex = 27;
+            this.textBoxFolder.TextChanged += new System.EventHandler(this.textBoxFolder_TextChanged);
             // 
             // labelQuality
             // 
@@ -652,7 +639,7 @@
             // 
             this.buttonDownload.Enabled = false;
             this.buttonDownload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDownload.Location = new System.Drawing.Point(326, 389);
+            this.buttonDownload.Location = new System.Drawing.Point(326, 390);
             this.buttonDownload.Name = "buttonDownload";
             this.buttonDownload.Size = new System.Drawing.Size(65, 23);
             this.buttonDownload.TabIndex = 20;
@@ -834,7 +821,6 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageLogs;
         private System.Windows.Forms.TextBox textBoxLogs;
@@ -857,16 +843,15 @@
         private System.Windows.Forms.ToolStripMenuItem getM3U8FromM3UToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem getTSPiecesFromM3U8ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuM3UVodInfoById;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.TabPage tabPageSearch;
         private System.Windows.Forms.GroupBox groupBoxChartProperties;
-        private System.Windows.Forms.TextBox textBoxTwitchChannelId;
+        private System.Windows.Forms.TextBox textBoxTwitchSearchChannelId;
         private System.Windows.Forms.Label labelTwitchChannelId;
-        private System.Windows.Forms.TextBox textBoxTwitchChannelName;
+        private System.Windows.Forms.TextBox textBoxTwitchSearchChannelName;
         private System.Windows.Forms.Label labelChannelName;
         private System.Windows.Forms.TabPage tabPagePoller;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBoxTwitchSearchGameName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonGetChart;
         private System.Windows.Forms.TabPage tabPageResults;
@@ -883,10 +868,10 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button buttonChangeFolder;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label labelFolder;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBoxFolder;
         private System.Windows.Forms.Label labelQuality;
         private System.Windows.Forms.ComboBox comboBoxQuality;
         private System.Windows.Forms.Button buttonGetVodInfo;
