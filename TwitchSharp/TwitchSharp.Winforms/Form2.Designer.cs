@@ -48,8 +48,6 @@
             this.toolStripMenuM3UVodInfoById = new System.Windows.Forms.ToolStripMenuItem();
             this.usherTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getUsherTokenUsingVodIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.vodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createDictionaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -128,8 +126,7 @@
             this.searchToolStripMenuItem,
             this.vodsToolStripMenuItem,
             this.m38UQueryToolStripMenuItem,
-            this.usherTokenToolStripMenuItem,
-            this.downloadToolStripMenuItem});
+            this.usherTokenToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(879, 24);
@@ -282,19 +279,6 @@
             this.getUsherTokenUsingVodIdToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.getUsherTokenUsingVodIdToolStripMenuItem.Text = "GetUsherTokenUsingVodId";
             this.getUsherTokenUsingVodIdToolStripMenuItem.Click += new System.EventHandler(this.getUsherTokenUsingVodIdToolStripMenuItem_Click);
-            // 
-            // downloadToolStripMenuItem
-            // 
-            this.downloadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.vodToolStripMenuItem});
-            this.downloadToolStripMenuItem.Name = "downloadToolStripMenuItem";
-            this.downloadToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
-            this.downloadToolStripMenuItem.Text = "Download";
-            // 
-            // vodToolStripMenuItem
-            // 
-            this.vodToolStripMenuItem.Name = "vodToolStripMenuItem";
-            this.vodToolStripMenuItem.Size = new System.Drawing.Size(67, 22);
             // 
             // createDictionaryToolStripMenuItem
             // 
@@ -875,8 +859,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuM3UVodInfoById;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
-        private System.Windows.Forms.ToolStripMenuItem downloadToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem vodToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPageSearch;
         private System.Windows.Forms.GroupBox groupBoxChartProperties;
         private System.Windows.Forms.TextBox textBoxTwitchChannelId;
