@@ -46,7 +46,7 @@ namespace TwitchSharp.Winforms
         private ITwitchQueryHandler<GetTwitchVodQualitiesById, List<TwitchVideoQuality>> getTwitchGetTwitchVodQualitiesByIdHandler;
         private ITwitchM3UFileProcessor iTwitchM3UFileProcessor;
 
-        int vodid = 176421657;
+        int vodid;// = 176421657;
         M3U m3u;
         List<M3U8> m3u8list;
         Vod vodinfo;
@@ -69,6 +69,7 @@ namespace TwitchSharp.Winforms
             toolStripStatusLabel1.Text = "loading config";
 
 
+            
             menuStrip1.Enabled = false;
 
             string twitchQueryOptionsJson;
@@ -129,6 +130,11 @@ namespace TwitchSharp.Winforms
             this.iTwitchM3UFileProcessor = container.GetInstance<ITwitchM3UFileProcessor>();
 
             toolStripStatusLabel1.Text = "done loading config";
+
+            UILoadSettings();
+
+            
+            
 
 
             menuStrip1.Enabled = true;
@@ -323,25 +329,16 @@ namespace TwitchSharp.Winforms
 
                         
 
-        public async Task<Vod> GetVodInfoById(int vodid)
+        public async Task<Vod> GetVodInfoById()
         {
             var queryVodInfo = container.GetInstance<GetTwitchInfoVodQuery>();
 
-            string VodUrl = "https://www.twitch.tv/videos/" + vodid.ToString();
-
-            queryVodInfo.PropertyMapping = new Dictionary<string, string>
-            {
-                {"chunked", "chunked"},
-                {"mobile", "160p30"},
-                {"low", "360p30"},
-                {"medium", "480p30"},
-                {"high", "720p30"}
-             };
-
-            queryVodInfo.VodUrl = VodUrl;
+            
+            queryVodInfo.VodId = vodid.ToString();
             vodinfo = await getTwitchVodInfoByIdQueryHandler.HandleAsync(queryVodInfo);
             return vodinfo;
         }
+
         private List<M3U8> GetM3U8FromM3U()
         {
             return m3u8list = iTwitchM3UFileProcessor.GetM3U8List(m3u);
@@ -390,12 +387,12 @@ namespace TwitchSharp.Winforms
 
         private async void getTSPiecesFromM3U8ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int vodid = this.vodid;
+           
             usherTokenReply = await GetUsherToken();
 
             m3u = await GetM3UByVodId();
 
-            vodinfo = await GetVodInfoById(vodid);
+            vodinfo = await GetVodInfoById();
 
             
             m3u8list = GetM3U8FromM3U();
@@ -406,8 +403,8 @@ namespace TwitchSharp.Winforms
         private async void toolStripMenuM3UVodInfoById_Click(object sender, EventArgs e)
         {
            
-            int vodid = this.vodid;
-            vodinfo = await GetVodInfoById(vodid);
+            
+            vodinfo = await GetVodInfoById();
 
 
             foreach (PropertyInfo p in vodinfo.fps.GetType().GetProperties())
@@ -433,36 +430,94 @@ namespace TwitchSharp.Winforms
 
         }
 
-        private async void parseQualitiesFromVodToolStripMenuItem_Click(object sender, EventArgs e)
+        
+
+        
+
+        private void vodToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int vodid = this.vodid;
-            //vodinfo = await GetVodInfoById(vodid);
 
-            GetTwitchVodQualitiesById query = container.GetInstance<GetTwitchVodQualitiesById>();
+        }
 
-            query.VodId = vodid.ToString();
+        
+        
+        private async void buttonVodInfo_Click(object sender, EventArgs e)
+        {
+            buttonGetVodInfo.Enabled = false;
 
-            List<TwitchVideoQuality> qualityList = await this.getTwitchGetTwitchVodQualitiesByIdHandler.HandleAsync(query);
 
-            string text = JsonConvert.SerializeObject(qualityList);
+
+            vodinfo = await GetVodInfoById();
+
+            
+            UIShowVodDetails();
+
+            await UIGetThumbnail();
+
+            await ProcessQualities(vodid);
+
+            UIDownloadCheck();
+
+           
+            string text = JsonConvert.SerializeObject(vodinfo);
 
             textBoxLogs.Text = text;
 
+            buttonGetVodInfo.Enabled = true;
+
+        }
+
+        private async Task UIGetThumbnail()
+        {
+            GetTwitchImageQuery imageQuery = container.GetInstance<GetTwitchImageQuery>();
+
+            imageQuery.ImageUrl = vodinfo.thumbnails.medium.FirstOrDefault().url;
+
+            Image image = await this.getTwitchImageQueryHandler.HandleAsync(imageQuery);
+
+            pictureBox1.Image = image;
+        }
+        private void UIShowVodDetails()
+        {
+            textBoxVodTitle.Text = vodinfo.title;
+            textBoxVodGame.Text = vodinfo.game;
+            textBoxVodDate.Text = vodinfo.created_at;
+            textBoxVodLength.Text = vodinfo.length.ToString();
+            textBoxVodViews.Text = vodinfo.views.ToString();
+        }
+
+        private async Task ProcessQualities(int vodid)
+        {
+
+            GetTwitchVodQualitiesById queryVodQualities = container.GetInstance<GetTwitchVodQualitiesById>();
+
+            queryVodQualities.VodId = vodid.ToString();
+
+            List<TwitchVideoQuality> qualityList = await this.getTwitchGetTwitchVodQualitiesByIdHandler.HandleAsync(queryVodQualities);
+
+            string textVodQuality = JsonConvert.SerializeObject(qualityList);
+
+            textBoxLogs.Text += textVodQuality;
+
             if (qualityList != null && qualityList.Count > 0)
             {
-                PopulateQualityComboBox(qualityList);
+                QualityEnable();
+                QualityBindAndPopulate(qualityList);
             }
             else
             {
-                comboBoxQuality.Enabled = false;
-                comboBoxQuality.DataSource = null;
-                comboBoxQuality.BindingContext = null;
+                QualityUnbind();
+                QualityDisable();
+
             }
+
+
+
 
 
         }
 
-        private void PopulateQualityComboBox(List<TwitchVideoQuality> qualityList)
+        private void QualityBindAndPopulate(List<TwitchVideoQuality> qualityList)
         {
             comboBoxQuality.BindingContext = this.BindingContext;
 
@@ -471,83 +526,88 @@ namespace TwitchSharp.Winforms
             comboBoxQuality.DataSource = qualityList;
         }
 
-        private void vodToolStripMenuItem_Click(object sender, EventArgs e)
+        private void QualityUnbind()
+
         {
+            comboBoxQuality.DataSource = null;
+            comboBoxQuality.BindingContext = null;
 
         }
-
-        
-
-        private async void buttonVodInfo_Click(object sender, EventArgs e)
+        private void QualityDisable()
         {
-            string tmp;
-            int vodid;
-            if (textBoxTwitchUrl.Text.Contains("https://www.twitch.tv/videos/"))
+            comboBoxQuality.Enabled = false;
+            
+        }
+        private void QualityEnable()
+        {
+            comboBoxQuality.Enabled = false;
+            
+        }
 
+        private void UIVodIdCheck()
+        {
+
+            string tmp;
+            tmp = textBoxTwitchUrl.Text.Replace("https://www.twitch.tv/videos/", "");
+            bool shouldBeEnabled = false;
+                          
+
+            if (!Int32.TryParse(tmp, out this.vodid))
             {
-                tmp = textBoxTwitchUrl.Text.Replace("https://www.twitch.tv/videos/", "");
+                //MessageBox.Show("can't get vod id from url.");
+                shouldBeEnabled = false;
+
             }
             else
             {
-                tmp = textBoxTwitchUrl.Text;
+                shouldBeEnabled = true;
+
+                UISaveSettings();
+
             }
+
+            buttonGetVodInfo.Enabled = shouldBeEnabled;
             
-            if (!Int32.TryParse(tmp, out vodid))
+            
+
+        }
+
+        private void UILoadSettings()
+        {
+            string twitchUrl = Properties.Settings.Default.TwitchUrl;
+            if (twitchUrl != null || twitchUrl != "")
             {
-                MessageBox.Show("can't get vod id from url.");
-                return;
+                textBoxTwitchUrl.Text = twitchUrl;
             }
 
-            vodinfo = await GetVodInfoById(vodid);
+        }
+        private void UISaveSettings()
+        {
+            Properties.Settings.Default.TwitchUrl = textBoxTwitchUrl.Text;
 
-            textBoxVodTitle.Text = vodinfo.title;
-            textBoxVodGame.Text = vodinfo.game;
-            textBoxVodDate.Text = vodinfo.created_at;
-            textBoxVodLength.Text = vodinfo.length.ToString();
-            textBoxVodViews.Text = vodinfo.views.ToString()    ;
+            Properties.Settings.Default.Save();
 
-            //if (vodinfo.thumbnails.small != "")
-            //{
-            //   // pictureBox1.Image
-            //}
+        }
 
-            GetTwitchImageQuery query = container.GetInstance<GetTwitchImageQuery>();
+        private void UIDownloadCheck()
+        {
+            bool shouldBeEnabled = comboBoxQuality.Items.Count > 0;
+            buttonDownload.Enabled = shouldBeEnabled;
+            buttonAddToQueue.Enabled = shouldBeEnabled;
+            comboBoxQuality.Enabled = shouldBeEnabled;
 
-            query.ImageUrl = vodinfo.thumbnails.medium.FirstOrDefault().url;
-
-            Image image = await this.getTwitchImageQueryHandler.HandleAsync(query);
-
-
-            pictureBox1.Image = image;
-
-            //foreach (PropertyInfo p in vodinfo.GetType().GetProperties())
-            //{
-
-            //    if (p.PropertyType == typeof(string))
-            //    {
-            //        PropertyInfo p2 = vodinfo.GetType().GetProperty(p.Name);
-            //        object strValue = p2.GetValue(vodinfo);
-
-            //        textBoxVodInfo.Text += p.Name + ":" + strValue.ToString() + "\r\n";
-            //    }
-
-
-
-
-
-
-            //}
-
-            string text = JsonConvert.SerializeObject(vodinfo);
-
-            textBoxLogs.Text = text;
         }
 
         private void textBoxTwitchUrl_TextChanged(object sender, EventArgs e)
         {
-            buttonGetVodInfo.Enabled = (textBoxTwitchUrl.Text.Length > 0);
 
-            
+            UIVodIdCheck();
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

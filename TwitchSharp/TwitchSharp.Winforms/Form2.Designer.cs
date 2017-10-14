@@ -48,8 +48,6 @@
             this.toolStripMenuM3UVodInfoById = new System.Windows.Forms.ToolStripMenuItem();
             this.usherTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getUsherTokenUsingVodIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.qualitiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.parseQualitiesFromVodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createDictionaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,8 +88,8 @@
             this.buttonGetVodInfo = new System.Windows.Forms.Button();
             this.textBoxTwitchUrl = new System.Windows.Forms.TextBox();
             this.labelTwitchUrl = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonAddToQueue = new System.Windows.Forms.Button();
+            this.buttonDownload = new System.Windows.Forms.Button();
             this.tabPageResults = new System.Windows.Forms.TabPage();
             this.tabPagePoller = new System.Windows.Forms.TabPage();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
@@ -131,7 +129,6 @@
             this.vodsToolStripMenuItem,
             this.m38UQueryToolStripMenuItem,
             this.usherTokenToolStripMenuItem,
-            this.qualitiesToolStripMenuItem,
             this.downloadToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -286,21 +283,6 @@
             this.getUsherTokenUsingVodIdToolStripMenuItem.Text = "GetUsherTokenUsingVodId";
             this.getUsherTokenUsingVodIdToolStripMenuItem.Click += new System.EventHandler(this.getUsherTokenUsingVodIdToolStripMenuItem_Click);
             // 
-            // qualitiesToolStripMenuItem
-            // 
-            this.qualitiesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.parseQualitiesFromVodToolStripMenuItem});
-            this.qualitiesToolStripMenuItem.Name = "qualitiesToolStripMenuItem";
-            this.qualitiesToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.qualitiesToolStripMenuItem.Text = "Qualities";
-            // 
-            // parseQualitiesFromVodToolStripMenuItem
-            // 
-            this.parseQualitiesFromVodToolStripMenuItem.Name = "parseQualitiesFromVodToolStripMenuItem";
-            this.parseQualitiesFromVodToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
-            this.parseQualitiesFromVodToolStripMenuItem.Text = "Load Qualities From Vod";
-            this.parseQualitiesFromVodToolStripMenuItem.Click += new System.EventHandler(this.parseQualitiesFromVodToolStripMenuItem_Click);
-            // 
             // downloadToolStripMenuItem
             // 
             this.downloadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -397,9 +379,9 @@
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Controls.Add(this.labelTwitchChannelId);
             this.groupBox4.Controls.Add(this.textBoxTwitchChannelId);
-            this.groupBox4.Location = new System.Drawing.Point(404, 6);
+            this.groupBox4.Location = new System.Drawing.Point(418, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(450, 423);
+            this.groupBox4.Size = new System.Drawing.Size(436, 423);
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Vod Search Options";
@@ -412,8 +394,9 @@
             this.dataGridView1.Location = new System.Drawing.Point(32, 123);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(412, 290);
+            this.dataGridView1.Size = new System.Drawing.Size(398, 290);
             this.dataGridView1.TabIndex = 18;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // textBoxTwitchChannelName
             // 
@@ -443,7 +426,7 @@
             this.buttonGetChart.Enabled = false;
             this.buttonGetChart.Location = new System.Drawing.Point(365, 33);
             this.buttonGetChart.Name = "buttonGetChart";
-            this.buttonGetChart.Size = new System.Drawing.Size(79, 73);
+            this.buttonGetChart.Size = new System.Drawing.Size(65, 73);
             this.buttonGetChart.TabIndex = 5;
             this.buttonGetChart.Text = "Get Vods";
             this.buttonGetChart.UseVisualStyleBackColor = true;
@@ -494,27 +477,27 @@
             this.groupBoxChartProperties.Controls.Add(this.buttonGetVodInfo);
             this.groupBoxChartProperties.Controls.Add(this.textBoxTwitchUrl);
             this.groupBoxChartProperties.Controls.Add(this.labelTwitchUrl);
-            this.groupBoxChartProperties.Controls.Add(this.button3);
-            this.groupBoxChartProperties.Controls.Add(this.button2);
+            this.groupBoxChartProperties.Controls.Add(this.buttonAddToQueue);
+            this.groupBoxChartProperties.Controls.Add(this.buttonDownload);
             this.groupBoxChartProperties.Location = new System.Drawing.Point(8, 6);
             this.groupBoxChartProperties.Name = "groupBoxChartProperties";
-            this.groupBoxChartProperties.Size = new System.Drawing.Size(390, 423);
+            this.groupBoxChartProperties.Size = new System.Drawing.Size(404, 423);
             this.groupBoxChartProperties.TabIndex = 8;
             this.groupBoxChartProperties.TabStop = false;
             this.groupBoxChartProperties.Text = "Vod Search Options";
             // 
             // textBoxVodGame
             // 
-            this.textBoxVodGame.Location = new System.Drawing.Point(70, 82);
+            this.textBoxVodGame.Location = new System.Drawing.Point(71, 82);
             this.textBoxVodGame.Name = "textBoxVodGame";
             this.textBoxVodGame.ReadOnly = true;
-            this.textBoxVodGame.Size = new System.Drawing.Size(311, 20);
+            this.textBoxVodGame.Size = new System.Drawing.Size(320, 20);
             this.textBoxVodGame.TabIndex = 41;
             // 
             // labelVodGame
             // 
             this.labelVodGame.AutoSize = true;
-            this.labelVodGame.Location = new System.Drawing.Point(24, 86);
+            this.labelVodGame.Location = new System.Drawing.Point(26, 86);
             this.labelVodGame.Name = "labelVodGame";
             this.labelVodGame.Size = new System.Drawing.Size(38, 13);
             this.labelVodGame.TabIndex = 40;
@@ -522,24 +505,24 @@
             // 
             // textBoxVodViews
             // 
-            this.textBoxVodViews.Location = new System.Drawing.Point(70, 129);
+            this.textBoxVodViews.Location = new System.Drawing.Point(71, 129);
             this.textBoxVodViews.Name = "textBoxVodViews";
             this.textBoxVodViews.ReadOnly = true;
-            this.textBoxVodViews.Size = new System.Drawing.Size(109, 20);
+            this.textBoxVodViews.Size = new System.Drawing.Size(122, 20);
             this.textBoxVodViews.TabIndex = 39;
             // 
             // textBoxVodLength
             // 
-            this.textBoxVodLength.Location = new System.Drawing.Point(239, 129);
+            this.textBoxVodLength.Location = new System.Drawing.Point(253, 129);
             this.textBoxVodLength.Name = "textBoxVodLength";
             this.textBoxVodLength.ReadOnly = true;
-            this.textBoxVodLength.Size = new System.Drawing.Size(142, 20);
+            this.textBoxVodLength.Size = new System.Drawing.Size(138, 20);
             this.textBoxVodLength.TabIndex = 38;
             // 
             // labelVodViews
             // 
             this.labelVodViews.AutoSize = true;
-            this.labelVodViews.Location = new System.Drawing.Point(24, 132);
+            this.labelVodViews.Location = new System.Drawing.Point(25, 132);
             this.labelVodViews.Name = "labelVodViews";
             this.labelVodViews.Size = new System.Drawing.Size(38, 13);
             this.labelVodViews.TabIndex = 37;
@@ -548,7 +531,7 @@
             // labelVodLength
             // 
             this.labelVodLength.AutoSize = true;
-            this.labelVodLength.Location = new System.Drawing.Point(190, 132);
+            this.labelVodLength.Location = new System.Drawing.Point(204, 132);
             this.labelVodLength.Name = "labelVodLength";
             this.labelVodLength.Size = new System.Drawing.Size(43, 13);
             this.labelVodLength.TabIndex = 36;
@@ -556,18 +539,18 @@
             // 
             // textBoxVodDate
             // 
-            this.textBoxVodDate.Location = new System.Drawing.Point(70, 105);
+            this.textBoxVodDate.Location = new System.Drawing.Point(71, 105);
             this.textBoxVodDate.Name = "textBoxVodDate";
             this.textBoxVodDate.ReadOnly = true;
-            this.textBoxVodDate.Size = new System.Drawing.Size(311, 20);
+            this.textBoxVodDate.Size = new System.Drawing.Size(320, 20);
             this.textBoxVodDate.TabIndex = 35;
             // 
             // textBoxVodTitle
             // 
-            this.textBoxVodTitle.Location = new System.Drawing.Point(70, 59);
+            this.textBoxVodTitle.Location = new System.Drawing.Point(71, 59);
             this.textBoxVodTitle.Name = "textBoxVodTitle";
             this.textBoxVodTitle.ReadOnly = true;
-            this.textBoxVodTitle.Size = new System.Drawing.Size(311, 20);
+            this.textBoxVodTitle.Size = new System.Drawing.Size(320, 20);
             this.textBoxVodTitle.TabIndex = 34;
             // 
             // labelVodDate
@@ -591,7 +574,7 @@
             // button4
             // 
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(265, 390);
+            this.button4.Location = new System.Drawing.Point(279, 390);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(41, 23);
             this.button4.TabIndex = 30;
@@ -600,7 +583,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(61, 158);
+            this.pictureBox1.Location = new System.Drawing.Point(71, 158);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(320, 180);
             this.pictureBox1.TabIndex = 25;
@@ -609,7 +592,7 @@
             // labelFolder
             // 
             this.labelFolder.AutoSize = true;
-            this.labelFolder.Location = new System.Drawing.Point(12, 392);
+            this.labelFolder.Location = new System.Drawing.Point(26, 392);
             this.labelFolder.Name = "labelFolder";
             this.labelFolder.Size = new System.Drawing.Size(39, 13);
             this.labelFolder.TabIndex = 29;
@@ -617,7 +600,7 @@
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(57, 392);
+            this.textBox6.Location = new System.Drawing.Point(71, 392);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(195, 20);
             this.textBox6.TabIndex = 27;
@@ -625,7 +608,7 @@
             // labelQuality
             // 
             this.labelQuality.AutoSize = true;
-            this.labelQuality.Location = new System.Drawing.Point(12, 353);
+            this.labelQuality.Location = new System.Drawing.Point(26, 353);
             this.labelQuality.Name = "labelQuality";
             this.labelQuality.Size = new System.Drawing.Size(42, 13);
             this.labelQuality.TabIndex = 28;
@@ -633,20 +616,21 @@
             // 
             // comboBoxQuality
             // 
+            this.comboBoxQuality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxQuality.Enabled = false;
             this.comboBoxQuality.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxQuality.FormattingEnabled = true;
-            this.comboBoxQuality.Location = new System.Drawing.Point(60, 350);
+            this.comboBoxQuality.Location = new System.Drawing.Point(71, 350);
             this.comboBoxQuality.Name = "comboBoxQuality";
-            this.comboBoxQuality.Size = new System.Drawing.Size(192, 21);
+            this.comboBoxQuality.Size = new System.Drawing.Size(195, 21);
             this.comboBoxQuality.TabIndex = 26;
             // 
             // buttonGetVodInfo
             // 
             this.buttonGetVodInfo.Enabled = false;
-            this.buttonGetVodInfo.Location = new System.Drawing.Point(318, 33);
+            this.buttonGetVodInfo.Location = new System.Drawing.Point(314, 33);
             this.buttonGetVodInfo.Name = "buttonGetVodInfo";
-            this.buttonGetVodInfo.Size = new System.Drawing.Size(63, 22);
+            this.buttonGetVodInfo.Size = new System.Drawing.Size(77, 22);
             this.buttonGetVodInfo.TabIndex = 24;
             this.buttonGetVodInfo.Text = "Get Vod";
             this.buttonGetVodInfo.UseVisualStyleBackColor = true;
@@ -654,9 +638,9 @@
             // 
             // textBoxTwitchUrl
             // 
-            this.textBoxTwitchUrl.Location = new System.Drawing.Point(70, 34);
+            this.textBoxTwitchUrl.Location = new System.Drawing.Point(71, 34);
             this.textBoxTwitchUrl.Name = "textBoxTwitchUrl";
-            this.textBoxTwitchUrl.Size = new System.Drawing.Size(236, 20);
+            this.textBoxTwitchUrl.Size = new System.Drawing.Size(237, 20);
             this.textBoxTwitchUrl.TabIndex = 23;
             this.textBoxTwitchUrl.TextChanged += new System.EventHandler(this.textBoxTwitchUrl_TextChanged);
             // 
@@ -669,27 +653,27 @@
             this.labelTwitchUrl.TabIndex = 22;
             this.labelTwitchUrl.Text = "Twitch Url:";
             // 
-            // button3
+            // buttonAddToQueue
             // 
-            this.button3.Enabled = false;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(265, 348);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(116, 23);
-            this.button3.TabIndex = 21;
-            this.button3.Text = "Add to Queue";
-            this.button3.UseVisualStyleBackColor = true;
+            this.buttonAddToQueue.Enabled = false;
+            this.buttonAddToQueue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddToQueue.Location = new System.Drawing.Point(279, 348);
+            this.buttonAddToQueue.Name = "buttonAddToQueue";
+            this.buttonAddToQueue.Size = new System.Drawing.Size(112, 23);
+            this.buttonAddToQueue.TabIndex = 21;
+            this.buttonAddToQueue.Text = "Add to Queue";
+            this.buttonAddToQueue.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // buttonDownload
             // 
-            this.button2.Enabled = false;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(312, 389);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(69, 23);
-            this.button2.TabIndex = 20;
-            this.button2.Text = "Download";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonDownload.Enabled = false;
+            this.buttonDownload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDownload.Location = new System.Drawing.Point(326, 389);
+            this.buttonDownload.Name = "buttonDownload";
+            this.buttonDownload.Size = new System.Drawing.Size(65, 23);
+            this.buttonDownload.TabIndex = 20;
+            this.buttonDownload.Text = "Download";
+            this.buttonDownload.UseVisualStyleBackColor = true;
             // 
             // tabPageResults
             // 
@@ -889,8 +873,6 @@
         private System.Windows.Forms.ToolStripMenuItem getM3U8FromM3UToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem getTSPiecesFromM3U8ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuM3UVodInfoById;
-        private System.Windows.Forms.ToolStripMenuItem qualitiesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem parseQualitiesFromVodToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.ToolStripMenuItem downloadToolStripMenuItem;
@@ -928,8 +910,8 @@
         private System.Windows.Forms.Button buttonGetVodInfo;
         private System.Windows.Forms.TextBox textBoxTwitchUrl;
         private System.Windows.Forms.Label labelTwitchUrl;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonAddToQueue;
+        private System.Windows.Forms.Button buttonDownload;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxVodViews;
         private System.Windows.Forms.TextBox textBoxVodLength;

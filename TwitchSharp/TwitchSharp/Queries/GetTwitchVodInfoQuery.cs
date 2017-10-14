@@ -14,9 +14,9 @@ namespace TwitchSharp.Implementations
 
         }
 
-        public Dictionary<string, string> PropertyMapping { get; set; }
+        //public Dictionary<string, string> PropertyMapping { get; set; }
 
-        public string VodUrl { get; set; }
+        //public string VodUrl { get; set; }
         public string VodId { get; set; }
 
         public string Location

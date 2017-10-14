@@ -25,33 +25,9 @@ namespace TwitchSharp.Implementations
 
         public async Task<Vod> HandleAsync(GetTwitchInfoVodQuery query)
         {
-            if (query.VodUrl == null && query.VodId == "") throw new ApplicationException("both id and url are blank.");
+            if (query.VodId == "") throw new ApplicationException("id is blank.");
 
-            if (query.VodUrl != "" && query.VodId == null)
-
-            {
-
-                //string VodUrl = "https://www.twitch.tv/videos/" + vodid.ToString();
-
-               
-                //https://www.twitch.tv/videos/156832421
-
-                List<string> strings = query.VodUrl.Split('/').ToList<string>();
-                if (strings == null || strings.Count == 0)
-                {
-                    return null;
-                }
-
-                query.VodId = strings[4];
-
-
-            }
-            
-
-            return await doQuery(query.Location, query.PropertyMapping);
-
-
-
+            return await this.client.GetTwitchData<Vod>(query.Location);
 
 
         }
