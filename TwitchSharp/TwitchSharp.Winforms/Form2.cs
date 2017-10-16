@@ -51,7 +51,7 @@ namespace TwitchSharp.Winforms
         List<M3U8> m3u8list;
         Vod vodinfo;
         private bool loadingSettings;
-
+        List<VodSearchParameters> vodSearchParameters;
         //string savedFolder;// = Properties.Settings.Default.SavedFolder;
         public Form2()
         {
@@ -521,7 +521,7 @@ namespace TwitchSharp.Winforms
 
         private void QualityBindAndPopulate(List<TwitchVideoQuality> qualityList)
         {
-            comboBoxQuality.BindingContext = this.BindingContext;
+            //comboBoxQuality.BindingContext = this.BindingContext;
 
             this.comboBoxQuality.DisplayMember = "DisplayString";
             this.comboBoxQuality.ValueMember = "QualityId";
@@ -593,7 +593,39 @@ namespace TwitchSharp.Winforms
             loadingSettings = false;
 
 
+            UISearchParametersLoad();
+            UISearchParametersBind();
+            UISearchParametersEnable();
 
+
+
+        }
+
+        private void UISearchParametersEnable()
+        {
+            comboBoxSearchType.Enabled = true;
+        }
+
+        public void UISearchParametersLoad()
+
+        {
+
+            vodSearchParameters = new List<VodSearchParameters>();
+
+            vodSearchParameters.Add(new VodSearchParameters("Channel", SearchParameter.Channel));
+            vodSearchParameters.Add(new VodSearchParameters("Game", SearchParameter.Game));
+
+
+            // VodSearchParameters 
+            //comboBoxSearchType.DataBindings = 
+        }
+
+        private void UISearchParametersBind()
+        {
+            
+            this.comboBoxSearchType.DisplayMember = "DisplayText";
+            this.comboBoxSearchType.ValueMember = "Parameter";
+            comboBoxSearchType.DataSource = vodSearchParameters;
         }
         private void UISaveSettings()
         {
@@ -659,6 +691,11 @@ namespace TwitchSharp.Winforms
         {
             if (loadingSettings) return;
             UISaveSettingsFolder();
+        }
+
+        private void buttonGetChart_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

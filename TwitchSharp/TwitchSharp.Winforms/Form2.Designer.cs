@@ -58,12 +58,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.textBoxTwitchSearchChannelName = new System.Windows.Forms.TextBox();
-            this.labelChannelName = new System.Windows.Forms.Label();
-            this.textBoxTwitchSearchGameName = new System.Windows.Forms.TextBox();
-            this.buttonGetChart = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.labelTwitchChannelId = new System.Windows.Forms.Label();
-            this.textBoxTwitchSearchChannelId = new System.Windows.Forms.TextBox();
+            this.buttonSearch = new System.Windows.Forms.Button();
             this.groupBoxChartProperties = new System.Windows.Forms.GroupBox();
             this.textBoxVodGame = new System.Windows.Forms.TextBox();
             this.labelVodGame = new System.Windows.Forms.Label();
@@ -101,6 +96,7 @@
             this.textBoxLogs = new System.Windows.Forms.TextBox();
             this.gamePokerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.comboBoxSearchType = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -142,7 +138,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -340,14 +336,10 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.comboBoxSearchType);
             this.groupBox4.Controls.Add(this.dataGridView1);
             this.groupBox4.Controls.Add(this.textBoxTwitchSearchChannelName);
-            this.groupBox4.Controls.Add(this.labelChannelName);
-            this.groupBox4.Controls.Add(this.textBoxTwitchSearchGameName);
-            this.groupBox4.Controls.Add(this.buttonGetChart);
-            this.groupBox4.Controls.Add(this.label2);
-            this.groupBox4.Controls.Add(this.labelTwitchChannelId);
-            this.groupBox4.Controls.Add(this.textBoxTwitchSearchChannelId);
+            this.groupBox4.Controls.Add(this.buttonSearch);
             this.groupBox4.Location = new System.Drawing.Point(418, 6);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(436, 423);
@@ -360,70 +352,30 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(32, 123);
+            this.dataGridView1.Location = new System.Drawing.Point(32, 63);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(398, 290);
+            this.dataGridView1.Size = new System.Drawing.Size(398, 350);
             this.dataGridView1.TabIndex = 18;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // textBoxTwitchSearchChannelName
             // 
-            this.textBoxTwitchSearchChannelName.Location = new System.Drawing.Point(115, 33);
+            this.textBoxTwitchSearchChannelName.Location = new System.Drawing.Point(32, 33);
             this.textBoxTwitchSearchChannelName.Name = "textBoxTwitchSearchChannelName";
-            this.textBoxTwitchSearchChannelName.Size = new System.Drawing.Size(244, 20);
+            this.textBoxTwitchSearchChannelName.Size = new System.Drawing.Size(166, 20);
             this.textBoxTwitchSearchChannelName.TabIndex = 12;
             // 
-            // labelChannelName
+            // buttonSearch
             // 
-            this.labelChannelName.AutoSize = true;
-            this.labelChannelName.Location = new System.Drawing.Point(29, 36);
-            this.labelChannelName.Name = "labelChannelName";
-            this.labelChannelName.Size = new System.Drawing.Size(80, 13);
-            this.labelChannelName.TabIndex = 3;
-            this.labelChannelName.Text = "Channel Name:";
-            // 
-            // textBoxTwitchSearchGameName
-            // 
-            this.textBoxTwitchSearchGameName.Location = new System.Drawing.Point(114, 86);
-            this.textBoxTwitchSearchGameName.Name = "textBoxTwitchSearchGameName";
-            this.textBoxTwitchSearchGameName.Size = new System.Drawing.Size(245, 20);
-            this.textBoxTwitchSearchGameName.TabIndex = 17;
-            // 
-            // buttonGetChart
-            // 
-            this.buttonGetChart.Enabled = false;
-            this.buttonGetChart.Location = new System.Drawing.Point(365, 33);
-            this.buttonGetChart.Name = "buttonGetChart";
-            this.buttonGetChart.Size = new System.Drawing.Size(65, 73);
-            this.buttonGetChart.TabIndex = 5;
-            this.buttonGetChart.Text = "Get Vods";
-            this.buttonGetChart.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(39, 89);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 13);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Game Name:";
-            // 
-            // labelTwitchChannelId
-            // 
-            this.labelTwitchChannelId.AutoSize = true;
-            this.labelTwitchChannelId.Location = new System.Drawing.Point(48, 63);
-            this.labelTwitchChannelId.Name = "labelTwitchChannelId";
-            this.labelTwitchChannelId.Size = new System.Drawing.Size(61, 13);
-            this.labelTwitchChannelId.TabIndex = 13;
-            this.labelTwitchChannelId.Text = "Channel Id:";
-            // 
-            // textBoxTwitchSearchChannelId
-            // 
-            this.textBoxTwitchSearchChannelId.Location = new System.Drawing.Point(115, 60);
-            this.textBoxTwitchSearchChannelId.Name = "textBoxTwitchSearchChannelId";
-            this.textBoxTwitchSearchChannelId.Size = new System.Drawing.Size(244, 20);
-            this.textBoxTwitchSearchChannelId.TabIndex = 14;
+            this.buttonSearch.Enabled = false;
+            this.buttonSearch.Location = new System.Drawing.Point(356, 30);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(74, 25);
+            this.buttonSearch.TabIndex = 5;
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonGetChart_Click);
             // 
             // groupBoxChartProperties
             // 
@@ -778,6 +730,19 @@
             this.gamePokerToolStripMenuItem.Name = "gamePokerToolStripMenuItem";
             this.gamePokerToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
+            // comboBoxSearchType
+            // 
+            this.comboBoxSearchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSearchType.Enabled = false;
+            this.comboBoxSearchType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxSearchType.FormattingEnabled = true;
+            this.comboBoxSearchType.Items.AddRange(new object[] {
+            "Channel Name"});
+            this.comboBoxSearchType.Location = new System.Drawing.Point(204, 32);
+            this.comboBoxSearchType.Name = "comboBoxSearchType";
+            this.comboBoxSearchType.Size = new System.Drawing.Size(146, 21);
+            this.comboBoxSearchType.TabIndex = 42;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -846,14 +811,9 @@
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.TabPage tabPageSearch;
         private System.Windows.Forms.GroupBox groupBoxChartProperties;
-        private System.Windows.Forms.TextBox textBoxTwitchSearchChannelId;
-        private System.Windows.Forms.Label labelTwitchChannelId;
         private System.Windows.Forms.TextBox textBoxTwitchSearchChannelName;
-        private System.Windows.Forms.Label labelChannelName;
         private System.Windows.Forms.TabPage tabPagePoller;
-        private System.Windows.Forms.TextBox textBoxTwitchSearchGameName;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button buttonGetChart;
+        private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.TabPage tabPageResults;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -890,6 +850,7 @@
         private System.Windows.Forms.Label labelVodTitle;
         private System.Windows.Forms.TextBox textBoxVodGame;
         private System.Windows.Forms.Label labelVodGame;
+        private System.Windows.Forms.ComboBox comboBoxSearchType;
     }
 }
 
