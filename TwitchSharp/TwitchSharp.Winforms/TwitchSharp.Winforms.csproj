@@ -131,6 +131,10 @@
       <Project>{11194ed3-2102-4d9b-b907-5a8ddca4fdf6}</Project>
       <Name>TwitchSharp.Di</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TwitchSharp.Service\TwitchSharp.Service.csproj">
+      <Project>{8D8721A0-5241-41DA-A191-5F34E0CFE803}</Project>
+      <Name>TwitchSharp.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TwitchSharp\TwitchSharp.csproj">
       <Project>{b2706bff-9a69-4b4b-ad0d-313520c68a92}</Project>
       <Name>TwitchSharp</Name>

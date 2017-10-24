@@ -56,8 +56,9 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSearch = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.comboBoxSearchType = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBoxTwitchSearchChannelName = new System.Windows.Forms.TextBox();
+            this.textBoxTwitchSearch = new System.Windows.Forms.TextBox();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.groupBoxChartProperties = new System.Windows.Forms.GroupBox();
             this.textBoxVodGame = new System.Windows.Forms.TextBox();
@@ -96,7 +97,6 @@
             this.textBoxLogs = new System.Windows.Forms.TextBox();
             this.gamePokerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.comboBoxSearchType = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -338,7 +338,7 @@
             // 
             this.groupBox4.Controls.Add(this.comboBoxSearchType);
             this.groupBox4.Controls.Add(this.dataGridView1);
-            this.groupBox4.Controls.Add(this.textBoxTwitchSearchChannelName);
+            this.groupBox4.Controls.Add(this.textBoxTwitchSearch);
             this.groupBox4.Controls.Add(this.buttonSearch);
             this.groupBox4.Location = new System.Drawing.Point(418, 6);
             this.groupBox4.Name = "groupBox4";
@@ -346,6 +346,19 @@
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Vod Search Options";
+            // 
+            // comboBoxSearchType
+            // 
+            this.comboBoxSearchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSearchType.Enabled = false;
+            this.comboBoxSearchType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxSearchType.FormattingEnabled = true;
+            this.comboBoxSearchType.Items.AddRange(new object[] {
+            "Channel Name"});
+            this.comboBoxSearchType.Location = new System.Drawing.Point(204, 32);
+            this.comboBoxSearchType.Name = "comboBoxSearchType";
+            this.comboBoxSearchType.Size = new System.Drawing.Size(146, 21);
+            this.comboBoxSearchType.TabIndex = 42;
             // 
             // dataGridView1
             // 
@@ -359,12 +372,13 @@
             this.dataGridView1.TabIndex = 18;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // textBoxTwitchSearchChannelName
+            // textBoxTwitchSearch
             // 
-            this.textBoxTwitchSearchChannelName.Location = new System.Drawing.Point(32, 33);
-            this.textBoxTwitchSearchChannelName.Name = "textBoxTwitchSearchChannelName";
-            this.textBoxTwitchSearchChannelName.Size = new System.Drawing.Size(166, 20);
-            this.textBoxTwitchSearchChannelName.TabIndex = 12;
+            this.textBoxTwitchSearch.Location = new System.Drawing.Point(32, 33);
+            this.textBoxTwitchSearch.Name = "textBoxTwitchSearch";
+            this.textBoxTwitchSearch.Size = new System.Drawing.Size(166, 20);
+            this.textBoxTwitchSearch.TabIndex = 12;
+            this.textBoxTwitchSearch.TextChanged += new System.EventHandler(this.textBoxTwitchSearchChannelName_TextChanged);
             // 
             // buttonSearch
             // 
@@ -597,6 +611,7 @@
             this.buttonDownload.TabIndex = 20;
             this.buttonDownload.Text = "Download";
             this.buttonDownload.UseVisualStyleBackColor = true;
+            this.buttonDownload.Click += new System.EventHandler(this.buttonDownload_Click);
             // 
             // tabPageResults
             // 
@@ -730,19 +745,6 @@
             this.gamePokerToolStripMenuItem.Name = "gamePokerToolStripMenuItem";
             this.gamePokerToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
-            // comboBoxSearchType
-            // 
-            this.comboBoxSearchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSearchType.Enabled = false;
-            this.comboBoxSearchType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBoxSearchType.FormattingEnabled = true;
-            this.comboBoxSearchType.Items.AddRange(new object[] {
-            "Channel Name"});
-            this.comboBoxSearchType.Location = new System.Drawing.Point(204, 32);
-            this.comboBoxSearchType.Name = "comboBoxSearchType";
-            this.comboBoxSearchType.Size = new System.Drawing.Size(146, 21);
-            this.comboBoxSearchType.TabIndex = 42;
-            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -811,7 +813,7 @@
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.TabPage tabPageSearch;
         private System.Windows.Forms.GroupBox groupBoxChartProperties;
-        private System.Windows.Forms.TextBox textBoxTwitchSearchChannelName;
+        private System.Windows.Forms.TextBox textBoxTwitchSearch;
         private System.Windows.Forms.TabPage tabPagePoller;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.TabPage tabPageResults;

@@ -49,18 +49,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstractions\ICommandHandler.cs" />
     <Compile Include="Abstractions\ITwitchClientOptions.cs" />
     <Compile Include="Abstractions\ITwitchClient.cs" />
+    <Compile Include="Abstractions\ITwitchDataDownloadClient.cs" />
     <Compile Include="Abstractions\ITwitchFileProcessor.cs" />
     <Compile Include="Abstractions\ITwitchM3UFileProcessor.cs" />
     <Compile Include="Abstractions\ITwitchJsonConverter.cs" />
     <Compile Include="Abstractions\ITwitchQuery.cs" />
     <Compile Include="Abstractions\ITwitchHttpClient.cs" />
     <Compile Include="Abstractions\ITwitchHttpClientOptions.cs" />
+    <Compile Include="Commands\DownloadFileCommand.cs" />
+    <Compile Include="CommandHandler\DownloadFileCommandHandler.cs" />
     <Compile Include="Factories\OptionFactory.cs" />
     <Compile Include="Abstractions\ITwitchQueryOptions.cs" />
     <Compile Include="Implementations\CustomContractResolver.cs" />
     <Compile Include="Implementations\TwitchClientOptions.cs" />
+    <Compile Include="Implementations\TwitchDataDownloadClient.cs" />
     <Compile Include="Implementations\TwitchFileProcessor.cs" />
     <Compile Include="Mappings\Class1.cs" />
     <Compile Include="Queries\GetTwitchImageQuery.cs" />

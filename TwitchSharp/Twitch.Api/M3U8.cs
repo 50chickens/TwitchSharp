@@ -8,6 +8,7 @@
         private string name;
         private string resolution;
         private string video;
+        private int? fps;
 
         public M3U8(string xMedia, string xStreamInf, string url)
         {
@@ -20,7 +21,7 @@
         //#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1407910,CODECS="avc1.4D4D1F,mp4a.40.2",RESOLUTION="852x480",VIDEO="480p30"
         //http://vod178-ttvnw.akamaized.net/6bdd1299934c0ad40d89_zlive_25676860544_673474276/480p30/index-dvr.m3u8
 
-        //public string Text { get; set; }
+        
         public string Url
         {
             get
@@ -39,7 +40,7 @@
                 this.name = value;
             }
         }
-        //public string FileName { get; set; }
+        
         public string Video
         {
             get
@@ -49,6 +50,18 @@
             set
             {
                 this.video = value;
+            }
+        }
+
+        public int? Fps
+        {
+            get
+            {
+                return this.fps;
+            }
+            set
+            {
+                this.fps = value;
             }
         }
 

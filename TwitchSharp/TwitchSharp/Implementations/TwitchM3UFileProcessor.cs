@@ -86,10 +86,16 @@ namespace TwitchSharp.Implementations
             {
                 string[] item = t[count].Split('=');
 
+                int fps = 0;
+
+                if (item[0] == "GROUP-ID" && int.TryParse(item[1].Split('p')[1], out fps))
+                {
+                    m.Fps = fps;
+                }
                 PropertyInfo p = m.GetType().GetProperty(item[0], BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
                 if (p != null)
                 {
-                    //m.GetType.GetProperties().FirstOrDefault(x => x.Name == item[0]).SetValue(m, item[0]);
+                    
 
                     p.SetValue(m, item[1]);
                     
