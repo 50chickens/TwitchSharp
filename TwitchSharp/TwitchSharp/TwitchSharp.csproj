@@ -56,6 +56,7 @@
     <Compile Include="Abstractions\ITwitchFileProcessor.cs" />
     <Compile Include="Abstractions\ITwitchM3UFileProcessor.cs" />
     <Compile Include="Abstractions\ITwitchJsonConverter.cs" />
+    <None Include="Abstractions\ITwitchConverter.cs" />
     <Compile Include="Abstractions\ITwitchQuery.cs" />
     <Compile Include="Abstractions\ITwitchHttpClient.cs" />
     <Compile Include="Abstractions\ITwitchHttpClientOptions.cs" />
@@ -66,10 +67,22 @@
     <Compile Include="Implementations\CustomContractResolver.cs" />
     <Compile Include="Implementations\TwitchClientOptions.cs" />
     <Compile Include="Implementations\TwitchDataDownloadClient.cs" />
+    <Compile Include="Implementations\TwitchDownloadParameters.cs" />
     <Compile Include="Implementations\TwitchFileProcessor.cs" />
     <Compile Include="Mappings\Class1.cs" />
     <Compile Include="Queries\GetTwitchImageQuery.cs" />
+    <Compile Include="Queries\GetTwitchM3U8ListQuery.cs" />
+    <Compile Include="Queries\GetTwitchM3U8Query.cs" />
+    <Compile Include="Queries\GetTwitchDownloadParametersQuery.cs" />
+    <Compile Include="Queries\GetTwitchM3UTextQuery.cs" />
+    <Compile Include="Queries\GetTwitchTSPlaylistQuery.cs" />
+    <Compile Include="Queries\GetTwitchM3UQuery.cs" />
     <Compile Include="Queries\GetTwitchVodQualitiesById.cs" />
+    <Compile Include="QueryHandlers\GetM3U8QueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetM3U8ListQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetTwitchDownloadParametersQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetM3UTextQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetM3U8TextQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetTwitchChannelInfoQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetTwitchChannelSearchByNameQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetTwitchChannelVideosByIdQueryHandler.cs" />
@@ -88,7 +101,7 @@
     <Compile Include="Queries\GetTwitchChannelSearchByNameQuery.cs" />
     <Compile Include="Queries\GetTwitchChannelVideosByIdQuery.cs" />
     <Compile Include="Queries\GetTwitchLiveStreamsQuery.cs" />
-    <Compile Include="Queries\GetTwitchM3UQuery.cs" />
+    <Compile Include="Queries\GetTwitchM3U8TextQuery.cs" />
     <Compile Include="Queries\GetTwitchTopGamesQuery.cs" />
     <Compile Include="Queries\GetTwitchTopVideosQuery.cs" />
     <Compile Include="Implementations\TwitchFileClient.cs" />
@@ -97,7 +110,7 @@
     <Compile Include="QueryHandlers\GetTwitchTopGamesQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetTwitchTopVideosQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetTwitchQualitiesById.cs" />
-    <Compile Include="QueryHandlers\M3UQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetM3UQueryHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

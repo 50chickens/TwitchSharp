@@ -9,20 +9,21 @@ using TwitchSharp.Abstractions;
 namespace TwitchSharp.Implementations
 {
 
-    public class M3UQueryHandler : ITwitchQueryHandler<GetTwitchM3UQuery, M3U>
+    public class GetM3U8TextQueryHandler : ITwitchQueryHandler<GetTwitchM3U8TextQuery, string>
     {
         private readonly ITwitchClient client;
+        
 
-
-        public M3UQueryHandler(ITwitchClient client)
+        public GetM3U8TextQueryHandler(ITwitchClient client)
         {
             this.client = client;
+            
 
         }
 
 
 
-        public async Task<M3U> HandleAsync(GetTwitchM3UQuery query)
+        public async Task<string> HandleAsync(GetTwitchM3U8TextQuery query)
         {
 
             TwitchClient client = (TwitchClient)this.client;
@@ -34,12 +35,9 @@ namespace TwitchSharp.Implementations
 
             text = text.Replace("\r", "");
 
+            return text;
 
-            return new M3U()
-            {
-                Text = text
-            };
-            
+
 
         }
     }

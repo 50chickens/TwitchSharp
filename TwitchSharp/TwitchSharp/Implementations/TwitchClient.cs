@@ -9,6 +9,10 @@ using TwitchSharp.Abstractions;
 
 namespace TwitchSharp.Implementations
 {
+    public delegate void ProgressChangedHandler(long? totalFileSize, long totalBytesDownloaded, double? progressPercentage);
+
+
+
     public class TwitchClient : ITwitchClient
     {
         private ITwitchDataClient twitchDataClient;

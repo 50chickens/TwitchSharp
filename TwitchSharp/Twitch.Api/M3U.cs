@@ -10,10 +10,7 @@ namespace Twitch.Api
     {
         private string url;
         private string text;
-
-
-
-        // public List<M3U8> M3U8s;
+        private List<string> playlist;
 
         public string Url
         {
@@ -35,6 +32,17 @@ namespace Twitch.Api
             }
         }
 
+        public List<string> Playlist
+        {
+            get
+            {
+                return this.playlist;
+            }
+            set
+            {
+                this.playlist = value;
+            }
+        }
 
     }
 }

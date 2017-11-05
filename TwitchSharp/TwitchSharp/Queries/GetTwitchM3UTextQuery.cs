@@ -6,35 +6,18 @@ using TwitchSharp.Abstractions;
 
 namespace TwitchSharp.Implementations
 {
-    public class GetTwitchM3UQuery : ITwitchQuery<M3U>
+    public class GetTwitchM3UTextQuery : ITwitchQuery<string>
     {
-        private ITwitchQueryOptions twitchClientOptions;
         private string text;
-       
-        private string baseurl;
-        private string location;
-        private string quality;
-        private string incquality;
+        private ITwitchQueryOptions twitchClientOptions;
 
-        public GetTwitchM3UQuery(ITwitchQueryOptions twitchClientOptions)
+        public GetTwitchM3UTextQuery(ITwitchQueryOptions twitchClientOptions)
         {
             this.twitchClientOptions = twitchClientOptions;
 
         }
 
-        public string BaseUrl
-        {
-            get
-            {
-                return baseurl;
-            }
-
-            set
-            {
-                baseurl = value;
-            }
-        }
-
+        
         public string Text
         {
             get
@@ -48,14 +31,29 @@ namespace TwitchSharp.Implementations
             }
         }
 
-        
-
+        private string url;
+        public string Url
+        {
+            get
+            {
+                return url;
+            }
+            set
+            {
+                this.url = value;
+            }
+        }
         public string Location
         {
             get
             {
-                return location;
+                return url;
+
             }
+
+
         }
+
+
     }
 }

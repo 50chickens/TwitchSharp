@@ -14,6 +14,9 @@ namespace TwitchSharp.Abstractions
     public interface ITwitchQueryHandler<TQuery, TResult> where TQuery : ITwitchQuery<TResult>
     {
         Task<TResult> HandleAsync(TQuery query);
+
+        //TResult Handle(TQuery query);
+
     }
 
     

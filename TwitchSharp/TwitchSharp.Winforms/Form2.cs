@@ -41,21 +41,35 @@ namespace TwitchSharp.Winforms
         private ITwitchQueryHandler<GetTwitchInfoVodQuery, Vod> getTwitchVodInfoByIdQueryHandler;
         private UsherTokenReply UsherTokenReply;
         private ITwitchQueryHandler<GetTwitchChannelVideosByIdQuery, ChannelVideos> getTwitchChannelVideosByIdQueryHandler;
-        private ITwitchQueryHandler<GetTwitchM3UQuery, M3U> getM3U8QueryHandler;
-        private ITwitchQueryHandler<GetTwitchImageQuery, Image> getTwitchImageQueryHandler;
 
+
+        private ITwitchQueryHandler<GetTwitchM3UTextQuery, string> getM3UTextQueryHandler;
+        private ITwitchQueryHandler<GetTwitchM3UQuery, M3U> getM3UQueryHandler;
+
+        private ITwitchQueryHandler<GetTwitchM3U8TextQuery, string> getM3U8TextQueryHandler;
+        private ITwitchQueryHandler<GetTwitchM3U8Query, M3U8> getM3U8QueryHandler;
+
+        
+
+        private ITwitchQueryHandler<GetTwitchImageQuery, Image> getTwitchImageQueryHandler;
+        private ITwitchQueryHandler<GetTwitchDownloadParametersQuery, List<TwitchDownloadParameters>> getTwitchDownloadParametersQueryHandler;
+
+        private ITwitchQueryHandler<GetTwitchM3U8ListQuery, List<M3U8>> getM3U8ListQueryHandler;
 
         private ICommandHandler<DownloadFileCommand> downloadFileCommandHandler;
 
         private ITwitchQueryHandler<GetTwitchVodQualitiesById, List<TwitchVideoQuality>> getTwitchGetTwitchVodQualitiesByIdHandler;
-        private ITwitchM3UFileProcessor iTwitchM3UFileProcessor;
+       
 
         int vodid;// = 176421657;
-        M3U M3u;
+        M3U8 M3u8;
         List<M3U8> M3u8list;
+
         Vod Vodinfo;
         private bool loadingSettings;
         List<VodSearchParameters> vodSearchParameters;
+        
+
         //string savedFolder;// = Properties.Settings.Default.SavedFolder;
         public Form2()
         {
@@ -129,13 +143,27 @@ namespace TwitchSharp.Winforms
             this.getTwitchImageQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchImageQuery, Image>>();
 
             this.getTwitchChannelVideosByIdQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchChannelVideosByIdQuery, ChannelVideos>>();
-            this.getM3U8QueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchM3UQuery, M3U>>();
 
+            this.getM3UTextQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchM3UTextQuery, string>>();
+            this.getM3UQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchM3UQuery, M3U>>();
+
+            this.getM3U8TextQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchM3U8TextQuery, string>>();
+            this.getM3U8QueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchM3U8Query, M3U8>>();
+
+            this.getM3U8ListQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchM3U8ListQuery, List<M3U8>>>();
+
+            
+
+            this.getTwitchDownloadParametersQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchDownloadParametersQuery, List<TwitchDownloadParameters>>>();
             this.downloadFileCommandHandler = container.GetInstance<ICommandHandler<DownloadFileCommand>>();
 
-            this.iTwitchM3UFileProcessor = container.GetInstance<ITwitchM3UFileProcessor>();
+            //this.iTwitchM3UFileProcessor = container.GetInstance<ITwitchM3UFileProcessor>();
 
-            toolStripStatusLabelStatus.Text = "done loading config";
+            //this.getTwitchTSPlaylistQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchTSPlaylistQuery, List<string>>>();
+
+
+            
+        toolStripStatusLabelStatus.Text = "done loading config";
 
             UILoadSettings();
 
@@ -282,9 +310,9 @@ namespace TwitchSharp.Winforms
 
             UsherTokenReply = await GetUsherToken();
 
-            M3u = await GetM3UByVodId();
+            string m3u8text = await GetM3U8TextByVodId();
 
-            M3u8list = GetM3U8FromM3U();
+            M3u8list = await GetM3U8ListFromM3U8Text(m3u8text);
 
             string text = JsonConvert.SerializeObject(M3u8list);
 
@@ -298,9 +326,10 @@ namespace TwitchSharp.Winforms
 
             UsherTokenReply = await GetUsherToken();
 
-            M3u = await GetM3UByVodId();
+            string m3u8text = await GetM3U8TextByVodId();
 
-            string text = JsonConvert.SerializeObject(M3u);
+
+            string text = JsonConvert.SerializeObject(m3u8text);
 
             textBoxLogs.Text = text;
 
@@ -332,20 +361,28 @@ namespace TwitchSharp.Winforms
             return Vodinfo;
         }
 
-        private List<M3U8> GetM3U8FromM3U()
+        private async Task<List<M3U8>> GetM3U8ListFromM3U8Text(string m3u8text)
         {
-            return M3u8list = iTwitchM3UFileProcessor.GetM3U8List(M3u);
+            var getM3U8ListQuery = container.GetInstance<GetTwitchM3U8ListQuery>();
+            getM3U8ListQuery.Text = m3u8text;
+
+            return await getM3U8ListQueryHandler.HandleAsync(getM3U8ListQuery);
+
         }
-        private async Task<M3U> GetM3UByVodId()
+        private async Task<string> GetM3U8TextByVodId()
         {
-            var queryM3U = container.GetInstance<GetTwitchM3UQuery>();
+            var queryM3U8Text = container.GetInstance<GetTwitchM3U8TextQuery>();
 
 
-            queryM3U.VodId = vodid;
-            queryM3U.NAuth = UsherTokenReply.token;
-            queryM3U.NAuthSig = UsherTokenReply.sig;
+            queryM3U8Text.VodId = vodid;
+            queryM3U8Text.NAuth = UsherTokenReply.token;
+            queryM3U8Text.NAuthSig = UsherTokenReply.sig;
 
-            return await getM3U8QueryHandler.HandleAsync(queryM3U);
+
+            string text = await getM3U8TextQueryHandler.HandleAsync(queryM3U8Text);
+
+            return text;
+
         }
         private async Task<UsherTokenReply> GetUsherToken()
         {
@@ -381,14 +418,13 @@ namespace TwitchSharp.Winforms
         private async void getTSPiecesFromM3U8ToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            UsherTokenReply = await GetUsherToken();
-
-            M3u = await GetM3UByVodId();
-
             Vodinfo = await GetVodInfoById();
 
+            UsherTokenReply = await GetUsherToken();
 
-            M3u8list = GetM3U8FromM3U();
+            string m3u8text = await GetM3U8TextByVodId();
+
+            M3u8list = await GetM3U8ListFromM3U8Text(m3u8text);
 
             List<string> tsPieces;
         }
@@ -437,7 +473,7 @@ namespace TwitchSharp.Winforms
         private async void buttonVodInfo_Click(object sender, EventArgs e)
         {
             buttonGetVodInfo.Enabled = false;
-            
+
             Vodinfo = await GetVodInfoById();
 
 
@@ -745,47 +781,111 @@ namespace TwitchSharp.Winforms
             {
                 UsherTokenReply = await GetUsherToken();
 
-                M3u = await GetM3UByVodId();
+                string m3u8text = await GetM3U8TextByVodId();
 
-                M3u8list = GetM3U8FromM3U();
+                M3u8list = await GetM3U8ListFromM3U8Text(m3u8text);
 
                 int? fps = ((TwitchVideoQuality)comboBoxQuality.SelectedItem).Fps;
                 string resolution = ((TwitchVideoQuality)comboBoxQuality.SelectedItem).Resolution;
                 string qualityId = ((TwitchVideoQuality)comboBoxQuality.SelectedItem).QualityId;
-                M3U8 m3u8 = M3u8list.Where(x => x.Fps == fps && x.Resolution == resolution).FirstOrDefault();
 
-                
+                M3U8 selectedM3U8 = GetSelectedM3U8(fps, resolution, qualityId);
 
-                string text = JsonConvert.SerializeObject(M3u8list);
+
+                List<string> playlistfiles = await GetPlaylistFromM3U(selectedM3U8, qualityId);
 
                 var command = container.GetInstance<DownloadFileCommand>();
 
-                command.Location = @"c:\temp\hi.tmp";
-                command.Url = m3u8.Url.Replace(m3u8.Name, qualityId);
-                command.ProgressChanged += Command_ProgressChanged;
+                List<TwitchDownloadParameters> downloadParameters = await GetDownloadParametersFromPlaylist(playlistfiles, selectedM3U8.Url, textBoxFolder.Text, selectedM3U8.Name, qualityId);
 
-                downloadFileCommandHandler.HandleAsync(command);
-                
+
+
+                foreach (TwitchDownloadParameters download in downloadParameters)
+                {
+
+                    command.Url = download.Url;
+                    command.Location = download.Filename;
+                    command.ProgressChanged += Command_ProgressChanged;
+
+                    await downloadFileCommandHandler.HandleAsync(command);
+                    //just get the first file.
+                    //break;
+                }
+
+                //string text = JsonConvert.SerializeObject(M3u8list);
+
+
+
                 // commandhandler = new DownloadFileCommandHandler();
 
                 //var downloadFileUrl = "http://example.com/file.zip";
                 //var destinationFilePath = Path.GetFullPath("file.zip");
 
-            //using (var client = new HttpClientDownloadWithProgress(downloadFileUrl, destinationFilePath))
-            //{
-            //    client.ProgressChanged += (totalFileSize, totalBytesDownloaded, progressPercentage) => {
-            //        Console.WriteLine($"{progressPercentage}% ({totalBytesDownloaded}/{totalFileSize})");
-            //    };
+                //using (var client = new HttpClientDownloadWithProgress(downloadFileUrl, destinationFilePath))
+                //{
+                //    client.ProgressChanged += (totalFileSize, totalBytesDownloaded, progressPercentage) => {
+                //        Console.WriteLine($"{progressPercentage}% ({totalBytesDownloaded}/{totalFileSize})");
+                //    };
 
-            //    await client.StartDownload();
-            //}
+                //    await client.StartDownload();
+                //}
+
+            }
+        }
+
+        private async Task<List<string>> GetPlaylistFromM3U(M3U8 selectedM3U8, string qualityId)
+        {
+            
+
+           
+            var queryM3UText = container.GetInstance<GetTwitchM3UTextQuery>();
+            queryM3UText.Url = selectedM3U8.Url.Replace(selectedM3U8.Name, qualityId);
+
+            string text = await getM3UTextQueryHandler.HandleAsync(queryM3UText);
+
+            var queryM3U = container.GetInstance<GetTwitchM3UQuery>();
+
+            queryM3U.BaseUrl = selectedM3U8.Url;
+            queryM3U.Text = text;
+           
+
+            M3U m3u = await getM3UQueryHandler.HandleAsync(queryM3U);
+
+
+            return m3u.Playlist;
 
         }
-        }
 
-        private void Command_ProgressChanged(long? totalFileSize, long totalBytesDownloaded, double? progressPercentage)
+        private M3U8 GetSelectedM3U8(int? fps, string resolution, string qualityId)
+
+        {
+            return M3u8list.Where(x => x.Fps == fps && x.Resolution == resolution).FirstOrDefault();
+        }
+        public async Task<List<TwitchDownloadParameters>>GetDownloadParametersFromPlaylist(List<string> playlist, string url, string folder, string sourcequality, string quality)
         {
            
+
+
+            GetTwitchDownloadParametersQuery getTwitchDownloadParametersQuery = container.GetInstance<GetTwitchDownloadParametersQuery>();
+
+            getTwitchDownloadParametersQuery.Playlist = playlist;
+            getTwitchDownloadParametersQuery.Url = url;
+            getTwitchDownloadParametersQuery.Folder = folder;
+            getTwitchDownloadParametersQuery.SourceQuality = sourcequality;
+            getTwitchDownloadParametersQuery.DestinationQuality = quality;
+            getTwitchDownloadParametersQuery.Url = url;
+
+            List<TwitchDownloadParameters> downloadParameters = await getTwitchDownloadParametersQueryHandler.HandleAsync(getTwitchDownloadParametersQuery);
+
+            return downloadParameters;
+
+            //queryM3U.Quality = qualityId;
+            //queryM3U.IncQuality = m3u8.Name;
+            // , string baseurl, string incquality, string quality
+        }
+        private void Command_ProgressChanged(long? totalFileSize, long totalBytesDownloaded, double? progressPercentage)
+        {
+
         }
     }
 }

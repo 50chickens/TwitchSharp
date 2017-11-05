@@ -1,42 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Twitch.Api;
 using TwitchSharp.Abstractions;
-using TwitchSharp.Api;
 
 namespace TwitchSharp.Implementations
 {
 
-    public class GetTwitchImage : ITwitchQueryHandler<GetTwitchImageQuery, Image>
+    public class GetM3UTextQueryHandler : ITwitchQueryHandler<GetTwitchM3UTextQuery, string>
     {
         private readonly ITwitchClient client;
         
 
-        public GetTwitchImage(ITwitchClient client)
+        public GetM3UTextQueryHandler(ITwitchClient client)
         {
             this.client = client;
             
+
         }
 
 
 
-        public async Task<Image> HandleAsync(GetTwitchImageQuery query)
+        public async Task<string> HandleAsync(GetTwitchM3UTextQuery query)
         {
 
             TwitchClient client = (TwitchClient)this.client;
+            
 
-            Stream imageStream =  await client.GetTwitchDataAsStream(query.Location);
+            string text = await this.client.GetTwitchDataAsString(query.Location);
 
-            Image i = Image.FromStream(imageStream);
+            text = text.Replace("\"", "");
 
-            return i;
+            text = text.Replace("\r", "");
 
-
+            return text;
 
 
 
@@ -48,7 +47,3 @@ namespace TwitchSharp.Implementations
 
 
 }
-
-
-
-

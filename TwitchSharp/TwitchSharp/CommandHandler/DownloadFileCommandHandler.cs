@@ -18,7 +18,7 @@ namespace TwitchSharp
             this.TwitchDataDownloadClient = twitchDataDownloadClient;
         }
 
-        public async void HandleAsync(DownloadFileCommand command)
+        public async Task HandleAsync(DownloadFileCommand command)
         {
 
             TwitchDataDownloadClient.ProgressChanged += TwitchDataClient_ProgressChanged;

@@ -8,6 +8,6 @@ namespace TwitchSharp.Abstractions
 {
     public interface ICommandHandler<TCommand>
     {
-        void HandleAsync(TCommand command);
+        Task HandleAsync(TCommand command);
     }
 }

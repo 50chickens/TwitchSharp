@@ -16,7 +16,7 @@ namespace TwitchSharp.Di
         {
             //container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
             container.Register<ITwitchClient, TwitchClient>();
-            container.Register<ITwitchM3UFileProcessor, TwitchM3UFileProcessor>();
+            //container.Register<ITwitchM3UFileProcessor, TwitchM3UFileProcessor>();
             container.Register<ITwitchFileProcessor, TwitchFileProcessor>();
 
             container.Register<ITwitchDataClient, TwitchHttpClient>(SimpleInjector.Lifestyle.Singleton);
