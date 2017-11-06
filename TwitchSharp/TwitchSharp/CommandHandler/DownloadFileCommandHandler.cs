@@ -11,7 +11,7 @@ namespace TwitchSharp
     public class DownloadFileCommandHandler : ICommandHandler<DownloadFileCommand>
     {
         private readonly ITwitchDataDownloadClient TwitchDataDownloadClient;
-        event ProgressChangedHandler ProgressChanged;
+        public event ProgressChangedHandler ProgressChanged;
 
         public DownloadFileCommandHandler(ITwitchDataDownloadClient twitchDataDownloadClient)
         {
@@ -21,7 +21,8 @@ namespace TwitchSharp
         public async Task HandleAsync(DownloadFileCommand command)
         {
 
-            TwitchDataDownloadClient.ProgressChanged += TwitchDataClient_ProgressChanged;
+            
+            TwitchDataDownloadClient.ProgressChanged += ProgressChanged;
             await TwitchDataDownloadClient.DownloadFile(command.Url, command.Location);
 
 

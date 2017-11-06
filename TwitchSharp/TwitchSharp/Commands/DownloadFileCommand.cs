@@ -9,7 +9,7 @@ namespace TwitchSharp
 
         public string Url { get; set; }
 
-        public event ProgressChangedHandler ProgressChanged;
+        //public event ProgressChangedHandler ProgressChanged;
 
     }
 

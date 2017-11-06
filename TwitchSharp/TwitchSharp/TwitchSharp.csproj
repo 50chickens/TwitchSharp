@@ -94,7 +94,6 @@
     <Compile Include="Implementations\TwitchHttpClient.cs" />
     <Compile Include="QueryHandlers\GetTwitchImage.cs" />
     <Compile Include="QueryHandlers\GetTwitchVodInfoQueryHandler.cs" />
-    <Compile Include="OptionFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetTwitchAuthTokenQuery.cs" />
     <Compile Include="Queries\GetTwitchChannelInfoQuery.cs" />

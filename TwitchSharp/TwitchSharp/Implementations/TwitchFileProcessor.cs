@@ -48,8 +48,7 @@ namespace TwitchSharp.Implementations
             if (!m3utext.Contains("\n") || (m3utext.Split('\n').ToList().Count < 1))
             {
                 return null;
-                ;
-
+                
             }
             linelist = m3utext.Split('\n').ToList();
 
@@ -57,33 +56,12 @@ namespace TwitchSharp.Implementations
             {
                 return null;
             }
-            //playlistfiles = new List<string>();
+            
 
 
             playlistfiles = linelist.Where(x => (!x.Contains(@"#") && x.Contains(@".ts"))).ToList();
 
-            
-
-
-            //playlistfiles = linelist.Where(x => { x = "foo"; return true; }).ToList();
-
-
-            //from item in linelist
-            //let xyz = item = ""
-            //select item
-
-            //playlistfiles = linelist.Where(x => !x.Contains(@"#")).ToList();
-
-            //for (int line = 0; line <= linelist.Count - 2; line += 1)
-            //{
-
-            //    if (linelist[line].Contains(@"#")) continue;
-
-            //    playlistfiles.Add(linelist[line]);
-
-
-            //}
-
+            playlistfiles.Sort();
 
 
             return playlistfiles;

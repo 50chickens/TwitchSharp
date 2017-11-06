@@ -805,7 +805,7 @@ namespace TwitchSharp.Winforms
 
                     command.Url = download.Url;
                     command.Location = download.Filename;
-                    command.ProgressChanged += Command_ProgressChanged;
+                    downloadFileCommandHandler.ProgressChanged += Command_ProgressChanged;
 
                     await downloadFileCommandHandler.HandleAsync(command);
                     //just get the first file.
@@ -885,7 +885,8 @@ namespace TwitchSharp.Winforms
         }
         private void Command_ProgressChanged(long? totalFileSize, long totalBytesDownloaded, double? progressPercentage)
         {
-
+            
+            toolStripProgressBar1.ProgressBar.Value = (int)Math.Round((double)progressPercentage);
         }
     }
 }
