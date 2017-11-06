@@ -9,7 +9,7 @@ using TwitchSharp.Abstractions;
 namespace TwitchSharp.Implementations
 {
 
-    public class GetTwitchDownloadParametersQueryHandler : ITwitchQueryHandler<GetTwitchDownloadParametersQuery, List<TwitchDownloadParameters>>
+    public class GetTwitchDownloadParametersQueryHandler : ITwitchQueryHandler<GetTwitchDownloadQuery, List<TwitchDownload>>
     {
         private readonly ITwitchFileProcessor iTwitchFileProcessor;
 
@@ -22,16 +22,16 @@ namespace TwitchSharp.Implementations
 
         
 
-        public async Task<List<TwitchDownloadParameters>> HandleAsync(GetTwitchDownloadParametersQuery query)
+        public async Task<List<TwitchDownload>> HandleAsync(GetTwitchDownloadQuery query)
         {
 
-            List <TwitchDownloadParameters> downloadParameters;
+            List <TwitchDownload> downloadParameters;
 
 
 
             //List<string> playlist, string url, string filename, string incquality, string quality
 
-            downloadParameters = this.iTwitchFileProcessor.GetDownloadParametersFromPlaylist(query.Playlist, query.Url, query.Folder, query.SourceQuality, query.DestinationQuality);
+            downloadParameters = this.iTwitchFileProcessor.GetDownloadsFromPlaylist(query.Playlist, query.Url, query.Folder, query.SourceQuality, query.DestinationQuality);
 
             return downloadParameters;
             

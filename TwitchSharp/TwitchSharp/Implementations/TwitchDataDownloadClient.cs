@@ -17,12 +17,12 @@ namespace TwitchSharp.Implementations
         private HttpClient httpClient;
         public event ProgressChangedHandler ProgressChanged;
 
-        public async Task DownloadFile(string url, string localLocationToSave)
+        public async Task DownloadFile(string url, string folder, string filename)
         {
             this.httpClient = new HttpClient();
 
             this.url = url;
-            this.localLocationToSave = localLocationToSave;
+            this.localLocationToSave = folder + @"\" + filename;
 
             using (var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
                 await DownloadFileFromHttpResponseMessage(response);

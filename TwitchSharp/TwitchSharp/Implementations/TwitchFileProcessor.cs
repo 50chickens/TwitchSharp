@@ -14,27 +14,33 @@ namespace TwitchSharp.Implementations
     public class TwitchFileProcessor : ITwitchFileProcessor
     {
 
-        public List<TwitchDownloadParameters> GetDownloadParametersFromPlaylist(List<string> playlist, string baseurl, string folder, string incquality, string quality)
+        public List<TwitchDownload> GetDownloadsFromPlaylist(List<string> playlist, string baseurl, string folder, string incquality, string quality)
         {
 
             
-            List<TwitchDownloadParameters> downloadParameters = new List<TwitchDownloadParameters>();
+            List<TwitchDownload> downloads = new List<TwitchDownload>();
 
-            baseurl = baseurl.Replace(incquality + @"/index-dvr.m3u8", quality + @"/");
+            baseurl = baseurl.Replace(incquality + @"index-dvr.m3u8", quality);
 
             for (int x = 0; x < playlist.Count; x++)
             {
-                TwitchDownloadParameters d = new TwitchDownloadParameters()
-                {
-                    Url = baseurl + playlist[x],
-                    Filename = folder + @"\" + playlist[x]
+                TwitchDownload d = new TwitchDownload()
+                { 
+                    
+                    Folder = folder,
+                    DownloadParameters = new TwitchDownloadParameters()
+                    {
+                        Url = baseurl + playlist[x],
+                        Filename = @"\" + playlist[x]
+                    }
+                    
                 };
 
-                downloadParameters.Add(d);
+                downloads.Add(d);
 
             }
 
-            return downloadParameters;
+            return downloads;
         }
 
 

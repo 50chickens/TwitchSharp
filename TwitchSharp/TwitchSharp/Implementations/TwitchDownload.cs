@@ -6,34 +6,35 @@ using System.Threading.Tasks;
 
 namespace TwitchSharp.Implementations
 {
-    public class TwitchDownloadParameters
-
+    public class TwitchDownload
     {
-        private string url;
-        private string filename;
-        
-        public string Url
+        private string folder;
+        private TwitchDownloadParameters downloadParameters;
+
+
+        public string Folder
         {
             get
             {
-                return url;
+                return folder;
             }
 
             set
             {
-                url = value;
+                folder = value;
             }
         }
-        public string Filename
+
+        public TwitchDownloadParameters DownloadParameters
         {
             get
             {
-                return filename;
+                return downloadParameters;
             }
 
             set
             {
-                filename = value;
+                downloadParameters = value;
             }
         }
 

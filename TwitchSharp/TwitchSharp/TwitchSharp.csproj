@@ -67,6 +67,8 @@
     <Compile Include="Implementations\CustomContractResolver.cs" />
     <Compile Include="Implementations\TwitchClientOptions.cs" />
     <Compile Include="Implementations\TwitchDataDownloadClient.cs" />
+    <Compile Include="Implementations\TwitchDownloadQueue.cs" />
+    <Compile Include="Implementations\TwitchDownload.cs" />
     <Compile Include="Implementations\TwitchDownloadParameters.cs" />
     <Compile Include="Implementations\TwitchFileProcessor.cs" />
     <Compile Include="Mappings\Class1.cs" />

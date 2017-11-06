@@ -7,6 +7,6 @@ namespace TwitchSharp.Abstractions
     {
         event ProgressChangedHandler ProgressChanged;
 
-        Task DownloadFile(string url, string localLocationToSave);
+        Task DownloadFile(string url, string folder, string filename);
     }
 }

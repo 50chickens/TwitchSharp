@@ -600,6 +600,7 @@
             this.buttonAddToQueue.TabIndex = 21;
             this.buttonAddToQueue.Text = "Add to Queue";
             this.buttonAddToQueue.UseVisualStyleBackColor = true;
+            this.buttonAddToQueue.Click += new System.EventHandler(this.buttonAddToQueue_Click);
             // 
             // buttonDownload
             // 

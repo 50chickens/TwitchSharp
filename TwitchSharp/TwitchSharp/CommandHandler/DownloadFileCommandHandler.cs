@@ -23,7 +23,7 @@ namespace TwitchSharp
 
             
             TwitchDataDownloadClient.ProgressChanged += ProgressChanged;
-            await TwitchDataDownloadClient.DownloadFile(command.Url, command.Location);
+            await TwitchDataDownloadClient.DownloadFile(command.Url, command.Folder, command.Filename);
 
 
             // TODO: Logic here

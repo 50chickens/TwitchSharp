@@ -7,7 +7,7 @@ using TwitchSharp.Abstractions;
 
 namespace TwitchSharp.Implementations
 {
-    public class GetTwitchDownloadParametersQuery : ITwitchQuery<List<TwitchDownloadParameters>>
+    public class GetTwitchDownloadQuery : ITwitchQuery<List<TwitchDownload>>
     {
         
         private ITwitchQueryOptions twitchClientOptions;
@@ -17,7 +17,7 @@ namespace TwitchSharp.Implementations
         private string sourceQuality;
         private string destinationquality;
 
-        public GetTwitchDownloadParametersQuery(ITwitchQueryOptions twitchClientOptions)
+        public GetTwitchDownloadQuery(ITwitchQueryOptions twitchClientOptions)
         {
             this.twitchClientOptions = twitchClientOptions;
 
