@@ -52,7 +52,7 @@ namespace TwitchSharp.Winforms
         
 
         private ITwitchQueryHandler<GetTwitchImageQuery, Image> getTwitchImageQueryHandler;
-        private ITwitchQueryHandler<GetTwitchDownloadQuery, List<TwitchDownload>> getTwitchDownloadParametersQueryHandler;
+        private ITwitchQueryHandler<GetTwitchDownloadQuery, List<TwitchDownload>> getTwitchDownloadQueryHandler;
 
         private ITwitchQueryHandler<GetTwitchM3U8ListQuery, List<M3U8>> getM3U8ListQueryHandler;
 
@@ -154,7 +154,7 @@ namespace TwitchSharp.Winforms
 
             
 
-            this.getTwitchDownloadParametersQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchDownloadQuery, List<TwitchDownload>>>();
+            this.getTwitchDownloadQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchDownloadQuery, List<TwitchDownload>>>();
             this.downloadFileCommandHandler = container.GetInstance<ICommandHandler<DownloadFileCommand>>();
 
             //this.iTwitchM3UFileProcessor = container.GetInstance<ITwitchM3UFileProcessor>();
@@ -796,7 +796,7 @@ namespace TwitchSharp.Winforms
 
                 var command = container.GetInstance<DownloadFileCommand>();
 
-                List<TwitchDownload> downloadParameters = await GetDownloadParametersFromPlaylist(playlistfiles, selectedM3U8.Url, textBoxFolder.Text, selectedM3U8.Name, qualityId);
+                List<TwitchDownload> downloadParameters = await GetDownloadsFromPlaylist(playlistfiles, selectedM3U8.Url, textBoxFolder.Text, selectedM3U8.Name, qualityId);
 
 
             }
@@ -823,9 +823,7 @@ namespace TwitchSharp.Winforms
 
                 var command = container.GetInstance<DownloadFileCommand>();
 
-                List<TwitchDownload> downloadParameters = await GetDownloadParametersFromPlaylist(playlistfiles, selectedM3U8.Url, textBoxFolder.Text, selectedM3U8.Name, qualityId);
-
-
+                List<TwitchDownload> downloadParameters = await GetDownloadsFromPlaylist(playlistfiles, selectedM3U8.Url, textBoxFolder.Text, selectedM3U8.Name, qualityId);
 
                 foreach (TwitchDownload download in downloadParameters)
                 {
@@ -840,23 +838,6 @@ namespace TwitchSharp.Winforms
                     //break;
                 }
 
-                //string text = JsonConvert.SerializeObject(M3u8list);
-
-
-
-                // commandhandler = new DownloadFileCommandHandler();
-
-                //var downloadFileUrl = "http://example.com/file.zip";
-                //var destinationFilePath = Path.GetFullPath("file.zip");
-
-                //using (var client = new HttpClientDownloadWithProgress(downloadFileUrl, destinationFilePath))
-                //{
-                //    client.ProgressChanged += (totalFileSize, totalBytesDownloaded, progressPercentage) => {
-                //        Console.WriteLine($"{progressPercentage}% ({totalBytesDownloaded}/{totalFileSize})");
-                //    };
-
-                //    await client.StartDownload();
-                //}
 
             }
         }
@@ -889,30 +870,29 @@ namespace TwitchSharp.Winforms
         {
             return M3u8list.Where(x => x.Fps == fps && x.Resolution == resolution).FirstOrDefault();
         }
-        public async Task<List<TwitchDownload>>GetDownloadParametersFromPlaylist(List<string> playlist, string url, string folder, string sourcequality, string quality)
+        public async Task<List<TwitchDownload>>GetDownloadsFromPlaylist(List<string> playlist, string url, string folder, string sourcequality, string quality)
         {
            
 
 
-            GetTwitchDownloadQuery getTwitchDownloadParametersQuery = container.GetInstance<GetTwitchDownloadQuery>();
+            GetTwitchDownloadQuery getTwitchDownloadQuery = container.GetInstance<GetTwitchDownloadQuery>();
 
-            getTwitchDownloadParametersQuery.Playlist = playlist;
-            getTwitchDownloadParametersQuery.Url = url;
-            getTwitchDownloadParametersQuery.Folder = folder;
-            getTwitchDownloadParametersQuery.SourceQuality = sourcequality;
-            getTwitchDownloadParametersQuery.DestinationQuality = quality;
-            getTwitchDownloadParametersQuery.Url = url;
+            getTwitchDownloadQuery.Playlist = playlist;
+            getTwitchDownloadQuery.Url = url;
+            getTwitchDownloadQuery.Folder = folder;
+            getTwitchDownloadQuery.SourceQuality = sourcequality;
+            getTwitchDownloadQuery.DestinationQuality = quality;
+            getTwitchDownloadQuery.Url = url;
 
-            List<TwitchDownload> downloadParameters = await getTwitchDownloadParametersQueryHandler.HandleAsync(getTwitchDownloadParametersQuery);
+            List<TwitchDownload> downloads = await getTwitchDownloadQueryHandler.HandleAsync(getTwitchDownloadQuery);
 
-            return downloadParameters;
+            return downloads;
 
-            //queryM3U.Quality = qualityId;
-            //queryM3U.IncQuality = m3u8.Name;
-            // , string baseurl, string incquality, string quality
+            
         }
         private void Command_ProgressChanged(long? totalFileSize, long totalBytesDownloaded, double? progressPercentage)
         {
+            toolStripStatusLabelStatus.Text = progressPercentage.ToString();
             
             toolStripProgressBar1.ProgressBar.Value = (int)Math.Round((double)progressPercentage);
         }
