@@ -64,12 +64,7 @@ namespace TwitchSharp.Implementations
             }
             
 
-
             playlistfiles = linelist.Where(x => (!x.Contains(@"#") && x.Contains(@".ts"))).ToList();
-
-            playlistfiles.Sort();
-
-
             return playlistfiles;
 
 
