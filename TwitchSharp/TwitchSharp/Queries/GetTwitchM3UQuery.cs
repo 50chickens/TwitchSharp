@@ -13,8 +13,7 @@ namespace TwitchSharp.Implementations
        
         private string baseurl;
         private string location;
-        private string quality;
-        private string incquality;
+        
 
         public GetTwitchM3UQuery(ITwitchQueryOptions twitchClientOptions)
         {

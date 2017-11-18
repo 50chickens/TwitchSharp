@@ -46,5 +46,29 @@ namespace TwitchSharp.Winforms.Properties {
                 this["SavedFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool JoinVodPieces {
+            get {
+                return ((bool)(this["JoinVodPieces"]));
+            }
+            set {
+                this["JoinVodPieces"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SaveToSubfolder {
+            get {
+                return ((bool)(this["SaveToSubfolder"]));
+            }
+            set {
+                this["SaveToSubfolder"] = value;
+            }
+        }
     }
 }

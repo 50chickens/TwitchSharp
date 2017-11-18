@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TwitchSharp.Abstractions;
 
@@ -15,15 +16,44 @@ namespace TwitchSharp.Implementations
         private string localLocationToSave;
 
         private HttpClient httpClient;
+
+        
+
         public event ProgressChangedHandler ProgressChanged;
 
-        public async Task DownloadFile(string url, string folder, string filename)
+        public async Task DownloadFile(string url, string folder, string filename, bool CreateSubfolder, string subFolderName, CancellationToken token)
         {
+            
+            if (token.IsCancellationRequested)
+            {
+                token.ThrowIfCancellationRequested();
+            }
             this.httpClient = new HttpClient();
 
             this.url = url;
-            this.localLocationToSave = folder + @"\" + filename;
+            
+            if (CreateSubfolder && subFolderName != "")
+            {
+                string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
 
+                foreach (char c in invalid)
+                {
+                    subFolderName = subFolderName.Replace(c.ToString(), "");
+                }
+
+                if (!Directory.Exists(folder + @"\" + subFolderName))
+                {
+                    Directory.CreateDirectory(folder + @"\" + subFolderName);
+
+                }
+
+                this.localLocationToSave =  folder + @"\" + subFolderName + @"\" + filename;
+            }
+
+            else
+            {
+                this.localLocationToSave = folder + @"\" + filename;
+            }
             using (var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
                 await DownloadFileFromHttpResponseMessage(response);
 

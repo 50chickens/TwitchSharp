@@ -16,6 +16,7 @@ namespace TwitchSharp.Implementations
         private string folder;
         private string sourceQuality;
         private string destinationquality;
+        
 
         public GetTwitchDownloadQuery(ITwitchQueryOptions twitchClientOptions)
         {
@@ -75,6 +76,7 @@ namespace TwitchSharp.Implementations
             }
         }
 
+        
         public string SourceQuality
         {
             get

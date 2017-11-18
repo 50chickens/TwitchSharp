@@ -10,8 +10,7 @@ namespace TwitchSharp.Implementations
     {
         private string folder;
         private TwitchDownloadParameters downloadParameters;
-
-
+        
         public string Folder
         {
             get
@@ -24,6 +23,9 @@ namespace TwitchSharp.Implementations
                 folder = value;
             }
         }
+
+        
+
 
         public TwitchDownloadParameters DownloadParameters
         {

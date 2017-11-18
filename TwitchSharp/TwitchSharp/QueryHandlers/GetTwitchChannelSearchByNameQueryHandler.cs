@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Twitch.Api;
 using Twitch.Api.SearchChannel;
@@ -21,7 +22,10 @@ namespace TwitchSharp.Implementations
 
         }
 
-
+        public CancellationToken Token
+        {
+            get; set;
+        }
 
         public async Task<SearchChannels> HandleAsync(GetTwitchChannelSearchByNameQuery query)
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Twitch.Api;
 using Twitch.Api.TopVideos;
@@ -20,7 +21,12 @@ namespace TwitchSharp.Implementations
             this.client = client;
         }
 
-        
+
+        public CancellationToken Token
+        {
+            get; set;
+        }
+
 
         public async Task<TwitchTopVideos> HandleAsync(GetTwitchTopVideosQuery query)
         {

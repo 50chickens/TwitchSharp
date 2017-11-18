@@ -18,6 +18,7 @@ namespace TwitchSharp.Implementations
         {
 
             
+
             List<TwitchDownload> downloads = new List<TwitchDownload>();
 
             baseurl = baseurl.Replace(incquality + @"/index-dvr.m3u8", quality + @"/" );
@@ -25,13 +26,14 @@ namespace TwitchSharp.Implementations
             for (int x = 0; x < playlist.Count; x++)
             {
                 TwitchDownload d = new TwitchDownload()
-                { 
-                    
+                {
+
                     Folder = folder,
                     DownloadParameters = new TwitchDownloadParameters()
                     {
                         Url = baseurl + playlist[x],
                         Filename = @"\" + playlist[x]
+                       
                     }
                     
                 };

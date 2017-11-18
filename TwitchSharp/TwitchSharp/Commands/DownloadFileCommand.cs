@@ -11,6 +11,10 @@ namespace TwitchSharp
 
         public string Url { get; set; }
 
+        public bool CreateSubfolder { get; set; }
+
+        public string SubFolderName { get; set; }
+
     }
 
 }

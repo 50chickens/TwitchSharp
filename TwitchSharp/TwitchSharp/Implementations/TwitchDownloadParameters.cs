@@ -11,7 +11,7 @@ namespace TwitchSharp.Implementations
     {
         private string url;
         private string filename;
-        
+
         public string Url
         {
             get
@@ -36,7 +36,6 @@ namespace TwitchSharp.Implementations
                 filename = value;
             }
         }
-
         
     }
 }

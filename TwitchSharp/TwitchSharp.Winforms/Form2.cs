@@ -25,11 +25,13 @@ using Twitch.Api.Channel;
 using System.Reflection;
 using TwitchSharp.Api;
 using TwitchSharp.Service;
+using System.Threading;
 
 namespace TwitchSharp.Winforms
 {
     public partial class Form2 : Form
     {
+        CancellationTokenSource cts;
         private SimpleInjector.Container container;
         private ITwitchQueryHandler<GetTwitchTopVideosQuery, TwitchTopVideos> getTwitchTopVideosQueryHandler;
         private ITwitchQueryHandler<GetTwitchLiveStreamsQuery, LiveStreams> getTwitchLiveStreamsQueryHandler;
@@ -162,8 +164,8 @@ namespace TwitchSharp.Winforms
             //this.getTwitchTSPlaylistQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchTSPlaylistQuery, List<string>>>();
 
 
-            
-        toolStripStatusLabelStatus.Text = "done loading config";
+
+            toolStripStatusLabelStatus.Text = "done loading config";
 
             UILoadSettings();
 
@@ -802,44 +804,97 @@ namespace TwitchSharp.Winforms
             }
         }
 
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            cts.Cancel();
+
+        }
+
         private async void buttonDownload_Click(object sender, EventArgs e)
         {
-            if (Vodinfo != null)
+            
+
+            cts = new CancellationTokenSource();
+
+            toolStripStatusLabelStatus.Text = "starting download";
+            try
             {
-                UsherTokenReply = await GetUsherToken();
-
-                string m3u8text = await GetM3U8TextByVodId();
-
-                M3u8list = await GetM3U8ListFromM3U8Text(m3u8text);
-
-                int? fps = ((TwitchVideoQuality)comboBoxQuality.SelectedItem).Fps;
-                string resolution = ((TwitchVideoQuality)comboBoxQuality.SelectedItem).Resolution;
-                string qualityId = ((TwitchVideoQuality)comboBoxQuality.SelectedItem).QualityId;
-
-                M3U8 selectedM3U8 = GetSelectedM3U8(fps, resolution, qualityId);
-
-
-                List<string> playlistfiles = await GetPlaylistFromM3U(selectedM3U8, qualityId);
-
-                var command = container.GetInstance<DownloadFileCommand>();
-
-                List<TwitchDownload> downloadParameters = await GetDownloadsFromPlaylist(playlistfiles, selectedM3U8.Url, textBoxFolder.Text, selectedM3U8.Name, qualityId);
-
-                foreach (TwitchDownload download in downloadParameters)
+                if (Vodinfo != null)
                 {
+                    UsherTokenReply = await GetUsherToken();
 
-                    command.Url = download.DownloadParameters.Url;
-                    command.Folder = download.Folder;
-                    command.Filename = download.DownloadParameters.Filename;
-                    downloadFileCommandHandler.ProgressChanged += Command_ProgressChanged;
+                    string m3u8text = await GetM3U8TextByVodId();
 
-                    await downloadFileCommandHandler.HandleAsync(command);
-                    //just get the first file.
-                    //break;
+                    M3u8list = await GetM3U8ListFromM3U8Text(m3u8text);
+
+                    int? fps = ((TwitchVideoQuality)comboBoxQuality.SelectedItem).Fps;
+                    string resolution = ((TwitchVideoQuality)comboBoxQuality.SelectedItem).Resolution;
+                    string qualityId = ((TwitchVideoQuality)comboBoxQuality.SelectedItem).QualityId;
+
+                    M3U8 selectedM3U8 = GetSelectedM3U8(fps, resolution, qualityId);
+
+
+                    List<string> playlistfiles = await GetPlaylistFromM3U(selectedM3U8, qualityId);
+
+                    var command = container.GetInstance<DownloadFileCommand>();
+
+                    List<TwitchDownload> downloadParameters = await GetDownloadsFromPlaylist(playlistfiles, selectedM3U8.Url, textBoxFolder.Text, selectedM3U8.Name, qualityId);
+
+                    DateTime datestamp;
+
+                    
+
+                    foreach (TwitchDownload download in downloadParameters)
+                    {
+
+                        command.Url = download.DownloadParameters.Url;
+                        command.Folder = download.Folder;
+                        command.Filename = download.DownloadParameters.Filename;
+                        command.CreateSubfolder = (checkBoxUseTitle.Checked || checkBoxUseDate.Checked);
+                        
+
+                        if (checkBoxUseDate.Checked && DateTime.TryParse(textBoxVodDate.Text, out datestamp))
+                        {
+                            command.SubFolderName = datestamp.ToString("yyyyMMddHHmmss");
+                        }
+                        if (checkBoxUseTitle.Checked)
+                        {
+                            command.SubFolderName += " " + textBoxVodTitle.Text;
+                        }
+
+                        
+                        downloadFileCommandHandler.ProgressChanged += Command_ProgressChanged;
+                        // await downloadFileCommandHandler.
+
+                        downloadFileCommandHandler.Token = cts.Token;
+
+                        await downloadFileCommandHandler.HandleAsync(command);
+                        //just get the first file.
+                        //break;
+                    }
+
+                    //toolStripStatusLabelSpacerLeft.Text = "starting download";
+
+                    
+                    
+
                 }
 
-
             }
+            catch (OperationCanceledException ex)
+            {
+                
+
+                toolStripStatusLabelStatus.Text = "download cancelled.";
+            }
+            catch (Exception ex)
+            {
+                toolStripStatusLabelStatus.Text = "download failed.";
+            }
+
+            toolStripProgressBar1.Value = 0;
+          
+
         }
 
         private async Task<List<string>> GetPlaylistFromM3U(M3U8 selectedM3U8, string qualityId)
@@ -892,9 +947,15 @@ namespace TwitchSharp.Winforms
         }
         private void Command_ProgressChanged(long? totalFileSize, long totalBytesDownloaded, double? progressPercentage)
         {
-            toolStripStatusLabelStatus.Text = progressPercentage.ToString();
-            
+            toolStripStatusLabelStatus.Text = totalBytesDownloaded + @"/" + totalFileSize + " bytes downloaded (" + Math.Round((double)progressPercentage) + @"%)";
+
+
             toolStripProgressBar1.ProgressBar.Value = (int)Math.Round((double)progressPercentage);
+        }
+
+        private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
 
         

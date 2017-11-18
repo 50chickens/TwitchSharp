@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Twitch.Api;
 using TwitchSharp.Abstractions;
@@ -23,6 +24,10 @@ namespace TwitchSharp.Implementations
             
         }
 
+        public CancellationToken Token
+        {
+            get; set;
+        }
 
 
         public async Task<Image> HandleAsync(GetTwitchImageQuery query)

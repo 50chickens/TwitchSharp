@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Twitch.Api;
 using TwitchSharp.Abstractions;
@@ -20,8 +21,12 @@ namespace TwitchSharp.Implementations
 
         }
 
-        
+        public CancellationToken Token
+        {
+            get;set;
+        }
 
+       
         public async Task<M3U> HandleAsync(GetTwitchM3UQuery query)
         {
 

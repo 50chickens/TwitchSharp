@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Twitch.Api;
 using TwitchSharp.Abstractions;
@@ -20,6 +21,11 @@ namespace TwitchSharp.Implementations
 
         }
 
+        public CancellationToken Token
+        {
+            get;set;
+        }
+
         
 
         public async Task<List<TwitchDownload>> HandleAsync(GetTwitchDownloadQuery query)
@@ -27,7 +33,7 @@ namespace TwitchSharp.Implementations
 
             List <TwitchDownload> downloadParameters;
 
-
+            
 
             //List<string> playlist, string url, string filename, string incquality, string quality
 

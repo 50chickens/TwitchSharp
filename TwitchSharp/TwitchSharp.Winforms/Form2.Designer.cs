@@ -30,6 +30,7 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.twitchClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.topStreamsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,8 +51,10 @@
             this.getUsherTokenUsingVodIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createDictionaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelSpacerLeft = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelSpacer = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSearch = new System.Windows.Forms.TabPage();
@@ -61,6 +64,9 @@
             this.textBoxTwitchSearch = new System.Windows.Forms.TextBox();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.groupBoxChartProperties = new System.Windows.Forms.GroupBox();
+            this.labelCreateSubFolder = new System.Windows.Forms.Label();
+            this.checkBoxUseDate = new System.Windows.Forms.CheckBox();
+            this.checkBoxUseTitle = new System.Windows.Forms.CheckBox();
             this.textBoxVodGame = new System.Windows.Forms.TextBox();
             this.labelVodGame = new System.Windows.Forms.Label();
             this.textBoxVodViews = new System.Windows.Forms.TextBox();
@@ -95,6 +101,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tabPageLogs = new System.Windows.Forms.TabPage();
             this.textBoxLogs = new System.Windows.Forms.TextBox();
+            this.tabPageProgress = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonPause = new System.Windows.Forms.Button();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.gamePokerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.menuStrip1.SuspendLayout();
@@ -109,6 +121,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tabPageLogs.SuspendLayout();
+            this.tabPageProgress.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -123,22 +137,30 @@
             this.usherTokenToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(879, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(871, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.preferencesToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
+            // preferencesToolStripMenuItem
+            // 
+            this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.preferencesToolStripMenuItem.Text = "Preferences";
+            this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
+            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -283,26 +305,37 @@
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelSpacerLeft,
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabelSpacer,
             this.toolStripStatusLabelStatus,
-            this.toolStripStatusLabel3,
             this.toolStripProgressBar1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 489);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 505);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(879, 27);
+            this.statusStrip1.Size = new System.Drawing.Size(871, 27);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabelSpacerLeft
+            // 
+            this.toolStripStatusLabelSpacerLeft.Name = "toolStripStatusLabelSpacerLeft";
+            this.toolStripStatusLabelSpacerLeft.Size = new System.Drawing.Size(0, 22);
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(0, 22);
+            // 
+            // toolStripStatusLabelSpacer
+            // 
+            this.toolStripStatusLabelSpacer.Name = "toolStripStatusLabelSpacer";
+            this.toolStripStatusLabelSpacer.Size = new System.Drawing.Size(754, 22);
+            this.toolStripStatusLabelSpacer.Spring = true;
             // 
             // toolStripStatusLabelStatus
             // 
             this.toolStripStatusLabelStatus.Name = "toolStripStatusLabelStatus";
-            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(144, 22);
-            this.toolStripStatusLabelStatus.Text = "toolStripStatusLabelStatus";
-            // 
-            // toolStripStatusLabel3
-            // 
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(587, 22);
-            this.toolStripStatusLabel3.Spring = true;
+            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(0, 22);
             // 
             // toolStripProgressBar1
             // 
@@ -315,11 +348,12 @@
             this.tabControl1.Controls.Add(this.tabPageResults);
             this.tabControl1.Controls.Add(this.tabPagePoller);
             this.tabControl1.Controls.Add(this.tabPageLogs);
+            this.tabControl1.Controls.Add(this.tabPageProgress);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(879, 465);
+            this.tabControl1.Size = new System.Drawing.Size(871, 481);
             this.tabControl1.TabIndex = 5;
             // 
             // tabPageSearch
@@ -330,7 +364,7 @@
             this.tabPageSearch.Location = new System.Drawing.Point(4, 22);
             this.tabPageSearch.Name = "tabPageSearch";
             this.tabPageSearch.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSearch.Size = new System.Drawing.Size(871, 439);
+            this.tabPageSearch.Size = new System.Drawing.Size(863, 455);
             this.tabPageSearch.TabIndex = 6;
             this.tabPageSearch.Text = "Search";
             // 
@@ -342,7 +376,7 @@
             this.groupBox4.Controls.Add(this.buttonSearch);
             this.groupBox4.Location = new System.Drawing.Point(418, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(436, 423);
+            this.groupBox4.Size = new System.Drawing.Size(436, 443);
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Vod Search Options";
@@ -368,7 +402,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(32, 63);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(398, 350);
+            this.dataGridView1.Size = new System.Drawing.Size(398, 366);
             this.dataGridView1.TabIndex = 18;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -393,6 +427,9 @@
             // 
             // groupBoxChartProperties
             // 
+            this.groupBoxChartProperties.Controls.Add(this.labelCreateSubFolder);
+            this.groupBoxChartProperties.Controls.Add(this.checkBoxUseDate);
+            this.groupBoxChartProperties.Controls.Add(this.checkBoxUseTitle);
             this.groupBoxChartProperties.Controls.Add(this.textBoxVodGame);
             this.groupBoxChartProperties.Controls.Add(this.labelVodGame);
             this.groupBoxChartProperties.Controls.Add(this.textBoxVodViews);
@@ -416,10 +453,43 @@
             this.groupBoxChartProperties.Controls.Add(this.buttonDownload);
             this.groupBoxChartProperties.Location = new System.Drawing.Point(8, 6);
             this.groupBoxChartProperties.Name = "groupBoxChartProperties";
-            this.groupBoxChartProperties.Size = new System.Drawing.Size(404, 423);
+            this.groupBoxChartProperties.Size = new System.Drawing.Size(404, 443);
             this.groupBoxChartProperties.TabIndex = 8;
             this.groupBoxChartProperties.TabStop = false;
             this.groupBoxChartProperties.Text = "Vod Search Options";
+            // 
+            // labelCreateSubFolder
+            // 
+            this.labelCreateSubFolder.AutoSize = true;
+            this.labelCreateSubFolder.Location = new System.Drawing.Point(177, 391);
+            this.labelCreateSubFolder.Name = "labelCreateSubFolder";
+            this.labelCreateSubFolder.Size = new System.Drawing.Size(89, 13);
+            this.labelCreateSubFolder.TabIndex = 44;
+            this.labelCreateSubFolder.Text = "Create Subfolder:";
+            // 
+            // checkBoxUseDate
+            // 
+            this.checkBoxUseDate.AutoSize = true;
+            this.checkBoxUseDate.Checked = true;
+            this.checkBoxUseDate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxUseDate.Location = new System.Drawing.Point(279, 390);
+            this.checkBoxUseDate.Name = "checkBoxUseDate";
+            this.checkBoxUseDate.Size = new System.Drawing.Size(47, 17);
+            this.checkBoxUseDate.TabIndex = 43;
+            this.checkBoxUseDate.Text = "date";
+            this.checkBoxUseDate.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUseTitle
+            // 
+            this.checkBoxUseTitle.AutoSize = true;
+            this.checkBoxUseTitle.Checked = true;
+            this.checkBoxUseTitle.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxUseTitle.Location = new System.Drawing.Point(349, 390);
+            this.checkBoxUseTitle.Name = "checkBoxUseTitle";
+            this.checkBoxUseTitle.Size = new System.Drawing.Size(42, 17);
+            this.checkBoxUseTitle.TabIndex = 42;
+            this.checkBoxUseTitle.Text = "title";
+            this.checkBoxUseTitle.UseVisualStyleBackColor = true;
             // 
             // textBoxVodGame
             // 
@@ -509,7 +579,7 @@
             // buttonChangeFolder
             // 
             this.buttonChangeFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonChangeFolder.Location = new System.Drawing.Point(279, 390);
+            this.buttonChangeFolder.Location = new System.Drawing.Point(279, 414);
             this.buttonChangeFolder.Name = "buttonChangeFolder";
             this.buttonChangeFolder.Size = new System.Drawing.Size(41, 23);
             this.buttonChangeFolder.TabIndex = 30;
@@ -528,7 +598,7 @@
             // labelFolder
             // 
             this.labelFolder.AutoSize = true;
-            this.labelFolder.Location = new System.Drawing.Point(26, 392);
+            this.labelFolder.Location = new System.Drawing.Point(26, 416);
             this.labelFolder.Name = "labelFolder";
             this.labelFolder.Size = new System.Drawing.Size(39, 13);
             this.labelFolder.TabIndex = 29;
@@ -536,7 +606,7 @@
             // 
             // textBoxFolder
             // 
-            this.textBoxFolder.Location = new System.Drawing.Point(71, 392);
+            this.textBoxFolder.Location = new System.Drawing.Point(71, 416);
             this.textBoxFolder.Name = "textBoxFolder";
             this.textBoxFolder.Size = new System.Drawing.Size(195, 20);
             this.textBoxFolder.TabIndex = 27;
@@ -606,7 +676,7 @@
             // 
             this.buttonDownload.Enabled = false;
             this.buttonDownload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDownload.Location = new System.Drawing.Point(326, 390);
+            this.buttonDownload.Location = new System.Drawing.Point(326, 414);
             this.buttonDownload.Name = "buttonDownload";
             this.buttonDownload.Size = new System.Drawing.Size(65, 23);
             this.buttonDownload.TabIndex = 20;
@@ -619,7 +689,7 @@
             this.tabPageResults.Location = new System.Drawing.Point(4, 22);
             this.tabPageResults.Name = "tabPageResults";
             this.tabPageResults.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageResults.Size = new System.Drawing.Size(871, 439);
+            this.tabPageResults.Size = new System.Drawing.Size(863, 455);
             this.tabPageResults.TabIndex = 8;
             this.tabPageResults.Text = "Search Results";
             this.tabPageResults.UseVisualStyleBackColor = true;
@@ -632,7 +702,7 @@
             this.tabPagePoller.Location = new System.Drawing.Point(4, 22);
             this.tabPagePoller.Name = "tabPagePoller";
             this.tabPagePoller.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePoller.Size = new System.Drawing.Size(871, 439);
+            this.tabPagePoller.Size = new System.Drawing.Size(863, 455);
             this.tabPagePoller.TabIndex = 7;
             this.tabPagePoller.Text = "Poller";
             // 
@@ -727,7 +797,7 @@
             this.tabPageLogs.Location = new System.Drawing.Point(4, 22);
             this.tabPageLogs.Name = "tabPageLogs";
             this.tabPageLogs.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLogs.Size = new System.Drawing.Size(871, 439);
+            this.tabPageLogs.Size = new System.Drawing.Size(863, 455);
             this.tabPageLogs.TabIndex = 5;
             this.tabPageLogs.Text = "Logs";
             this.tabPageLogs.UseVisualStyleBackColor = true;
@@ -738,8 +808,65 @@
             this.textBoxLogs.Location = new System.Drawing.Point(3, 3);
             this.textBoxLogs.Multiline = true;
             this.textBoxLogs.Name = "textBoxLogs";
-            this.textBoxLogs.Size = new System.Drawing.Size(865, 433);
+            this.textBoxLogs.Size = new System.Drawing.Size(857, 449);
             this.textBoxLogs.TabIndex = 0;
+            // 
+            // tabPageProgress
+            // 
+            this.tabPageProgress.Controls.Add(this.groupBox2);
+            this.tabPageProgress.Location = new System.Drawing.Point(4, 22);
+            this.tabPageProgress.Name = "tabPageProgress";
+            this.tabPageProgress.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageProgress.Size = new System.Drawing.Size(863, 455);
+            this.tabPageProgress.TabIndex = 9;
+            this.tabPageProgress.Text = "Progress";
+            this.tabPageProgress.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.buttonCancel);
+            this.groupBox2.Controls.Add(this.buttonPause);
+            this.groupBox2.Controls.Add(this.progressBar1);
+            this.groupBox2.Controls.Add(this.treeView1);
+            this.groupBox2.Location = new System.Drawing.Point(8, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(528, 354);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Download Progress";
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(435, 30);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.TabIndex = 46;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // buttonPause
+            // 
+            this.buttonPause.Location = new System.Drawing.Point(268, 239);
+            this.buttonPause.Name = "buttonPause";
+            this.buttonPause.Size = new System.Drawing.Size(75, 23);
+            this.buttonPause.TabIndex = 3;
+            this.buttonPause.Text = "buttonPause";
+            this.buttonPause.UseVisualStyleBackColor = true;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(255, 138);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(100, 23);
+            this.progressBar1.TabIndex = 1;
+            // 
+            // treeView1
+            // 
+            this.treeView1.Location = new System.Drawing.Point(15, 19);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(209, 329);
+            this.treeView1.TabIndex = 0;
             // 
             // gamePokerToolStripMenuItem
             // 
@@ -750,7 +877,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(879, 516);
+            this.ClientSize = new System.Drawing.Size(871, 532);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -778,6 +905,8 @@
             this.groupBox1.PerformLayout();
             this.tabPageLogs.ResumeLayout(false);
             this.tabPageLogs.PerformLayout();
+            this.tabPageProgress.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -828,7 +957,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelStatus;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button buttonChangeFolder;
@@ -854,6 +982,19 @@
         private System.Windows.Forms.TextBox textBoxVodGame;
         private System.Windows.Forms.Label labelVodGame;
         private System.Windows.Forms.ComboBox comboBoxSearchType;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelSpacerLeft;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelSpacer;
+        private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkBoxUseTitle;
+        private System.Windows.Forms.TabPage tabPageProgress;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button buttonPause;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.CheckBox checkBoxUseDate;
+        private System.Windows.Forms.Label labelCreateSubFolder;
+        private System.Windows.Forms.Button buttonCancel;
     }
 }
 
