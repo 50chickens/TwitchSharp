@@ -55,21 +55,21 @@ namespace TwitchSharp.Implementations
                 this.localLocationToSave = folder + @"\" + filename;
             }
             using (var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
-                await DownloadFileFromHttpResponseMessage(response);
+                await DownloadFileFromHttpResponseMessage(response, token);
 
         }
 
-        private async Task DownloadFileFromHttpResponseMessage(HttpResponseMessage response)
+        private async Task DownloadFileFromHttpResponseMessage(HttpResponseMessage response, CancellationToken token)
         {
             response.EnsureSuccessStatusCode();
 
             var totalBytes = response.Content.Headers.ContentLength;
 
             using (var contentStream = await response.Content.ReadAsStreamAsync())
-                await ProcessContentStream(totalBytes, contentStream);
+                await ProcessContentStream(totalBytes, contentStream, token);
         }
 
-        private async Task ProcessContentStream(long? totalDownloadSize, Stream contentStream)
+        private async Task ProcessContentStream(long? totalDownloadSize, Stream contentStream, CancellationToken token)
         {
             var totalBytesRead = 0L;
             var readCount = 0L;
@@ -80,6 +80,10 @@ namespace TwitchSharp.Implementations
             {
                 do
                 {
+                    if (token.IsCancellationRequested)
+                    {
+                        token.ThrowIfCancellationRequested();
+                    }
                     var bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length);
                     if (bytesRead == 0)
                     {
