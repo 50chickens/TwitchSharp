@@ -13,17 +13,19 @@ namespace TwitchSharp.Implementations
     public class TwitchDataDownloadClient : ITwitchDataDownloadClient, IDisposable
     {
         private string url;
-        private string localLocationToSave;
+        private string localFilenameToSave;
+        private string localFolderToSave;
 
         private HttpClient httpClient;
-
-        
+        private bool appendToFile;
+        private string appendFileName;
+        private bool createFile;
 
         public event ProgressChangedHandler ProgressChanged;
 
-        public async Task DownloadFile(string url, string folder, string filename, bool CreateSubfolder, string subFolderName, CancellationToken token)
+        public async Task DownloadFile(string url, string folder, string filename, bool CreateSubfolder, string subFolderName, CancellationToken token, bool appendToFile, string appendFileName, bool createFile)
         {
-            
+
             if (token.IsCancellationRequested)
             {
                 token.ThrowIfCancellationRequested();
@@ -31,32 +33,52 @@ namespace TwitchSharp.Implementations
             this.httpClient = new HttpClient();
 
             this.url = url;
-            
+            this.appendToFile = appendToFile;
+            this.appendFileName = appendFileName;
+            this.createFile = createFile;
+
             if (CreateSubfolder && subFolderName != "")
             {
-                string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
-
-                foreach (char c in invalid)
-                {
-                    subFolderName = subFolderName.Replace(c.ToString(), "");
-                }
-
-                if (!Directory.Exists(folder + @"\" + subFolderName))
-                {
-                    Directory.CreateDirectory(folder + @"\" + subFolderName);
-
-                }
-
-                this.localLocationToSave =  folder + @"\" + subFolderName + @"\" + filename;
+                this.localFolderToSave = folder + @"\" + GetSafeName(subFolderName) + @"\";
             }
 
             else
             {
-                this.localLocationToSave = folder + @"\" + filename;
+                this.localFolderToSave = folder + @"\";
             }
+
+            if (appendToFile)
+            {
+                this.localFilenameToSave = this.localFolderToSave + appendFileName;
+
+            }
+            else
+            {
+                this.localFilenameToSave = this.localFolderToSave + filename;
+
+            }
+
+            if (CreateSubfolder && !Directory.Exists(localFolderToSave))
+            {
+                Directory.CreateDirectory(localFolderToSave);
+
+            }
+
             using (var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
                 await DownloadFileFromHttpResponseMessage(response, token);
 
+        }
+
+        private string GetSafeName(string name)
+        {
+            string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+
+            foreach (char c in invalid)
+            {
+                name = name.Replace(c.ToString(), "");
+            }
+
+            return name;
         }
 
         private async Task DownloadFileFromHttpResponseMessage(HttpResponseMessage response, CancellationToken token)
@@ -76,7 +98,19 @@ namespace TwitchSharp.Implementations
             var buffer = new byte[8192];
             var isMoreToRead = true;
 
-            using (var fileStream = new FileStream(localLocationToSave, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true))
+            FileMode fileMode;
+
+            if (createFile || !appendToFile)
+            {
+                fileMode = FileMode.Create;
+                
+            }
+            else
+            {
+                fileMode = FileMode.Append;
+            }
+
+            using (var fileStream = new FileStream(localFilenameToSave, fileMode, FileAccess.Write, FileShare.None, 8192, true))
             {
                 do
                 {

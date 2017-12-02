@@ -32,28 +32,37 @@ namespace TwitchSharp
 
             
             TwitchDataDownloadClient.ProgressChanged += ProgressChanged;
-            await TwitchDataDownloadClient.DownloadFile(command.Url, command.Folder, command.Filename, command.CreateSubfolder, command.SubFolderName, Token);
+
+            
+            await TwitchDataDownloadClient.DownloadFile(command.Url, command.Folder, command.Filename, command.CreateSubfolder, command.SubFolderName, Token, command.AppendToFile, command.AppendFileName, command.Createfile);
+
+            //we only want to append to the file if the file already exists.
+            //so we create (overwrite) the file if it exists, otherwise append. 
+
+            if (command.Createfile) command.Createfile = false;
+
+            
 
 
             // TODO: Logic here
         }
 
-        private void TwitchDataClient_ProgressChanged(long? totalFileSize, long totalBytesDownloaded, double? progressPercentage)
-        {
-            TriggerProgressChanged(totalFileSize, totalBytesDownloaded);
-        }
+        //private void TwitchDataClient_ProgressChanged(long? totalFileSize, long totalBytesDownloaded, double? progressPercentage)
+        //{
+        //    TriggerProgressChanged(totalFileSize, totalBytesDownloaded);
+        //}
 
-        private void TriggerProgressChanged(long? totalDownloadSize, long totalBytesRead)
-        {
-            if (ProgressChanged == null)
-                return;
+        //private void TriggerProgressChanged(long? totalDownloadSize, long totalBytesRead)
+        //{
+        //    if (ProgressChanged == null)
+        //        return;
 
-            double? progressPercentage = null;
-            if (totalDownloadSize.HasValue)
-                progressPercentage = Math.Round((double)totalBytesRead / totalDownloadSize.Value * 100, 2);
+        //    double? progressPercentage = null;
+        //    if (totalDownloadSize.HasValue)
+        //        progressPercentage = Math.Round((double)totalBytesRead / totalDownloadSize.Value * 100, 2);
 
-            ProgressChanged(totalDownloadSize, totalBytesRead, progressPercentage);
-        }
+        //    ProgressChanged(totalDownloadSize, totalBytesRead, progressPercentage);
+        //}
 
     }
 }

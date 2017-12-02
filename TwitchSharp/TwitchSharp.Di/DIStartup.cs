@@ -18,6 +18,7 @@ namespace TwitchSharp.Di
             container.Register<ITwitchClient, TwitchClient>();
             //container.Register<ITwitchM3UFileProcessor, TwitchM3UFileProcessor>();
             container.Register<ITwitchFileProcessor, TwitchFileProcessor>();
+            container.Register<ITwitchMediaFileProcessor, TwitchMediaFileProcessor>();
 
             container.Register<ITwitchDataClient, TwitchHttpClient>(SimpleInjector.Lifestyle.Singleton);
             container.Register<ITwitchDataDownloadClient, TwitchDataDownloadClient>(SimpleInjector.Lifestyle.Singleton);

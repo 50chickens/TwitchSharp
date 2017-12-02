@@ -8,6 +8,6 @@ namespace TwitchSharp.Abstractions
     {
         event ProgressChangedHandler ProgressChanged;
 
-        Task DownloadFile(string url, string folder, string filename, bool useSubfolder, string subfolder, CancellationToken token);
+        Task DownloadFile(string url, string folder, string filename, bool useSubfolder, string subfolder, CancellationToken token, bool appendFile, string appendToFile, bool createFile);
     }
 }

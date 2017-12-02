@@ -57,9 +57,12 @@
     <Compile Include="Abstractions\ITwitchM3UFileProcessor.cs" />
     <Compile Include="Abstractions\ITwitchJsonConverter.cs" />
     <None Include="Abstractions\ITwitchConverter.cs" />
+    <Compile Include="Abstractions\ITwitchMediaFileProcessor.cs" />
     <Compile Include="Abstractions\ITwitchQuery.cs" />
     <Compile Include="Abstractions\ITwitchHttpClient.cs" />
     <Compile Include="Abstractions\ITwitchHttpClientOptions.cs" />
+    <Compile Include="CommandHandler\JoinFileCommandHandler.cs" />
+    <Compile Include="Commands\JoinFileCommand.cs" />
     <Compile Include="Commands\DownloadFileCommand.cs" />
     <Compile Include="CommandHandler\DownloadFileCommandHandler.cs" />
     <Compile Include="Factories\OptionFactory.cs" />

@@ -13,8 +13,11 @@ namespace TwitchSharp
 
         public bool CreateSubfolder { get; set; }
 
-        public string SubFolderName { get; set; }
+        public bool AppendToFile { get; set; }
 
+        public string SubFolderName { get; set; }
+        public string AppendFileName { get; set; }
+        public bool Createfile { get; set; }
     }
 
 }

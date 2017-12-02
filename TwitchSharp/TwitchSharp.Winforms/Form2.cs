@@ -842,6 +842,7 @@ namespace TwitchSharp.Winforms
 
                     DateTime datestamp;
 
+                    command.Createfile = true;
                     
 
                     foreach (TwitchDownload download in downloadParameters)
@@ -862,7 +863,20 @@ namespace TwitchSharp.Winforms
                             command.SubFolderName += " " + textBoxVodTitle.Text;
                         }
 
-                        
+
+                        command.AppendToFile = (checkBoxUseffmpeg.Checked || checkBoxUseCopy.Checked);
+
+                        if (command.AppendToFile)
+                        {
+                            command.AppendFileName = textBoxVodTitle.Text;
+                            if (command.Filename.Contains("."))
+                            {
+                                string ext = command.Filename.Split('.')[1];
+                                command.AppendFileName += "." + ext;
+
+                            } 
+                        }
+
                         downloadFileCommandHandler.ProgressChanged += Command_ProgressChanged;
                         // await downloadFileCommandHandler.
 
@@ -958,6 +972,23 @@ namespace TwitchSharp.Winforms
 
         }
 
-        
+        private void checkBoxUseffmpeg_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxUseCopy.Checked && checkBoxUseffmpeg.Checked)
+            {
+
+                checkBoxUseCopy.Checked = false;
+            }
+            
+        }
+
+        private void checkBoxUseCopy_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxUseCopy.Checked && checkBoxUseffmpeg.Checked)
+            {
+
+                checkBoxUseffmpeg.Checked = false;
+            }
+        }
     }
 }
