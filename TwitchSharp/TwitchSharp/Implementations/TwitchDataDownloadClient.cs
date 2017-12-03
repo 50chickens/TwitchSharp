@@ -20,6 +20,7 @@ namespace TwitchSharp.Implementations
         private bool appendToFile;
         private string appendFileName;
         private bool createFile;
+        private string localFilenameToAppend;
 
         public event ProgressChangedHandler ProgressChanged;
 
@@ -47,16 +48,9 @@ namespace TwitchSharp.Implementations
                 this.localFolderToSave = folder + @"\";
             }
 
-            if (appendToFile)
-            {
-                this.localFilenameToSave = this.localFolderToSave + appendFileName;
 
-            }
-            else
-            {
-                this.localFilenameToSave = this.localFolderToSave + filename;
+            this.localFilenameToSave = this.localFolderToSave + filename;
 
-            }
 
             if (CreateSubfolder && !Directory.Exists(localFolderToSave))
             {
@@ -66,6 +60,41 @@ namespace TwitchSharp.Implementations
 
             using (var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
                 await DownloadFileFromHttpResponseMessage(response, token);
+
+            if (appendToFile)
+            {
+                this.localFilenameToAppend = this.localFolderToSave + appendFileName;
+                await AppendMainFileWithNewPiece();
+
+            }
+
+
+        }
+
+        private async Task AppendMainFileWithNewPiece()
+        {
+            FileMode fileMode;
+
+            if (createFile || !appendToFile)
+            {
+                fileMode = FileMode.Create;
+
+            }
+            else
+            {
+                fileMode = FileMode.Append;
+            }
+
+
+            using (Stream downloadedfile = File.OpenRead(this.localFilenameToSave))
+
+            using (Stream mainfile = new FileStream(this.localFilenameToAppend, fileMode, FileAccess.Write, FileShare.None))
+            {
+                await downloadedfile.CopyToAsync(mainfile); // Using .NET 
+            }
+            File.Delete(this.localFilenameToSave);
+
+            
 
         }
 
@@ -98,19 +127,11 @@ namespace TwitchSharp.Implementations
             var buffer = new byte[8192];
             var isMoreToRead = true;
 
-            FileMode fileMode;
+            
 
-            if (createFile || !appendToFile)
-            {
-                fileMode = FileMode.Create;
-                
-            }
-            else
-            {
-                fileMode = FileMode.Append;
-            }
+            
 
-            using (var fileStream = new FileStream(localFilenameToSave, fileMode, FileAccess.Write, FileShare.None, 8192, true))
+            using (var fileStream = new FileStream(localFilenameToSave, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true))
             {
                 do
                 {
