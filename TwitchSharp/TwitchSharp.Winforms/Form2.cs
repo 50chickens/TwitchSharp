@@ -51,7 +51,7 @@ namespace TwitchSharp.Winforms
         private ITwitchQueryHandler<GetTwitchM3U8TextQuery, string> getM3U8TextQueryHandler;
         private ITwitchQueryHandler<GetTwitchM3U8Query, M3U8> getM3U8QueryHandler;
 
-        
+
 
         private ITwitchQueryHandler<GetTwitchImageQuery, Image> getTwitchImageQueryHandler;
         private ITwitchQueryHandler<GetTwitchDownloadQuery, List<TwitchDownload>> getTwitchDownloadQueryHandler;
@@ -61,7 +61,7 @@ namespace TwitchSharp.Winforms
         private ICommandHandler<DownloadFileCommand> downloadFileCommandHandler;
 
         private ITwitchQueryHandler<GetTwitchVodQualitiesById, List<TwitchVideoQuality>> getTwitchGetTwitchVodQualitiesByIdHandler;
-       
+
 
         int vodid;// = 176421657;
         M3U8 M3u8;
@@ -70,7 +70,7 @@ namespace TwitchSharp.Winforms
         Vod Vodinfo;
         private bool loadingSettings;
         List<VodSearchParameters> vodSearchParameters;
-        
+
 
         //string savedFolder;// = Properties.Settings.Default.SavedFolder;
         public Form2()
@@ -154,7 +154,7 @@ namespace TwitchSharp.Winforms
 
             this.getM3U8ListQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchM3U8ListQuery, List<M3U8>>>();
 
-            
+
 
             this.getTwitchDownloadQueryHandler = container.GetInstance<ITwitchQueryHandler<GetTwitchDownloadQuery, List<TwitchDownload>>>();
             this.downloadFileCommandHandler = container.GetInstance<ICommandHandler<DownloadFileCommand>>();
@@ -359,8 +359,17 @@ namespace TwitchSharp.Winforms
 
 
             queryVodInfo.VodId = vodid.ToString();
-            Vodinfo = await getTwitchVodInfoByIdQueryHandler.HandleAsync(queryVodInfo);
-            return Vodinfo;
+
+            try
+            {
+                Vodinfo = await getTwitchVodInfoByIdQueryHandler.HandleAsync(queryVodInfo);
+                return Vodinfo;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+                
         }
 
         private async Task<List<M3U8>> GetM3U8ListFromM3U8Text(string m3u8text)
@@ -478,7 +487,11 @@ namespace TwitchSharp.Winforms
 
             Vodinfo = await GetVodInfoById();
 
-
+            if (Vodinfo == null)
+            {
+                MessageBox.Show("Can't load vod");
+                return;
+            }
             UIShowVodDetails();
 
             await UIGetThumbnail();
@@ -812,10 +825,10 @@ namespace TwitchSharp.Winforms
 
         private async void buttonDownload_Click(object sender, EventArgs e)
         {
-            
+
 
             cts = new CancellationTokenSource();
-
+            buttonDownload.Enabled = false;
             toolStripStatusLabelStatus.Text = "starting download";
             try
             {
@@ -843,7 +856,7 @@ namespace TwitchSharp.Winforms
                     DateTime datestamp;
 
                     command.Createfile = true;
-                    
+
 
                     foreach (TwitchDownload download in downloadParameters)
                     {
@@ -852,7 +865,7 @@ namespace TwitchSharp.Winforms
                         command.Folder = download.Folder;
                         command.Filename = download.DownloadParameters.Filename;
                         command.CreateSubfolder = (checkBoxUseTitle.Checked || checkBoxUseDate.Checked);
-                        
+
 
                         if (checkBoxUseDate.Checked && DateTime.TryParse(textBoxVodDate.Text, out datestamp))
                         {
@@ -874,7 +887,7 @@ namespace TwitchSharp.Winforms
                                 string ext = command.Filename.Split('.')[1];
                                 command.AppendFileName += "." + ext;
 
-                            } 
+                            }
                         }
 
                         downloadFileCommandHandler.ProgressChanged += Command_ProgressChanged;
@@ -889,15 +902,15 @@ namespace TwitchSharp.Winforms
 
                     //toolStripStatusLabelSpacerLeft.Text = "starting download";
 
-                    
-                    
+
+
 
                 }
 
             }
             catch (OperationCanceledException ex)
             {
-                
+
 
                 toolStripStatusLabelStatus.Text = "download cancelled.";
             }
@@ -907,15 +920,16 @@ namespace TwitchSharp.Winforms
             }
 
             toolStripProgressBar1.Value = 0;
-          
+
+            buttonDownload.Enabled = true;
 
         }
 
         private async Task<List<string>> GetPlaylistFromM3U(M3U8 selectedM3U8, string qualityId)
         {
-            
 
-           
+
+
             var queryM3UText = container.GetInstance<GetTwitchM3UTextQuery>();
             queryM3UText.Url = selectedM3U8.Url.Replace(selectedM3U8.Name, qualityId);
 
@@ -925,7 +939,7 @@ namespace TwitchSharp.Winforms
 
             queryM3U.BaseUrl = selectedM3U8.Url;
             queryM3U.Text = text;
-           
+
 
             M3U m3u = await getM3UQueryHandler.HandleAsync(queryM3U);
 
@@ -939,9 +953,9 @@ namespace TwitchSharp.Winforms
         {
             return M3u8list.Where(x => x.Fps == fps && x.Resolution == resolution).FirstOrDefault();
         }
-        public async Task<List<TwitchDownload>>GetDownloadsFromPlaylist(List<string> playlist, string url, string folder, string sourcequality, string quality)
+        public async Task<List<TwitchDownload>> GetDownloadsFromPlaylist(List<string> playlist, string url, string folder, string sourcequality, string quality)
         {
-           
+
 
 
             GetTwitchDownloadQuery getTwitchDownloadQuery = container.GetInstance<GetTwitchDownloadQuery>();
@@ -957,14 +971,25 @@ namespace TwitchSharp.Winforms
 
             return downloads;
 
-            
+
         }
         private void Command_ProgressChanged(long? totalFileSize, long totalBytesDownloaded, double? progressPercentage)
         {
-            toolStripStatusLabelStatus.Text = totalBytesDownloaded + @"/" + totalFileSize + " bytes downloaded (" + Math.Round((double)progressPercentage) + @"%)";
+
+            try
+            {
+                toolStripStatusLabelStatus.Text = totalBytesDownloaded + @"/" + totalFileSize + " bytes downloaded (" + Math.Round((double)progressPercentage) + @"%)";
 
 
-            toolStripProgressBar1.ProgressBar.Value = (int)Math.Round((double)progressPercentage);
+                toolStripProgressBar1.ProgressBar.Value = (int)Math.Round((double)progressPercentage);
+
+            }
+
+            catch (Exception ex)
+            {
+
+            }
+
         }
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -979,7 +1004,7 @@ namespace TwitchSharp.Winforms
 
                 checkBoxUseCopy.Checked = false;
             }
-            
+
         }
 
         private void checkBoxUseCopy_CheckedChanged(object sender, EventArgs e)
