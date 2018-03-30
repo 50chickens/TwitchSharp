@@ -26,49 +26,61 @@ namespace TwitchSharp.Implementations
 
         public async Task DownloadFile(string url, string folder, string filename, bool CreateSubfolder, string subFolderName, CancellationToken token, bool appendToFile, string appendFileName, bool createFile)
         {
-
-            if (token.IsCancellationRequested)
+            try
             {
-                token.ThrowIfCancellationRequested();
+                if (token.IsCancellationRequested)
+                {
+                    token.ThrowIfCancellationRequested();
+                }
+                this.httpClient = new HttpClient();
+
+                this.url = url;
+                this.appendToFile = appendToFile;
+                this.appendFileName = appendFileName;
+                this.createFile = createFile;
+
+                if (CreateSubfolder && subFolderName != "")
+                {
+                    this.localFolderToSave = folder + @"\" + GetSafeName(subFolderName) + @"\";
+                }
+
+                else
+                {
+                    this.localFolderToSave = folder + @"\";
+                }
+
+
+                this.localFilenameToSave = this.localFolderToSave + filename;
+
+
+                if (CreateSubfolder && !Directory.Exists(localFolderToSave))
+                {
+                    Directory.CreateDirectory(localFolderToSave);
+
+                }
+
+                using (var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
+                    await DownloadFileFromHttpResponseMessage(response, token);
+
+                if (appendToFile)
+                {
+                    this.localFilenameToAppend = this.localFolderToSave + appendFileName;
+                    await AppendMainFileWithNewPiece();
+
+                }
             }
-            this.httpClient = new HttpClient();
-
-            this.url = url;
-            this.appendToFile = appendToFile;
-            this.appendFileName = appendFileName;
-            this.createFile = createFile;
-
-            if (CreateSubfolder && subFolderName != "")
+            catch (OperationCanceledException ex)
             {
-                this.localFolderToSave = folder + @"\" + GetSafeName(subFolderName) + @"\";
-            }
 
-            else
+                throw new OperationCanceledException();
+                //toolStripStatusLabelStatus.Text = "download cancelled.";
+            }
+            catch (Exception ex)
             {
-                this.localFolderToSave = folder + @"\";
-            }
-
-
-            this.localFilenameToSave = this.localFolderToSave + filename;
-
-
-            if (CreateSubfolder && !Directory.Exists(localFolderToSave))
-            {
-                Directory.CreateDirectory(localFolderToSave);
+                throw new Exception(ex.Message);
 
             }
-
-            using (var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
-                await DownloadFileFromHttpResponseMessage(response, token);
-
-            if (appendToFile)
-            {
-                this.localFilenameToAppend = this.localFolderToSave + appendFileName;
-                await AppendMainFileWithNewPiece();
-
-            }
-
-
+            
         }
 
         private async Task AppendMainFileWithNewPiece()
@@ -160,15 +172,20 @@ namespace TwitchSharp.Implementations
         }
 
         private void TriggerProgressChanged(long? totalDownloadSize, long totalBytesRead)
-        {
-            if (ProgressChanged == null)
-                return;
+        { try
+            {
+                if (ProgressChanged == null)
+                    return;
 
-            double? progressPercentage = null;
-            if (totalDownloadSize.HasValue)
-                progressPercentage = Math.Round((double)totalBytesRead / totalDownloadSize.Value * 100, 2);
+                double? progressPercentage = null;
+                if (totalDownloadSize.HasValue)
+                    progressPercentage = Math.Round((double)totalBytesRead / totalDownloadSize.Value * 100, 2);
 
-            ProgressChanged(totalDownloadSize, totalBytesRead, progressPercentage);
+                ProgressChanged(totalDownloadSize, totalBytesRead, progressPercentage);
+            } catch (Exception ex)
+            {
+
+            }
         }
 
         public void Dispose()
