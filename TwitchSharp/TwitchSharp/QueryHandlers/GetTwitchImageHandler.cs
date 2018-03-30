@@ -13,12 +13,12 @@ using TwitchSharp.Api;
 namespace TwitchSharp.Implementations
 {
 
-    public class GetTwitchImage : ITwitchQueryHandler<GetTwitchImageQuery, Image>
+    public class GetTwitchImageHandler : ITwitchQueryHandler<GetTwitchImageQuery, Image>
     {
         private readonly ITwitchClient client;
         
 
-        public GetTwitchImage(ITwitchClient client)
+        public GetTwitchImageHandler(ITwitchClient client)
         {
             this.client = client;
             
