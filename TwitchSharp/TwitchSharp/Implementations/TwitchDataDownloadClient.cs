@@ -64,7 +64,7 @@ namespace TwitchSharp.Implementations
 
                 if (appendToFile)
                 {
-                    this.localFilenameToAppend = this.localFolderToSave + appendFileName;
+                    this.localFilenameToAppend = this.localFolderToSave + GetSafeName(appendFileName);
                     await AppendMainFileWithNewPiece();
 
                 }

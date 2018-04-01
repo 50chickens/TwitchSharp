@@ -10,7 +10,7 @@ using TwitchSharp.Abstractions;
 namespace TwitchSharp.Implementations
 {
 
-    public class GetM3U8ListQueryHandler : ITwitchQueryHandler<GetTwitchM3U8ListQuery, List<M3U8>>
+    public class GetM3U8ListQueryHandler : ITwitchQueryHandler<GetTwitchM3U8ListQuery, List<string>>
     {
         private readonly ITwitchFileProcessor iTwitchFileProcessor;
 
@@ -30,10 +30,10 @@ namespace TwitchSharp.Implementations
 
        
 
-        public async Task<List<M3U8>> HandleAsync(GetTwitchM3U8ListQuery query)
+        public async Task<List<string>> HandleAsync(GetTwitchM3U8ListQuery query)
         {
 
-            List<M3U8> M3u8list;
+            List<string> M3u8list;
 
             
             M3u8list = this.iTwitchFileProcessor.GetM3U8List(query.Text);

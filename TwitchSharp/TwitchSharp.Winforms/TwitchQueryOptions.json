@@ -4,7 +4,7 @@
   "TwitchApplicationAuthorizationUrl": "https://api.twitch.tv/kraken/oauth2/authorize?",
   "TwitchOAuthTokenUrl": "https://api.twitch.tv/kraken/oauth2/token",
   "UsherTokenUrl": "https://api.twitch.tv/api/vods/{vodid}/access_token?as3=t",
-  "UsherVodUrl": "http://usher.justin.tv/vod/{vodid}?nauthsig={nauthsig}&nauth={nauth}",
+  "UsherVodUrl": "http://usher.justin.tv/vod/{vodid}?nauthsig={nauthsig}&nauth={nauth}&allow_source=true&player=twitchweb&allow_spectre=true&allow_audio_only=false",
   "UsherVodUrl2": "http://usher.justin.tv/vod/{vodid}?nauthsig={nauthsig}",
   "KrakenVodInfoUrl": "https://api.twitch.tv/kraken/videos/{vid}",
   "KrakenChannelInfoUrl": "https://api.twitch.tv/kraken/channels/{channelid}",

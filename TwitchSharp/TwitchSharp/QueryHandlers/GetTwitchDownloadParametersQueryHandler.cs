@@ -37,7 +37,7 @@ namespace TwitchSharp.Implementations
 
             //List<string> playlist, string url, string filename, string incquality, string quality
 
-            downloadParameters = this.iTwitchFileProcessor.GetDownloadsFromPlaylist(query.Playlist, query.Url, query.Folder, query.SourceQuality, query.DestinationQuality);
+            downloadParameters = this.iTwitchFileProcessor.GetDownloadsFromPlaylist(query.Playlist, query.Url, query.Folder, query.Quality);
 
             return downloadParameters;
             

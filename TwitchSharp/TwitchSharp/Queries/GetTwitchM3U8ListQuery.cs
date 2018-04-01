@@ -7,7 +7,7 @@ using TwitchSharp.Abstractions;
 
 namespace TwitchSharp.Implementations
 {
-    public class GetTwitchM3U8ListQuery : ITwitchQuery<List<M3U8>>
+    public class GetTwitchM3U8ListQuery : ITwitchQuery<List<string>>
     {
         private string text;
         private ITwitchQueryOptions twitchClientOptions;

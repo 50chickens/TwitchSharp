@@ -12,10 +12,10 @@ namespace TwitchSharp.Abstractions
     public interface ITwitchFileProcessor
     {
         List<TwitchVideoQuality> GetVodQualities(string vodInfoResponse);
-        List<M3U8> GetM3U8List(string text);
+        List<string> GetM3U8List(string text);
         List<string> GetPlaylistFiles(string m3utext);
 
-        List<TwitchDownload> GetDownloadsFromPlaylist(List<string> playlist, string url, string filename, string sourcequality, string destinationquality);
+        List<TwitchDownload> GetDownloadsFromPlaylist(List<string> playlist, string url, string filename, string quality);
         M3U8 GetM3U8(string text);
     }
 }

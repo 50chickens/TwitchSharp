@@ -14,8 +14,8 @@ namespace TwitchSharp.Implementations
         private string url;
         private List<string> playlist;
         private string folder;
-        private string sourceQuality;
-        private string destinationquality;
+        private string quality;
+        
         
 
         public GetTwitchDownloadQuery(ITwitchQueryOptions twitchClientOptions)
@@ -77,30 +77,19 @@ namespace TwitchSharp.Implementations
         }
 
         
-        public string SourceQuality
+        public string Quality
         {
             get
             {
-                return sourceQuality;
+                return quality;
             }
 
             set
             {
-                sourceQuality = value;
+                quality = value;
             }
         }
 
-        public string DestinationQuality
-        {
-            get
-            {
-                return destinationquality;
-            }
-
-            set
-            {
-                destinationquality = value;
-            }
-        }
+        
     }
 }

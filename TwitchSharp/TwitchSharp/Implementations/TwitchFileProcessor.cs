@@ -14,14 +14,14 @@ namespace TwitchSharp.Implementations
     public class TwitchFileProcessor : ITwitchFileProcessor
     {
 
-        public List<TwitchDownload> GetDownloadsFromPlaylist(List<string> playlist, string baseurl, string folder, string incquality, string quality)
+        public List<TwitchDownload> GetDownloadsFromPlaylist(List<string> playlist, string baseurl, string folder, string quality)
         {
 
             
 
             List<TwitchDownload> downloads = new List<TwitchDownload>();
 
-            baseurl = baseurl.Replace(incquality + @"/index-dvr.m3u8", quality + @"/" );
+            baseurl = baseurl.Replace(quality + @"/index-dvr.m3u8", quality + @"/" );
 
             for (int x = 0; x < playlist.Count; x++)
             {
@@ -81,19 +81,27 @@ namespace TwitchSharp.Implementations
             return m3u8;
 
         }
-
-        public List<M3U8> GetM3U8List(string text)
+        
+        public List<string> GetM3U8List(string text)
+        {
+            List<string> allPlaylistsList = text.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).Where(s => !s.StartsWith("#")).ToList();
+            return allPlaylistsList;
+        }
+        public List<M3U8> GetM3U8List_notused(string text)
         {
            
             List<string> linelist;
             
             List<M3U8> m3u8list;
 
+           
+
             if (text == "")
             {
                 return null;
             }
 
+            List<string> allPlaylistsList = text.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).Where(s => !s.StartsWith("#")).ToList();
             linelist = text.Split('\n').ToList();
 
             if (linelist.Count > 0)
