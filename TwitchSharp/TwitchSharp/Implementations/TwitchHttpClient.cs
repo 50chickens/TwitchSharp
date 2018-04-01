@@ -32,7 +32,9 @@ namespace TwitchSharp.Implementations
 
             httpClient.DefaultRequestHeaders.Add("Accept", "application/vnd.twitchtv.v5+json");
             httpClient.DefaultRequestHeaders.Add("Client-ID", twitchHttpClientOptions.clientid);
-            
+
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+
 
         }
 
